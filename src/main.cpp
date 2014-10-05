@@ -45,7 +45,7 @@ unsigned int nStakeMinAge = 60 * 60 * 24 * 7;	// minimum age for coin age: 7d
 unsigned int nStakeMaxAge = 60 * 60 * 24 * 21;	// stake age of full weight: 21d
 unsigned int nStakeTargetSpacing = 120;			// 120 sec block spacing
 
-int64 nChainStartTime = 1397400948;
+int64 nChainStartTime = 1412480989;
 int nCoinbaseMaturity = 350;
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -2519,10 +2519,10 @@ bool LoadBlockIndex(bool fAllowNew)
 {
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xea;
-        pchMessageStart[1] = 0xce;
-        pchMessageStart[2] = 0xed;
-        pchMessageStart[3] = 0xcd;
+        pchMessageStart[0] = 0xcd;
+        pchMessageStart[1] = 0xf3;
+        pchMessageStart[2] = 0xc0;
+        pchMessageStart[3] = 0xef;
 
         bnProofOfStakeLimit = bnProofOfStakeLimitTestNet; // 0x00000fff PoS base target is fixed in testnet
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 0x0000ffff PoW base target is fixed in testnet
@@ -2547,7 +2547,7 @@ bool LoadBlockIndex(bool fAllowNew)
     if (mapBlockIndex.empty())
     {
         if (!fAllowNew)
-            return true;
+            return false;
 
         // Genesis block
         const char* pszTimestamp = "I get knocked down but I get up again.";
@@ -2563,9 +2563,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1397400948;
+        block.nTime    = 1412480989;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 0;
+        block.nNonce   = 495340;
         if (true  && (block.GetHash() != hashGenesisBlock)) {
 
         // This will figure out a valid hash and Nonce if you're
@@ -2588,7 +2588,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nTime = %u \n", block.nTime);
         printf("block.nNonce = %u \n", block.nNonce);
 
-        assert(block.hashMerkleRoot == uint256(""));
+        assert(block.hashMerkleRoot == uint256("097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
 		assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
 
         // Start new block file
