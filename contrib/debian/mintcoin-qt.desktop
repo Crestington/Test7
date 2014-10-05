@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Colossuscoin
+Comment=Colossuscoin P2P Cryptocurrency
+Comment[fr]=Colossuscoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Colossuscoin, eşten eşe kriptografik sanal para birimi
+Comment[es]=Colossuscoin, una criptomoneda P2P
+Exec=/usr/bin/colossuscoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/bitcoin80.xpm
+MimeType=x-scheme-handler/colossuscoin;
+Categories=Office;

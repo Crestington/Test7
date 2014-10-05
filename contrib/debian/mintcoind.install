@@ -1,0 +1,2 @@
+debian/bin/colossuscoind usr/bin
+src/colossuscoind usr/lib/colossuscoin
