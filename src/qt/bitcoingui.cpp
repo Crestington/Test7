@@ -83,7 +83,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     resize(1040, 650); //setFixedSize(970, 550);
     setWindowTitle(tr("ColossusCoin") + " " + tr("Wallet"));
     qApp->setStyleSheet(
-                    "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat right bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } " \
+                    "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat left bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } " \
                 "QLineEdit { border: 4px solid rgb(3,159,0); } " \
                     "#frame { } QToolBar QLabel { padding-top:15px;padding-bottom:10px;margin:0px; border: 0px; border-color: yellow;} " \
                     "#spacer { background: rgb(3,159,0);border:none; } " \
