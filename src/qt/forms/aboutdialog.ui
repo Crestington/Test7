@@ -29,7 +29,7 @@
       </size>
      </property>
      <property name="pixmap">
-      <pixmap resource="../bitcoin.qrc">:/images/splash</pixmap>
+      <pixmap resource="../bitcoin.qrc">:/images/about</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>

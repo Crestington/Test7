@@ -123,7 +123,7 @@
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/address-book</normaloff>:/icons/address-book</iconset>
+         <normaloff>:/icons/address-book2</normaloff>:/icons/address-book2</iconset>
        </property>
        <property name="shortcut">
         <string>Alt+A</string>
