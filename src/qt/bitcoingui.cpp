@@ -84,27 +84,27 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     setWindowTitle(tr("ColossusCoin") + " " + tr("Wallet"));
     qApp->setStyleSheet(
                     "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat left bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } " \
-                "QLineEdit { border: 4px solid rgb(3,159,0); } " \
+                "QLineEdit { border: 4px solid rgb(0,102,51); } " \
                     "#frame { } QToolBar QLabel { padding-top:15px;padding-bottom:10px;margin:0px; border: 0px; border-color: yellow;} " \
-                    "#spacer { background: rgb(3,159,0);border:none; } " \
+                    "#spacer { background: rgb(0,102,51);border:none; } " \
                     "#toolbar2 { border:none;width:10px; background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(255,255,255), stop: 1 rgb(218,218,218)); } " \
                     "#toolbar { height:100%;padding-top:20px; background: white; text-align: left; min-width:200px;max-width:200px; border: none; margin: -2px; padding: -2px;} " \
-                    "QToolBar QToolButton { font-family:Open Sans;padding-left:0px;padding-top:10px;padding-bottom:10px; width:200px; color: white; text-align: left; background-color: rgb(3,159,0) } " \
+                    "QToolBar QToolButton { font-family:Open Sans;padding-left:0px;padding-top:10px;padding-bottom:10px; width:200px; color: white; text-align: left; background-color: rgb(0,102,51) } " \
                     "QToolBar QToolButton:hover { color: black; background-color: white; border: none; } " \
                     "QToolBar QToolButton:pressed {color: black; background-color: white; border: none; } " \
                     "QToolBar QToolButton:checked { color: black; background-color: white; border: none; } " \
-                    "QToolButton { color: white;  background-color: rgb(3,159,0); } " \
+                    "QToolButton { color: white;  background-color: rgb(0,102,51); } " \
                     "#labelMiningIcon { padding-left:5px;font-family:Open Sans;width:100%;font-size:10px;text-align:center;color:grey; } " \
                     "QMenu { background: rgb(255,255,255); color:black; padding-bottom:10px; } QMenu::item { color:grey; background-color: transparent; } " \
-                    "QMenu::item:selected { color: white; background-color: rgb(3,159,0); } " \
+                    "QMenu::item:selected { color: white; background-color: rgb(0,102,51); } " \
                     "QMenuBar { background: rgb(255,255,255); color:black; } " \
                     "QMenuBar::item { font-size:12px;padding-bottom:12px;padding-top:12px;padding-left:15px;padding-right:15px;color:grey; background-color: transparent; } " \
-                    "QMenuBar::item:selected { color: white; background-color:rgb(3,159,0); }" \
-                    "QRadionButton::indicator { background-color: rgb(3,159,0); } " \
+                    "QMenuBar::item:selected { color: white; background-color:rgb(0,102,51); }" \
+                    "QRadionButton::indicator { background-color: rgb(0,102,51); } " \
                     "QIcon {}" \
-                    "QTabWidget { background-color: rbg(3,159,0); }" \
+                    "QTabWidget { background-color: rbg(0,102,51); }" \
                     "#debug QLabel {color: white; }" \
-                    "QLineEdit { border: 1px solid rbg(3,159,0); border-radius: 4px; }" \
+                    "QLineEdit { border: 1px solid rbg(0,102,51); border-radius: 4px; }" \
                     "#scrollArea { border-color: transparent; } " \
                     "QPushButton {}" \
                     "QStackedWidget {}" \
@@ -220,7 +220,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     progressBar->setOrientation(Qt::Horizontal);
     progressBar->setObjectName("progress");
     progressBar->setStyleSheet("QProgressBar { border: 0px; font-size:9px; text-align: center; color: white); border-radius: 5px; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(182, 182, 182, 100), stop:1 rgba(209, 209, 209, 100)); }" \
-                               "QProgressBar::chunk{ background-color: rgb(3,159,0); }");
+                               "QProgressBar::chunk{ background-color: rgb(0,102,51); }");
     frameBlocks->setObjectName("frame");
 
     // Override style sheet for progress bar for styles that have a segmented progress bar,
@@ -230,7 +230,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     if(curStyle == "QWindowsStyle" || curStyle == "QWindowsXPStyle")
     {
         progressBar->setStyleSheet("QProgressBar { background-color: #e8e8e8; border: none; border-radius: 7px; padding: 1px; text-align: center; } " \
-                                   "QProgressBar::chunk { background: rgb(3,159,0); border-radius: 7px; margin: 0px; }"
+                                   "QProgressBar::chunk { background: rgb(0,102,51); border-radius: 7px; margin: 0px; }"
                                   );
     }
 
