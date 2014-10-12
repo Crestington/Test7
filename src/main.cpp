@@ -41,12 +41,12 @@ static CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 static CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 20);
 static CBigNum bnProofOfStakeLimitTestNet(~uint256(0) >> 20);
 
-unsigned int nStakeMinAge = 60 * 60 * 2;	// minimum age for coin age: 2 hours
+unsigned int nStakeMinAge = 60 * 60 * 3;	// minimum age for coin age: 3 hours
 unsigned int nStakeMaxAge = 60 * 60 * 24 * 21;	// stake age of full weight: 21d
 unsigned int nStakeTargetSpacing = 120;			// 120 sec block spacing
 
 int64 nChainStartTime = 1412480989;
-int nCoinbaseMaturity = 80;
+int nCoinbaseMaturity = 10;
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 CBigNum bnBestChainTrust = 0;
@@ -935,8 +935,6 @@ int generateMTRandom(unsigned int s, int range)
 
 
 
-static const int64 nMinSubsidy = 10 * COIN;
-static const int CUTOFF_HEIGHT = 7200; // Height at the end of 5 weeks
 // miner's coin base reward based on nBits
 int64 GetProofOfWorkReward(int nHeight, int64 nFees, uint256 prevHash)
 {
@@ -953,17 +951,13 @@ int64 GetProofOfWorkReward(int nHeight, int64 nFees, uint256 prevHash)
 		nSubsidy = TAX_PERCENTAGE * CIRCULATION_MONEY;
 		return nSubsidy + nFees;
 	}
-	else if(nHeight > CUTOFF_HEIGHT)
-	{
-		return nMinSubsidy + nFees;
-	}
 
     return nSubsidy + nFees;
 }
 
 // miner's coin stake reward based on nBits and coin age spent (coin-days)
 // simple algorithm, not depend on the diff
-const int YEARLY_BLOCKCOUNT = 262800;	// 365 * 2880
+const int YEARLY_BLOCKCOUNT = 262800;	// 365 * 720
 int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTime, int nHeight)
 {
     int64 nRewardCoinYear;
@@ -984,8 +978,8 @@ int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTi
     return nSubsidy;
 }
 
-static const int64 nTargetTimespan = 30 * 30;  
-static const int64 nTargetSpacingWorkMax = 3 * nStakeTargetSpacing; 
+static const int64 nTargetTimespan = 30 * 60;  
+static const int64 nTargetSpacingWorkMax = 12 * nStakeTargetSpacing; 
 
 //
 // maximum nBits value could possible be required nTime after
