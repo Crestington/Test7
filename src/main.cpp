@@ -2541,7 +2541,7 @@ bool LoadBlockIndex(bool fAllowNew)
     if (mapBlockIndex.empty())
     {
         if (!fAllowNew)
-            return false;
+            return true;
 
         // Genesis block
         const char* pszTimestamp = "I get knocked down but I get up again.";
@@ -2557,9 +2557,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1412480989;
+        block.nTime    = 1413163700;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 495340;
+        block.nNonce   = 1215356;
         if (true  && (block.GetHash() != hashGenesisBlock)) {
 
         // This will figure out a valid hash and Nonce if you're
@@ -2582,7 +2582,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nTime = %u \n", block.nTime);
         printf("block.nNonce = %u \n", block.nNonce);
 
-        assert(block.hashMerkleRoot == uint256("097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
+        assert(block.hashMerkleRoot == uint256("0x097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
 		assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
 
         // Start new block file
