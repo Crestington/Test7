@@ -392,15 +392,15 @@ void BitcoinGUI::createActions()
 
     QIcon unlockWalletIcon;
     unlockWalletIcon.addFile(":/icons/mint_open", QSize(), QIcon::Normal, QIcon::Off);
-    unlockWalletIcon.addFile(":/icons/mint_open_black", QSize(), QIcon::Active, QIcon::Off);
-    unlockWalletIcon.addFile(":/icons/mint_open_black", QSize(), QIcon::Normal, QIcon::On);
+    unlockWalletIcon.addFile(":/icons/mint_open", QSize(), QIcon::Active, QIcon::Off);
+    unlockWalletIcon.addFile(":/icons/mint_open", QSize(), QIcon::Normal, QIcon::On);
     unlockWalletAction = new QAction(unlockWalletIcon, tr("&Unlock Wallet..."), this);
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
 
     QIcon lockWalletIcon;
     lockWalletIcon.addFile(":/icons/mint_closed", QSize(), QIcon::Normal, QIcon::Off);
-    lockWalletIcon.addFile(":/icons/mint_closed_black", QSize(), QIcon::Active, QIcon::Off);
-    lockWalletIcon.addFile(":/icons/mint_closed_black", QSize(), QIcon::Normal, QIcon::On);
+    lockWalletIcon.addFile(":/icons/mint_closed", QSize(), QIcon::Active, QIcon::Off);
+    lockWalletIcon.addFile(":/icons/mint_closed", QSize(), QIcon::Normal, QIcon::On);
     lockWalletAction = new QAction(lockWalletIcon, tr("&Lock Wallet"), this);
     lockWalletAction->setToolTip(tr("Lock wallet"));
 
@@ -412,7 +412,7 @@ void BitcoinGUI::createActions()
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
 
-    torAction = new QAction(QIcon(":icons/addressbook"), tr("Tor Support"), this);
+    torAction = new QAction(QIcon(":icons/forums"), tr("Forum Support"), this);
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutCardAction, SIGNAL(triggered()), this, SLOT(aboutCardClicked()));
@@ -627,7 +627,7 @@ void BitcoinGUI::optionsClicked()
 
 void BitcoinGUI::aboutCardClicked()
 {
-    QDesktopServices::openUrl(QUrl("http://www.colossuscoin.info/"));
+    QDesktopServices::openUrl(QUrl("http://www.colossuscoin.org/"));
 }
 
 void BitcoinGUI::aboutClicked()
@@ -1151,5 +1151,5 @@ void BitcoinGUI::updateStakingIcon()
 
 void BitcoinGUI::viewTorSupport()
 {
-    QDesktopServices::openUrl(QUrl("http://www.colossuscoin.info/privacy"));
+    QDesktopServices::openUrl(QUrl("http://www.colossuscointalk.org/index.php?board=16.0"));
 }

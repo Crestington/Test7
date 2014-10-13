@@ -38,7 +38,7 @@ static const int64 CIRCULATION_MONEY = MAX_MONEY2;
 static const double TAX_PERCENTAGE = 1;
 static const int64 MAX_MINT_PROOF_OF_STAKE = 0.05 * COIN;	// 5% annual interest
 static const int CUTOFF_POW_BLOCK = 7200;
-static const int CUTOFF_POS_BLOCK = 30;
+static const int CUTOFF_POS_BLOCK = 50;
 static const int64 MIN_TXOUT_AMOUNT = MIN_TX_FEE;
 
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
@@ -51,8 +51,8 @@ static const int fHaveUPnP = true;
 static const int fHaveUPnP = false;
 #endif
 
-static const uint256 hashGenesisBlockOfficial("0x0000051f93a5e27af8b769866a6597611b57360af8da7cd1d0f3d75fa604ec6f");
-static const uint256 hashGenesisBlockTestNet ("0x0000051f93a5e27af8b769866a6597611b57360af8da7cd1d0f3d75fa604ec6f");
+static const uint256 hashGenesisBlockOfficial("0x00000067b24b06eec2b3d9e0c9d50165cbe5825d90fbf2efa036e64e09bdc687");
+static const uint256 hashGenesisBlockTestNet ("0x00000067b24b06eec2b3d9e0c9d50165cbe5825d90fbf2efa036e64e09bdc687");
 
 static const int64 nMaxClockDrift = 2 * 60 * 60;        // two hours
 

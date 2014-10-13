@@ -44,14 +44,13 @@
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
         <file alias="debugwindow">res/icons/debugwindow.png</file>
+		<file alias="forums">res/icons/forums.png</file>
         <file alias="block">res/icons/block.png</file>
         <file alias="ex">res/icons/ex.png</file>
         <file alias="mine">res/icons/mine.png</file>
         <file alias="statistics">res/icons/statistics.png</file>
         <file alias="staking_off">res/icons/staking_off.png</file>
         <file alias="staking_on">res/icons/staking_on.png</file>
-        <file alias="mint_closed_black">res/icons/mint_closed_black.png</file>
-        <file alias="mint_open_black">res/icons/mint_open_black.png</file>
         <file alias="add_white">res/icons/add_white.png</file>
         <file alias="questionmark">res/icons/transaction0_white.png</file>
     </qresource>

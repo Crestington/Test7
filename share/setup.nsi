@@ -7,7 +7,7 @@ SetCompressor /SOLID lzma
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION 1.1.0.0
 !define COMPANY "Colossuscoin Foundation"
-!define URL http://www.colossuscoin.info
+!define URL http://www.colossuscoin.org
 
 # MUI Symbol Definitions
 !define MUI_ICON "..\share\pixmaps\Colossuscoin.ico"

@@ -41,12 +41,12 @@ static CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 static CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 20);
 static CBigNum bnProofOfStakeLimitTestNet(~uint256(0) >> 20);
 
-unsigned int nStakeMinAge = 60 * 60 * 3;	// minimum age for coin age: 3 hours
+unsigned int nStakeMinAge = 60 * 60 * 24 * 7;	// minimum age for coin age: 7d
 unsigned int nStakeMaxAge = 60 * 60 * 24 * 21;	// stake age of full weight: 21d
 unsigned int nStakeTargetSpacing = 120;			// 120 sec block spacing
 
 int64 nChainStartTime = 1412480989;
-int nCoinbaseMaturity = 10;
+int nCoinbaseMaturity = 80;
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 CBigNum bnBestChainTrust = 0;
@@ -939,13 +939,7 @@ int generateMTRandom(unsigned int s, int range)
 int64 GetProofOfWorkReward(int nHeight, int64 nFees, uint256 prevHash)
 {
 	int64 nSubsidy = 1000 * COIN;
-
-    std::string cseed_str = prevHash.ToString().substr(14,7);
-    const char* cseed = cseed_str.c_str();
-    long seed = hex2long(cseed);
-    int rand = generateMTRandom(seed, 8000);
     
-
 	if(nHeight == 1)
 	{
 		nSubsidy = TAX_PERCENTAGE * CIRCULATION_MONEY;
@@ -957,7 +951,7 @@ int64 GetProofOfWorkReward(int nHeight, int64 nFees, uint256 prevHash)
 
 // miner's coin stake reward based on nBits and coin age spent (coin-days)
 // simple algorithm, not depend on the diff
-const int YEARLY_BLOCKCOUNT = 262800;	// 365 * 720
+const int YEARLY_BLOCKCOUNT = 262800;	// 365 * 2880
 int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTime, int nHeight)
 {
     int64 nRewardCoinYear;
@@ -978,8 +972,8 @@ int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTi
     return nSubsidy;
 }
 
-static const int64 nTargetTimespan = 30 * 60;  
-static const int64 nTargetSpacingWorkMax = 12 * nStakeTargetSpacing; 
+static const int64 nTargetTimespan = 3 * 60 * 60;  
+static const int64 nTargetSpacingWorkMax = 4 * nStakeTargetSpacing; 
 
 //
 // maximum nBits value could possible be required nTime after
@@ -2541,7 +2535,7 @@ bool LoadBlockIndex(bool fAllowNew)
     if (mapBlockIndex.empty())
     {
         if (!fAllowNew)
-            return true;
+            return false;
 
         // Genesis block
         const char* pszTimestamp = "I get knocked down but I get up again.";
@@ -2557,9 +2551,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1413163700;
+        block.nTime    = 1412480989;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 1215356;
+        block.nNonce   = 495340;
         if (true  && (block.GetHash() != hashGenesisBlock)) {
 
         // This will figure out a valid hash and Nonce if you're
@@ -2582,7 +2576,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nTime = %u \n", block.nTime);
         printf("block.nNonce = %u \n", block.nNonce);
 
-        assert(block.hashMerkleRoot == uint256("0x097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
+        assert(block.hashMerkleRoot == uint256("097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
 		assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
 
         // Start new block file
