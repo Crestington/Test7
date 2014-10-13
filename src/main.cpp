@@ -972,8 +972,8 @@ int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTi
     return nSubsidy;
 }
 
-static const int64 nTargetTimespan = 3 * 60 * 60;  
-static const int64 nTargetSpacingWorkMax = 4 * nStakeTargetSpacing; 
+static const int64 nTargetTimespan = 0.32 * 24 * 60 * 60;
+static const int64 nTargetSpacingWorkMax = 12 * nStakeTargetSpacing; 
 
 //
 // maximum nBits value could possible be required nTime after
@@ -2576,7 +2576,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nTime = %u \n", block.nTime);
         printf("block.nNonce = %u \n", block.nNonce);
 
-        assert(block.hashMerkleRoot == uint256("097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
+        assert(block.hashMerkleRoot == uint256("0x097948c65e7da345d78ab508a59b9821fde1e7f860a81370484eed192a2ed60d"));
 		assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
 
         // Start new block file

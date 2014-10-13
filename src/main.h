@@ -30,15 +30,15 @@ static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int MAX_INV_SZ = 30000;
-static const int64 MIN_TX_FEE = 100 * COIN;
-static const int64 MIN_RELAY_TX_FEE = 100 * COIN;
+static const int64 MIN_TX_FEE = 50 * COIN;
+static const int64 MIN_RELAY_TX_FEE = 50 * COIN;
 static const int64 MAX_MONEY = 150000000000 * COIN;
 static const int64 MAX_MONEY2 = 19000000000 * COIN;			// 19 bil
 static const int64 CIRCULATION_MONEY = MAX_MONEY2;
 static const double TAX_PERCENTAGE = 1;
 static const int64 MAX_MINT_PROOF_OF_STAKE = 0.05 * COIN;	// 5% annual interest
 static const int CUTOFF_POW_BLOCK = 7200;
-static const int CUTOFF_POS_BLOCK = 50;
+static const int CUTOFF_POS_BLOCK = 5000;
 static const int64 MIN_TXOUT_AMOUNT = MIN_TX_FEE;
 
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
