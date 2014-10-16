@@ -17,21 +17,21 @@
 #include <QSettings>
 #include <QSlider>
 
-double getBlockHardness(qint64);
+double getBlockHardness(int);
 double getTxTotalValue(std::string);
 double convertCoins(int64_t);
 double getTxFees(std::string);
-qint64 getBlockTime(qint64);
-qint64 getBlocknBits(qint64);
-qint64 getBlockNonce(qint64);
-qint64 blocksInPastHours(qint64);
-qint64 getBlockHashrate(qint64);
+int getBlockTime(int);
+int getBlocknBits(int);
+int getBlockNonce(int);
+int blocksInPastHours(int);
+int getBlockHashrate(int);
 std::string getInputs(std::string);
 std::string getOutputs(std::string);
-std::string getBlockHash(qint64);
-std::string getBlockMerkle(qint64);
+std::string getBlockHash(int);
+std::string getBlockMerkle(int);
 bool addnode(std::string);
-const CBlockIndex* getBlockIndex(qint64);
+const CBlockIndex* getBlockIndex(int);
 int64_t getInputValue(CTransaction, CScript);
 
 

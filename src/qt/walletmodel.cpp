@@ -161,7 +161,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         return DuplicateAddress;
     }
 
-    qint64 nBalance = 0;
+    int64 nBalance = 0;
     std::vector<COutput> vCoins;
     wallet->AvailableCoins(vCoins, true, coinControl);
 
@@ -181,7 +181,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         LOCK2(cs_main, wallet->cs_wallet);
 
         // Sendmany
-        std::vector<std::pair<CScript, qint64> > vecSend;
+        std::vector<std::pair<CScript, int64> > vecSend;
         foreach(const SendCoinsRecipient &rcp, recipients)
         {
             CScript scriptPubKey;
@@ -191,7 +191,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
 
         CWalletTx wtx;
         CReserveKey keyChange(wallet);
-        qint64 nFeeRequired = 0;
+        int64 nFeeRequired = 0;
         bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
 
         if(!fCreated)
