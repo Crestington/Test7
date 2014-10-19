@@ -1430,7 +1430,7 @@ bool CWallet::GetStakeWeight(const CKeyStore& keystore, uint64& nMinWeight, uint
 }
 
 // ppcoin: create coin stake transaction
-bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64 nSearchInterval, CTransaction& txNew)
+bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64 nSearchInterval, int64 nFees, CTransaction& txNew)
 {
     // The following split & combine thresholds are important to security
     // Should not be adjusted if you don't understand the consequences
@@ -1599,48 +1599,30 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
         if (!txNew.GetCoinAge(txdb, nCoinAge))
             return error("CreateCoinStake : failed to calculate coin age");
-        nCredit += GetProofOfStakeReward(nCoinAge, nBits, txNew.nTime, pIndex0->nHeight);
+        nCredit += GetProofOfStakeReward(nCoinAge, nFees, nBits, txNew.nTime, pIndex0->nHeight);
     }
-
-    int64 nMinFee = 0;
-    while (true)
+    // Set output amount
+    if (txNew.vout.size() == 3)
     {
-        // Set output amount
-        if (txNew.vout.size() == 3)
-        {
-            txNew.vout[1].nValue = ((nCredit - nMinFee) / 2 / CENT) * CENT;
-            txNew.vout[2].nValue = nCredit - nMinFee - txNew.vout[1].nValue;
-        }
-        else
-            txNew.vout[1].nValue = nCredit - nMinFee;
+        txNew.vout[1].nValue = (nCredit / 2 / CENT) * CENT; 
+        txNew.vout[2].nValue = nCredit - txNew.vout[1].nValue; 
+    } 
+    else 
+        txNew.vout[1].nValue = nCredit; 
 
-        // Sign
-        int nIn = 0;
-        BOOST_FOREACH(const CWalletTx* pcoin, vwtxPrev)
-        {
-            if (!SignSignature(*this, *pcoin, txNew, nIn++))
-                return error("CreateCoinStake : failed to sign coinstake");
-        }
-
-        // Limit size
-        unsigned int nBytes = ::GetSerializeSize(txNew, SER_NETWORK, PROTOCOL_VERSION);
-        if (nBytes >= MAX_BLOCK_SIZE_GEN/5)
-            return error("CreateCoinStake : exceeded coinstake size limit");
-
-        // Check enough fee is paid
-        if (nMinFee < txNew.GetMinFee() - MIN_TX_FEE)
-        {
-            nMinFee = txNew.GetMinFee() - MIN_TX_FEE;
-            continue; // try signing again
-        }
-        else
-        {
-            if (fDebug && GetBoolArg("-printfee"))
-                printf("CreateCoinStake : fee for coinstake %s\n", FormatMoney(nMinFee).c_str());
-            break;
-        }
+    // Sign 
+    int nIn = 0; 
+    BOOST_FOREACH(const CWalletTx* pcoin, vwtxPrev) 
+    { 
+        if (!SignSignature(*this, *pcoin, txNew, nIn++)) 
+            return error("CreateCoinStake : failed to sign coinstake"); 
     }
 
+    // Limit size 
+    unsigned int nBytes = ::GetSerializeSize(txNew, SER_NETWORK, PROTOCOL_VERSION); 
+    if (nBytes >= MAX_BLOCK_SIZE_GEN/5) 
+        return error("CreateCoinStake : exceeded coinstake size limit"); 
+ 
     // Successfully generated coinstake
     return true;
 }
