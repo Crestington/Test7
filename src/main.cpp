@@ -1504,7 +1504,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     int64 nFees = 0;
     int64 nValueIn = 0;
     int64 nValueOut = 0;
-	int64 nStakeReward = 0
+	int64 nStakeReward = 0;
     unsigned int nSigOps = 0;
     BOOST_FOREACH(CTransaction& tx, vtx)
     {
@@ -1565,7 +1565,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
     if (IsProofOfWork()) 
     { 
-        int64 nReward = GetProofOfWorkReward(pindex->nHeight, nFees, prevHash); 
+        int64 nReward = GetProofOfWorkReward(pindex->nHeight, nFees, uint64 prevHash); 
         // Check coinbase reward 
         if (vtx[0].GetValueOut() > nReward) 
             return DoS(50, error("ConnectBlock() : coinbase reward exceeded (actual=%"PRI64d" vs calculated=%"PRI64d")", 
@@ -1579,7 +1579,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         if (!vtx[1].GetCoinAge(txdb, nCoinAge)) 
             return error("ConnectBlock() : %s unable to get coin age for coinstake", vtx[1].GetHash().ToString().substr(0,10).c_str()); 
  
-         int64 nCalculatedStakeReward = GetProofOfStakeReward(nCoinAge, nFees, pindexBlock->nBits, nTime, pindexBlock->nHeight)); 
+         int64 nCalculatedStakeReward = GetProofOfStakeReward(nCoinAge, nFees, pindex->nBits, nTime, pindex->nHeight)); 
  
         if (nStakeReward > nCalculatedStakeReward) 
             return DoS(100, error("ConnectBlock() : coinstake pays too much(actual=%"PRI64d" vs calculated=%"PRI64d")", nStakeReward, nCalculatedStakeReward)); 
@@ -3962,7 +3962,7 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake, int64* pFees)
         if (nSearchTime > nLastCoinStakeSearchTime)
         {
 			// printf(">>> OK1\n");
-            if (pwallet->CreateCoinStake(*pwallet, pblock->nBits, nSearchTime-nLastCoinStakeSearchTime, nFees, txCoinStake))
+            if (pwallet->CreateCoinStake(*pwallet, pblock->nBits, nSearchTime-nLastCoinStakeSearchTime, int64* pFees, txCoinStake))
             {
 				if (txCoinStake.nTime >= max(pindexPrev->GetMedianTimePast()+1, pindexPrev->GetBlockTime() - nMaxClockDrift))
                 {   // make sure coinstake would meet timestamp protocol
