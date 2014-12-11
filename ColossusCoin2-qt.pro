@@ -1,6 +1,8 @@
+# x15 version by Mammix2
+
 TEMPLATE = app
 TARGET = ColossusCoin2-qt
-VERSION = 1.0.0
+VERSION = 1.1.0.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -15,17 +17,36 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 
 win32 {
-    BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
-    BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
-    BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
-    BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
-    BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-    OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1g/include
-    OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1g
-    MINIUPNPC_INCLUDE_PATH=C:/deps/
-    MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+    windows:LIBS += -lshlwapi
+    LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
+    LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
+    windows:LIBS += -lws2_32 -lole32 -loleaut32 -luuid -lgdi32
+    LIBS += -lboost_system-mgw48-mt-s-1_55 -lboost_filesystem-mgw48-mt-s-1_55 -lboost_program_options-mgw48-mt-s-1_55 -lboost_thread-mgw48-mt-s-1_55
+	
+    #BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
+    #BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
+    #BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
+    #BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
+    #BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
+    #OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1g/include
+    #OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1g
+    #MINIUPNPC_INCLUDE_PATH=C:/deps/
+    #MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+    #QRENCODE_INCLUDE_PATH=C:/deps/qrcode-win32-3.1.1/include
+    #QRENCODE_LIB_PATH=C:/deps/qrcode-win32-3.1.1/dll
+	
+	BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
+	BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
+	BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
+	BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
+	BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
+	OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1g/include
+	OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1g
+	MINIUPNPC_INCLUDE_PATH=C:/deps/
+	MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+	QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
+	QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.3/.libs
 }
-
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -60,17 +81,20 @@ QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
 # This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
 }
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
-
-win32:QMAKE_LFLAGS *= -Wl,--large-address-aware -static
+win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
 win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
 lessThan(QT_MAJOR_VERSION, 5): win32: QMAKE_LFLAGS *= -static
 
+USE_QRCODE=1
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
 contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
     LIBS += -lqrencode
+	#macx:LIBS += -lqrencode
+    #win32:INCLUDEPATH +=$$QRENCODE_INCLUDE_PATH
+    #win32:LIBS += $$join(QRENCODE_LIB_PATH,,-L) -lqrcodelib
 }
 
 # use: qmake "USE_UPNP=1" ( enabled by default; default)
@@ -130,7 +154,13 @@ SOURCES += src/txdb-leveldb.cpp \
     src/luffa.c \
     src/shavite.c \
     src/simd.c \
-    src/skein.c
+    src/skein.c \
+    src/fugue.c \
+    src/hamsi.c \
+    src/shabal.c \
+    src/whirlpool.c \
+    src/md_helper.c
+
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
@@ -140,7 +170,7 @@ SOURCES += src/txdb-leveldb.cpp \
         QMAKE_RANLIB = $$replace(QMAKE_STRIP, strip, ranlib)
     }
     LIBS += -lshlwapi
-    #genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libleveldb.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libmemenv.a
+    genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libleveldb.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libmemenv.a
 }
 genleveldb.target = $$PWD/src/leveldb/libleveldb.a
 genleveldb.depends = FORCE
@@ -176,8 +206,6 @@ contains(USE_O3, 1) {
 
 QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
 
-
-
 # Input
 DEPENDPATH += src src/json src/qt
 HEADERS += src/qt/bitcoingui.h \
@@ -202,20 +230,10 @@ HEADERS += src/qt/bitcoingui.h \
     src/sync.h \
     src/util.h \
     src/uint256.h \
+    src/uint256_t.h \
     src/kernel.h \
     src/scrypt.h \
     src/pbkdf2.h \
-    src/zerocoin/Accumulator.h \
-    src/zerocoin/AccumulatorProofOfKnowledge.h \
-    src/zerocoin/Coin.h \
-    src/zerocoin/CoinSpend.h \
-    src/zerocoin/Commitment.h \
-    src/zerocoin/ParamGeneration.h \
-    src/zerocoin/Params.h \
-    src/zerocoin/SerialNumberSignatureOfKnowledge.h \
-    src/zerocoin/SpendMetaData.h \
-    src/zerocoin/ZeroTest.h \
-    src/zerocoin/Zerocoin.h \
     src/serialize.h \
     src/strlcpy.h \
     src/main.h \
@@ -286,9 +304,13 @@ HEADERS += src/qt/bitcoingui.h \
     src/sph_shavite.h \
     src/sph_simd.h \
     src/sph_skein.h \
+    src/sph_fugue.h \
+    src/sph_hamsi.h \
     src/sph_types.h \
     src/threadsafety.h \
-    src/txdb-leveldb.h
+    src/txdb-leveldb.h \
+    src/sph_shabal.h \
+    src/sph_whirlpool.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -358,16 +380,6 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/scrypt-x86_64.S \
     src/scrypt.cpp \
     src/pbkdf2.cpp \
-    src/zerocoin/Accumulator.cpp \
-    src/zerocoin/AccumulatorProofOfKnowledge.cpp \
-    src/zerocoin/Coin.cpp \
-    src/zerocoin/CoinSpend.cpp \
-    src/zerocoin/Commitment.cpp \
-    src/zerocoin/ParamGeneration.cpp \
-    src/zerocoin/Params.cpp \
-    src/zerocoin/SerialNumberSignatureOfKnowledge.cpp \
-    src/zerocoin/SpendMetaData.cpp \
-    src/zerocoin/ZeroTest.cpp
 
 RESOURCES += \
     src/qt/bitcoin.qrc
@@ -391,15 +403,6 @@ HEADERS += src/qt/qrcodedialog.h
 SOURCES += src/qt/qrcodedialog.cpp
 FORMS += src/qt/forms/qrcodedialog.ui
 }
-
-
-
-
-
-
-
-
-
 
 CODECFORTR = UTF-8
 
@@ -427,11 +430,15 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_550
+    #win32:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_55
+	windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_55
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
-    BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
+    #BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
+	win32:BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
+	#win32:BOOST_THREAD_LIB_SUFFIX = _win32$$BOOST_LIB_SUFFIX
+    else:BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
 }
 
 isEmpty(BDB_LIB_PATH) {
@@ -452,6 +459,14 @@ isEmpty(BOOST_LIB_PATH) {
 
 isEmpty(BOOST_INCLUDE_PATH) {
     macx:BOOST_INCLUDE_PATH = /opt/local/include
+}
+
+isEmpty(QRENCODE_LIB_PATH) {
+    macx:QRENCODE_LIB_PATH = /opt/local/lib
+}
+
+isEmpty(QRENCODE_INCLUDE_PATH) {
+    macx:QRENCODE_INCLUDE_PATH = /opt/local/include
 }
 
 windows:DEFINES += WIN32
