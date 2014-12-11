@@ -1,28 +1,28 @@
-Name Colossuscoin
+Name NovaCoin
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.1.0.0
-!define COMPANY "Colossuscoin Foundation"
-!define URL http://www.colossuscoin.org
+!define VERSION 0.3.0
+!define COMPANY "NovaCoin project"
+!define URL http://www.novacoin.ru/
 
 # MUI Symbol Definitions
-!define MUI_ICON "..\share\pixmaps\Colossuscoin.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "..\share\pixmaps\nsis-wizard.bmp"
+!define MUI_ICON "../share/pixmaps/novacoin.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "..\share\pixmaps\nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "../share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER Colossuscoin
-!define MUI_FINISHPAGE_RUN $INSTDIR\Colossuscoin-qt.exe
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER NovaCoin
+#!define MUI_FINISHPAGE_RUN $INSTDIR\novacoin-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "..\share\pixmaps\nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "../share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -45,14 +45,14 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile Colossuscoin-${VERSION}-win32-setup.exe
-InstallDir $PROGRAMFILES\Colossuscoin
+OutFile novacoin-0.3.0-win32-setup.exe
+InstallDir $PROGRAMFILES\NovaCoin
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.1.0.0
-VIAddVersionKey ProductName Colossuscoin
+VIProductVersion 0.3.0.0
+VIAddVersionKey ProductName NovaCoin
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
@@ -60,25 +60,25 @@ VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKCU "${REGKEY}" Path
-ShowUninstDetails show 
+ShowUninstDetails show
 
 # Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File ..\release\Colossuscoin-qt.exe
-    File /oname=license.txt ..\COPYING
-    File /oname=readme.txt ..\doc\README_windows.txt
+    #File ../release/novacoin-qt.exe
+    File /oname=license.txt ../COPYING
+    File /oname=readme.txt ../doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-#    File ../src/Colossuscoind.exe
+    File ../src/novacoind.exe
     SetOutPath $INSTDIR\src
-    File /r /x *.exe /x *.o ..\src\*.*
+    File /r /x *.exe /x *.o ../src\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
-    # Remove old wxwidgets-based-Colossuscoin executable and locales:
-    Delete /REBOOTOK $INSTDIR\Colossuscoin.exe
-    RMDir /r /REBOOTOK $INSTDIR\locale
+    # Remove old wxwidgets-based-bitcoin executable and locales:
+    #Delete /REBOOTOK $INSTDIR\novacoin.exe
+    #RMDir /r /REBOOTOK $INSTDIR\locale
 SectionEnd
 
 Section -post SEC0001
@@ -87,8 +87,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Colossuscoin.lnk" $INSTDIR\Colossuscoin-qt.exe
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall Colossuscoin.lnk" $INSTDIR\uninstall.exe
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall NovaCoin.lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
@@ -99,11 +98,11 @@ Section -post SEC0001
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
 
-    # Colossuscoin: URI handling disabled 
-        WriteRegStr HKCR "Colossuscoin" "URL Protocol" ""
-        WriteRegStr HKCR "Colossuscoin" "" "URL:Colossuscoin"
-        WriteRegStr HKCR "Colossuscoin\DefaultIcon" "" $INSTDIR\Colossuscoin-qt.exe
-        WriteRegStr HKCR "Colossuscoin\shell\open\command" "" '"$INSTDIR\Colossuscoin-qt.exe" "$$1"'
+    # bitcoin: URI handling disabled for 0.6.0
+    #    WriteRegStr HKCR "bitcoin" "URL Protocol" ""
+    #    WriteRegStr HKCR "bitcoin" "" "URL:Bitcoin"
+    #    WriteRegStr HKCR "bitcoin\DefaultIcon" "" $INSTDIR\bitcoin-qt.exe
+    #    WriteRegStr HKCR "bitcoin\shell\open\command" "" '"$INSTDIR\bitcoin-qt.exe" "$$1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -121,7 +120,7 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    Delete /REBOOTOK $INSTDIR\Colossuscoin-qt.exe
+    #Delete /REBOOTOK $INSTDIR\novacoin-qt.exe
     Delete /REBOOTOK $INSTDIR\license.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
@@ -131,9 +130,9 @@ SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall Colossuscoin.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Colossuscoin.lnk"
-    Delete /REBOOTOK "$SMSTARTUP\Colossuscoin.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall NovaCoin.lnk"
+    #Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Bitcoin.lnk"
+    #Delete /REBOOTOK "$SMSTARTUP\Bitcoin.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
     Delete /REBOOTOK $INSTDIR\db.log
@@ -141,7 +140,7 @@ Section -un.post UNSEC0001
     DeleteRegValue HKCU "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKCU "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKCU "${REGKEY}"
-    DeleteRegKey HKCR "Colossuscoin"
+    DeleteRegKey HKCR "novacoin"
     RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
     RmDir /REBOOTOK $INSTDIR
     Push $R0

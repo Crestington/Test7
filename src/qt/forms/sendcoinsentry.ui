@@ -90,28 +90,12 @@
      <item>
       <widget class="QValidatedLineEdit" name="payTo">
        <property name="toolTip">
-        <string>The address to send the payment to  (e.g. 4Zo1ga6xuKuQ7JV7M9rGDoxdbYwV5zgQJ5)</string>
+        <string>The address to send the payment to  (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</string>
        </property>
        <property name="maxLength">
         <number>34</number>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>16</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QToolButton" name="addressBookButton">
@@ -123,7 +107,7 @@
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/address-book2</normaloff>:/icons/address-book2</iconset>
+         <normaloff>:/icons/address-book</normaloff>:/icons/address-book</iconset>
        </property>
        <property name="shortcut">
         <string>Alt+A</string>

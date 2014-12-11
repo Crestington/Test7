@@ -6,41 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>809</width>
-    <height>418</height>
+    <width>593</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About Colossuscoin</string>
+   <string>About ColossusCoin2</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
     <widget class="QLabel" name="label_4">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+      <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>400</width>
-       <height>400</height>
-      </size>
-     </property>
      <property name="pixmap">
       <pixmap resource="../bitcoin.qrc">:/images/about</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
-     </property>
      <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
@@ -62,7 +50,7 @@
           <cursorShape>IBeamCursor</cursorShape>
          </property>
          <property name="text">
-          <string>&lt;b&gt;Colossuscoin&lt;/b&gt; version</string>
+          <string>&lt;b&gt;ColossusCoin2&lt;/b&gt; version</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -103,11 +91,9 @@
         <cursorShape>IBeamCursor</cursorShape>
        </property>
        <property name="text">
-        <string>
-Copyright © 2009-2012 Bitcoin Developers
-Copyright © 2012 PPCoin Developers
-Copyright © 2014 Colossuscoin Developers
-</string>
+        <string>Copyright © 2009-2014 The Bitcoin developers
+Copyright © 2012-2014 The NovaCoin developers
+Copyright © 2014 The ColossusCoin2 developers</string>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -121,15 +107,11 @@ Copyright © 2014 Colossuscoin Developers
        </property>
        <property name="text">
         <string>
-This is experimental software. If you don't treat it as such, you're likely to put an eye out!
+This is experimental software.
 
-Distributed under the MIT/X11 software license, see the accompanying file COPYING or 
-http://www.opensource.org/licenses/mit-license.php.
+Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

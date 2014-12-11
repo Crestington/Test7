@@ -1,24 +1,25 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="tr" version="2.0">
-<defaultcodec>UTF-8</defaultcodec>
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="tr" version="2.1">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About BottleCaps</source>
-        <translation type="unfinished"/>
+        <source>About ColossusCoin2</source>
+        <translation>ColossusCoin2 Hakkında</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;BottleCaps&lt;/b&gt; version</source>
-        <translation type="unfinished"/>
+        <source>&lt;b&gt;ColossusCoin2&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ColossusCoin2&lt;/b&gt; versiyonu</translation>
     </message>
     <message>
         <location line="+41"/>
-        <source>Copyright © 2009-2012 The BottleCaps developers</source>
+        <source>Copyright © 2009-2014 The Bitcoin developers
+Copyright © 2012-2014 The NovaCoin developers
+Copyright © 2014 The ColossusCoin2 developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>
 This is experimental software.
 
@@ -26,11 +27,11 @@ Distributed under the MIT/X11 software license, see the accompanying file COPYIN
 
 This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
         <translation>
- Bu yazılım deneme safhasındadır.
+ Bu, deneysel bir yazılımdır.
 
- MIT/X11 yazılım lisansı kapsamında yayınlanmıştır, COPYING dosyasına ya da http://www.opensource.org/licenses/mit-license.php sayfasına bakınız.
+ MIT/X11 yazılım lisansı kapsamında yayınlanmıştır, beraberindeki COPYING dosyasına ya da http://www.opensource.org/licenses/mit-license.php sayfasına bakınız.
 
- Bu ürün OpenSSL projesi tarafından OpenSSL araç takımı (http://www.openssl.org/) için geliştirilen yazılımlar, Eric Young (eay@cryptsoft.com) tarafından hazırlanmış şifreleme yazılımları ve Thomas Bernard tarafından programlanmış UPnP yazılımı içerir.</translation>
+ Bu ürün, OpenSSL Araç Takımı&apos;nda (http://www.openssl.org/) kullanılmak üzere OpenSSL projesi tarafından geliştirilen yazılımı, Eric Young (eay@cryptsoft.com) tarafından hazırlanmış kriptografik yazılımı ve Thomas Bernard tarafından yazılmış UPnP yazılımı içerir.</translation>
     </message>
 </context>
 <context>
@@ -38,7 +39,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
         <source>Address Book</source>
-        <translation>Adres defteri</translation>
+        <translation>Adres Defteri</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -53,37 +54,37 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+14"/>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>Şu anda seçili olan adresi panoya kopyala</translation>
+        <translation>Seçili adresi sistem panosuna kopyala</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>&amp;New Address</source>
-        <translation>&amp;Yeni adres</translation>
+        <translation>&amp;Yeni Adres</translation>
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your BottleCaps addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation type="unfinished"/>
+        <source>These are your ColossusCoin2 addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Bunlar, ödeme almak için ColossusCoin2 adreslerinizdir. Her bir göndericiye farklı birini verebilir, böylece size kimin ödeme yaptığını takip edebilirsiniz.</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>&amp;Copy Address</source>
-        <translation>Adresi &amp;kopyala</translation>
+        <translation>Adresi &amp;Kopyala</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Show &amp;QR Code</source>
-        <translation>&amp;QR kodunu göster</translation>
+        <translation>&amp;QR Kodunu Göster</translation>
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Sign a message to prove you own a ColossusCoin2 address</source>
+        <translation>Bir ColossusCoin2 adresine sahip olduğunu ispatlamak için bir mesaj imzala</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation>&amp;Mesaj imzala</translation>
+        <translation>&amp;Mesaj İmzala</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -92,13 +93,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Verify a message to ensure it was signed with a specified ColossusCoin2 address</source>
+        <translation>Mesajın, belirli bir ColossusCoin2 adresiyle imzalandığından emin olmak için onu doğrula</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Verify Message</source>
-        <translation>Mesaj &amp;kontrol et</translation>
+        <translation>Mesajı &amp;Doğrula</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -108,7 +109,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
         <source>Copy &amp;Label</source>
-        <translation>&amp;Etiketi kopyala</translation>
+        <translation>&amp;Etiketi Kopyala</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -118,7 +119,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+250"/>
         <source>Export Address Book Data</source>
-        <translation>Adres defteri verilerini dışa aktar</translation>
+        <translation>Adres Defteri Verisini Dışarı Aktar</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -128,7 +129,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+13"/>
         <source>Error exporting</source>
-        <translation>Dışa aktarımda hata oluştu</translation>
+        <translation>Dışarı aktarım hatası</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -139,7 +140,7 @@ This product includes software developed by the OpenSSL Project for use in the O
 <context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+142"/>
+        <location filename="../addresstablemodel.cpp" line="+144"/>
         <source>Label</source>
         <translation>Etiket</translation>
     </message>
@@ -159,7 +160,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../forms/askpassphrasedialog.ui" line="+26"/>
         <source>Passphrase Dialog</source>
-        <translation>Parola diyaloğu</translation>
+        <translation>Parola Diyaloğu</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -177,7 +178,17 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Yeni parolayı tekrarlayınız</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+33"/>
+        <location line="+33"/>
+        <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
+        <translation>OS hesabı tehlike girdiğinde önemsiz para gönderme özelliğini devre dışı bırakmayı sağlar. Gerçek anlamda bir güvenlik sağlamaz.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>For staking only</source>
+        <translation>Sadece pay almak için</translation>
+    </message>
+    <message>
+        <location filename="../askpassphrasedialog.cpp" line="+35"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Cüzdanınız için yeni parolayı giriniz.&lt;br/&gt;Lütfen &lt;b&gt;10 ya da daha fazla rastgele karakter&lt;/b&gt; veya &lt;b&gt;sekiz ya da daha fazla kelime&lt;/b&gt; içeren bir parola seçiniz.</translation>
     </message>
@@ -187,7 +198,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Cüzdanı şifrele</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
         <translation>Bu işlem cüzdan kilidini açmak için cüzdan parolanızı gerektirir.</translation>
     </message>
@@ -224,7 +235,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation type="unfinished"/>
+        <translation>Uyarı: Eğer cüzdanınızı şifreleyip parolanızı kaybederseniz, &lt;b&gt; TÜM COINLERİNİZİ KAYBEDECEKSİNİZ&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -234,52 +245,52 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+15"/>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation>ÖNEMLİ: Önceden yapmış olduğunuz cüzdan dosyası yedeklemelerinin yeni oluşturulan şifrelenmiş cüzdan dosyası ile değiştirilmeleri gerekir. Güvenlik nedenleriyle yeni, şifrelenmiş cüzdanı kullanmaya başladığınızda eski şifrelenmemiş cüzdan dosyaları işe yaramaz hale gelecektir.</translation>
+        <translation>ÖNEMLİ: Önceden yapmış olduğunuz cüzdan dosyası yedeklemelerinin yeni oluşturulan, şifrelenmiş cüzdan dosyası ile değiştirilmeleri gerekmektedir. Güvenlik nedenleriyle yeni, şifrelenmiş cüzdanı kullanmaya başladığınızda, şifrelenmemiş cüzdan dosyasının önceki yedekleri işe yaramaz hale gelecektir.</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+103"/>
         <location line="+24"/>
         <source>Warning: The Caps Lock key is on!</source>
         <translation>Uyarı: Caps Lock tuşu faal durumda!</translation>
     </message>
     <message>
-        <location line="-130"/>
-        <location line="+58"/>
+        <location line="-133"/>
+        <location line="+60"/>
         <source>Wallet encrypted</source>
         <translation>Cüzdan şifrelendi</translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>BottleCaps will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished"/>
+        <location line="-58"/>
+        <source>ColossusCoin2 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>ColossusCoin2, şifreleme işlemini tamamlamak için şimdi kapatılacak. Cüzdanınızı şifrelemenin; coinlerinizin, bilgisayarınızı etkileyen zararlı yazılımlar tarafından çalınmasını bütünüyle engelleyemeyebileceğini unutmayınız.</translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+7"/>
-        <location line="+42"/>
+        <location line="+44"/>
         <location line="+6"/>
         <source>Wallet encryption failed</source>
         <translation>Cüzdan şifrelemesi başarısız oldu</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-56"/>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
         <translation>Dahili bir hata sebebiyle cüzdan şifrelemesi başarısız oldu. Cüzdanınız şifrelenmedi.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+48"/>
+        <location line="+50"/>
         <source>The supplied passphrases do not match.</source>
-        <translation>Girilen parolalar birbirleriyle uyumlu değil.</translation>
+        <translation>Girilen parolalar birbirleriyle eşleşmiyor.</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-38"/>
         <source>Wallet unlock failed</source>
         <translation>Cüzdan kilidinin açılması başarısız oldu</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+11"/>
+        <location line="+12"/>
         <location line="+19"/>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
         <translation>Cüzdan şifresinin açılması için girilen parola yanlıştı.</translation>
@@ -298,17 +309,17 @@ This product includes software developed by the OpenSSL Project for use in the O
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+257"/>
+        <location filename="../bitcoingui.cpp" line="+282"/>
         <source>Sign &amp;message...</source>
         <translation>&amp;Mesaj imzala...</translation>
     </message>
     <message>
-        <location line="+237"/>
+        <location line="+251"/>
         <source>Synchronizing with network...</source>
-        <translation>Şebeke ile senkronizasyon...</translation>
+        <translation>Ağ ile senkronizasyon...</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-319"/>
         <source>&amp;Overview</source>
         <translation>&amp;Genel bakış</translation>
     </message>
@@ -320,37 +331,37 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+17"/>
         <source>&amp;Transactions</source>
-        <translation>&amp;Muameleler</translation>
+        <translation>&amp;İşlemler</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Browse transaction history</source>
-        <translation>Muamele tarihçesini tara</translation>
+        <translation>İşlem geçmişine göz at</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Adres Defteri</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation>Saklanan adres ve etiket listesini düzenle</translation>
+        <translation>Kayıtlı adresler ve etiketler listesini düzenle</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>&amp;Receive coins</source>
-        <translation type="unfinished"/>
+        <translation>Coin &amp;al</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation>Ödeme alma adreslerinin listesini göster</translation>
+        <translation>Ödeme almak için kullanılan adres listesini göster</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>&amp;Send coins</source>
-        <translation type="unfinished"/>
+        <translation>Coin &amp;gönder</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -363,9 +374,9 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Uygulamadan çık</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Show information about BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+6"/>
+        <source>Show information about ColossusCoin2</source>
+        <translation>ColossusCoin2 hakkındaki bilgiyi göster</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -375,7 +386,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+1"/>
         <source>Show information about Qt</source>
-        <translation>Qt hakkında bilgi görüntü</translation>
+        <translation>Qt hakkındaki bilgiyi göster</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -385,57 +396,57 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>Cüzdanı &amp;şifrele...</translation>
+        <translation>Cüzdanı &amp;Şifrele...</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation>Cüzdanı &amp;yedekle...</translation>
+        <translation>Cüzdanı &amp;Yedekle...</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation>Parolayı &amp;değiştir...</translation>
+        <translation>Parolayı &amp;Değiştir...</translation>
     </message>
     <message numerus="yes">
-        <location line="+241"/>
+        <location line="+259"/>
         <source>~%n block(s) remaining</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>~%n blok kaldı</numerusform><numerusform>~%n blok kaldı</numerusform></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation type="unfinished"/>
+        <translation>İşlem geçmişindeki %2 bloğun %1&apos;i indirildi (%3% tamamlandı).</translation>
     </message>
     <message>
-        <location line="-242"/>
+        <location line="-256"/>
         <source>&amp;Export...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Dışarı aktar...</translation>
     </message>
     <message>
-        <location line="-58"/>
-        <source>Send coins to a BottleCaps address</source>
-        <translation type="unfinished"/>
+        <location line="-64"/>
+        <source>Send coins to a ColossusCoin2 address</source>
+        <translation>Bir ColossusCoin2 adresine coin gönder</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <source>Modify configuration options for BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+47"/>
+        <source>Modify configuration options for ColossusCoin2</source>
+        <translation>ColossusCoin2 yapılandırma seçeneklerini değiştir</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+18"/>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished"/>
+        <translation>Mevcut sekmedeki veriyi bir dosyaya aktar</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-14"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation type="unfinished"/>
+        <translation>Cüzdanı şifrele veya cüzdanın şifresini aç</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation>Cüzdanı diğer bir konumda yedekle</translation>
+        <translation>Cüzdanı başka bir konuma yedekle</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -443,7 +454,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Cüzdan şifrelemesi için kullanılan parolayı değiştir</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>&amp;Debug window</source>
         <translation>&amp;Hata ayıklama penceresi</translation>
     </message>
@@ -455,12 +466,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-5"/>
         <source>&amp;Verify message...</source>
-        <translation>Mesaj &amp;kontrol et...</translation>
+        <translation>Mesajı &amp;doğrula...</translation>
     </message>
     <message>
-        <location line="-186"/>
-        <source>BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="-202"/>
+        <source>ColossusCoin2</source>
+        <translation>ColossusCoin2</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -468,17 +479,32 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Cüzdan</translation>
     </message>
     <message>
-        <location line="+168"/>
-        <source>&amp;About BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+180"/>
+        <source>&amp;About ColossusCoin2</source>
+        <translation>ColossusCoin2 &amp;Hakkında</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Show / Hide</source>
-        <translation>&amp;Göster / Sakla</translation>
+        <translation>&amp;Göster / Gizle</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+9"/>
+        <source>Unlock wallet</source>
+        <translation>Cüzdanın kilidini aç</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Lock Wallet</source>
+        <translation>Cüzdanı &amp;Kilitle</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lock wallet</source>
+        <translation>Cüzdanı kilitle</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>&amp;File</source>
         <translation>&amp;Dosya</translation>
     </message>
@@ -488,19 +514,19 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>&amp;Ayarlar</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>&amp;Help</source>
         <translation>&amp;Yardım</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
         <source>Tabs toolbar</source>
         <translation>Sekme araç çubuğu</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Actions toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Eylem araç çubuğu</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -511,38 +537,78 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>BottleCaps client</source>
-        <translation type="unfinished"/>
+        <source>ColossusCoin2 client</source>
+        <translation>ColossusCoin2 istemcisi</translation>
     </message>
     <message numerus="yes">
-        <location line="+69"/>
-        <source>%n active connection(s) to BottleCaps network</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <location line="+75"/>
+        <source>%n active connection(s) to ColossusCoin2 network</source>
+        <translation><numerusform>ColossusCoin2 ağına %n etkin bağlantı</numerusform><numerusform>ColossusCoin2 ağına %n etkin bağlantı</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Downloaded %1 blocks of transaction history.</source>
+        <translation>İşlem geçmişinin %1 bloğu indirildi.</translation>
+    </message>
+    <message>
+        <location line="+413"/>
+        <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
+        <translation>Pay alınıyor.&lt;br&gt;Sizin ağırlığınız %1&lt;br&gt;Ağın ağırlığı %2&lt;br&gt;Ödül almak için tahmini süre %3</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Not staking because wallet is locked</source>
+        <translation>Pay alınmıyor çünkü cüzdan kilitlidir</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because wallet is offline</source>
+        <translation>Pay alınmıyor çünkü cüzdan çevrimdışıdır</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because wallet is syncing</source>
+        <translation>Pay alınmıyor çünkü cüzdan senkronize ediliyor</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because you don&apos;t have mature coins</source>
+        <translation>Pay alınmıyor çünkü olgunlaşmış coininiz yoktur</translation>
+    </message>
+    <message numerus="yes">
+        <location line="-403"/>
+        <source>%n second(s) ago</source>
+        <translation><numerusform>%n saniye önce</numerusform><numerusform>%n saniye önce</numerusform></translation>
+    </message>
+    <message>
+        <location line="-312"/>
+        <source>About ColossusCoin2 card</source>
         <translation type="unfinished"/>
     </message>
-    <message numerus="yes">
-        <location line="+22"/>
-        <source>%n second(s) ago</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    <message>
+        <location line="+1"/>
+        <source>Show information about ColossusCoin2 card</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>&amp;Unlock Wallet...</source>
+        <translation>Cüzdanı &amp;Kilitle...</translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
+        <location line="+297"/>
         <source>%n minute(s) ago</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n dakika önce</numerusform><numerusform>%n dakika önce</numerusform></translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s) ago</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n saat önce</numerusform><numerusform>%n saat önce</numerusform></translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s) ago</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n gün önce</numerusform><numerusform>%n gün önce</numerusform></translation>
     </message>
     <message>
         <location line="+6"/>
@@ -562,22 +628,22 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+59"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
-        <translation type="unfinished"/>
+        <translation>Bu işlem, büyüklük sınırının üzerindedir. İşleminizi gerçekleştirecek devrelere gidecek ve ağı desteklemeye yardımcı olacak %1 ücretle coin gönderebilirsiniz. Ücreti ödemek istiyor musunuz?</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Confirm transaction fee</source>
-        <translation>Muamele ücretini teyit et</translation>
+        <translation>İşlem ücretini onayla</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Sent transaction</source>
-        <translation>Muamele yollandı</translation>
+        <translation>İşlem gerçekleştirildi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Incoming transaction</source>
-        <translation>Gelen muamele</translation>
+        <translation>Gelen işlem</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -596,56 +662,349 @@ Adres: %4
         <location line="+100"/>
         <location line="+15"/>
         <source>URI handling</source>
-        <translation>URI yönetimi</translation>
+        <translation>URI işleme</translation>
     </message>
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid BottleCaps address or malformed URI parameters.</source>
-        <translation type="unfinished"/>
+        <source>URI can not be parsed! This can be caused by an invalid ColossusCoin2 address or malformed URI parameters.</source>
+        <translation>URI ayrıştırılamadı! Bu, geçersiz bir ColossusCoin2 adresi veya hatalı URI parametreleri nedeniyle olabilir.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda &lt;b&gt;kilidi açıktır&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda &lt;b&gt;kilitlidir&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <source>Backup Wallet</source>
-        <translation type="unfinished"/>
+        <translation>Cüzdanı Yedekle</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet Data (*.dat)</source>
-        <translation type="unfinished"/>
+        <translation>Cüzdan Verisi (*.dat)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup Failed</source>
-        <translation type="unfinished"/>
+        <translation>Yedekleme Başarısız Oldu</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>There was an error trying to save the wallet data to the new location.</source>
-        <translation type="unfinished"/>
+        <translation>Cüzdan verisi, yeni bir konuma kaydedilmeye çalışılırken bir hata oluştu.</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+76"/>
+        <source>%n second(s)</source>
+        <translation><numerusform>%n saniye</numerusform><numerusform>%n saniye</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n minute(s)</source>
+        <translation><numerusform>%n dakika</numerusform><numerusform>%n dakika</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n saat</numerusform><numerusform>%n saat</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n day(s)</source>
+        <translation><numerusform>%n gün</numerusform><numerusform>%n gün</numerusform></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Not staking</source>
+        <translation>Pay alınmıyor</translation>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. BottleCaps can no longer continue safely and will quit.</source>
-        <translation type="unfinished"/>
+        <source>A fatal error occurred. ColossusCoin2 can no longer continue safely and will quit.</source>
+        <translation>Önemli bir hata oluştu. ColossusCoin2 artık güvenli bir şekilde devam edemez ve şimdi kapatılacak.</translation>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+87"/>
+        <location filename="../clientmodel.cpp" line="+90"/>
         <source>Network Alert</source>
-        <translation>Şebeke hakkında uyarı</translation>
+        <translation>Ağ Uyarısı</translation>
+    </message>
+</context>
+<context>
+    <name>CoinControlDialog</name>
+    <message>
+        <location filename="../forms/coincontroldialog.ui" line="+14"/>
+        <source>Coin Control</source>
+        <translation>Coin Kontrolü</translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Quantity:</source>
+        <translation>Adet:</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Bytes:</source>
+        <translation>Bayt:</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Amount:</source>
+        <translation>Miktar:</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Priority:</source>
+        <translation>Öncelik:</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Fee:</source>
+        <translation>Ücret:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation>Düşük Çıktı:</translation>
+    </message>
+    <message>
+        <location filename="../coincontroldialog.cpp" line="+551"/>
+        <source>no</source>
+        <translation>hayır</translation>
+    </message>
+    <message>
+        <location filename="../forms/coincontroldialog.ui" line="+51"/>
+        <source>After Fee:</source>
+        <translation>Ücretten sonra:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change:</source>
+        <translation>Para üstü:</translation>
+    </message>
+    <message>
+        <location line="+69"/>
+        <source>(un)select all</source>
+        <translation>tümünü seç(me)</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Tree mode</source>
+        <translation>Ağaç kipi</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>List mode</source>
+        <translation>Liste kipi</translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Amount</source>
+        <translation>Miktar</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Label</source>
+        <translation>Etiket</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Address</source>
+        <translation>Adres</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Date</source>
+        <translation>Tarih</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Confirmations</source>
+        <translation>Onaylar</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirmed</source>
+        <translation>Onaylandı</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Priority</source>
+        <translation>Öncelik</translation>
+    </message>
+    <message>
+        <location filename="../coincontroldialog.cpp" line="-515"/>
+        <source>Copy address</source>
+        <translation>Adresi kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy label</source>
+        <translation>Etiketi kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+26"/>
+        <source>Copy amount</source>
+        <translation>Miktarı kopyala</translation>
+    </message>
+    <message>
+        <location line="-25"/>
+        <source>Copy transaction ID</source>
+        <translation>İşlem Numarasını Kopyala</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Copy quantity</source>
+        <translation>Adedi kopyala</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Copy fee</source>
+        <translation>Ücreti kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation>Ücretten sonrakini kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation>Baytları kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation>Önceliği kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation>Düşük çıktıyı kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation>Para üstünü kopyala</translation>
+    </message>
+    <message>
+        <location line="+317"/>
+        <source>highest</source>
+        <translation>en yüksek</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>high</source>
+        <translation>yüksek</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>medium-high</source>
+        <translation>orta-yüksek</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>medium</source>
+        <translation>orta</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>low-medium</source>
+        <translation>düşük-orta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>low</source>
+        <translation>düşük</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>lowest</source>
+        <translation>en düşük</translation>
+    </message>
+    <message>
+        <location line="+155"/>
+        <source>DUST</source>
+        <translation>BOZUKLUK</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>yes</source>
+        <translation>evet</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>This label turns red, if the transaction size is bigger than 10000 bytes.
+
+ This means a fee of at least %1 per kb is required.
+
+ Can vary +/- 1 Byte per input.</source>
+        <translation>İşlem büyüklüğü 10000 bayttan büyükse, bu etiket kırmızıya dönüşür.
+
+ Bu, kb başına en az %1 ücret gerektiği anlamına gelir.
+
+ Girdi başına +/- 1 Byte değişkenlik gösterebilir.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Transactions with higher priority get more likely into a block.
+
+This label turns red, if the priority is smaller than &quot;medium&quot;.
+
+ This means a fee of at least %1 per kb is required.</source>
+        <translation>Yüksek öncelikli işlemler, daha yüksek ihtimalle bir bloğa düşer.
+
+Öncelik &quot;orta&quot; seviyeden düşükse, bu etiket kırmızıya döner.
+
+ Bu, kb başına en az %1 ücret gerektiği anlamına gelir.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This label turns red, if any recipient receives an amount smaller than %1.
+
+ This means a fee of at least %2 is required. 
+
+ Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
+        <translation>Eğer herhangi bir alıcı, %1&apos;den daha küçük bir miktar alırsa, bu etiket kırmızıya dönüşür.
+
+ Bu, en az %2 bir ücretin gerektiği anlamına gelir. 
+
+ Minimum aktarım ücretinin 0.546 katından düşük miktarlar, BOZUKLUK olarak gösterilir.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This label turns red, if the change is smaller than %1.
+
+ This means a fee of at least %2 is required.</source>
+        <translation>Eğer para üstü %1&apos;den küçükse, bu etiket kırmızıya dönüşür.
+
+ Bu, en az %2 bir ücretin gerektiği anlamına gelir.</translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <location line="+66"/>
+        <source>(no label)</source>
+        <translation>(boş etiket)</translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>change from %1 (%2)</source>
+        <translation>%1 unsurundan para üstü (%2)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>(change)</source>
+        <translation>(para üstü)</translation>
     </message>
 </context>
 <context>
@@ -663,7 +1022,7 @@ Adres: %4
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation>Bu adres defteri unsuru ile ilişkili etiket</translation>
+        <translation>Bu adres defteri kaydıyla ilişkili etiket</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -673,7 +1032,7 @@ Adres: %4
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation>Bu adres defteri unsuru ile ilişkili adres. Bu, sadece gönderi adresi için değiştirilebilir.</translation>
+        <translation>Bu adres defteri kaydıyla ilişkili etiket. Bu, sadece gönderi adresleri için değiştirilebilir.</translation>
     </message>
     <message>
         <location filename="../editaddressdialog.cpp" line="+20"/>
@@ -696,17 +1055,17 @@ Adres: %4
         <translation>Gönderi adresini düzenle</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+76"/>
         <source>The entered address &quot;%1&quot; is already in the address book.</source>
         <translation>Girilen &quot;%1&quot; adresi hâlihazırda adres defterinde mevcuttur.</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>The entered address &quot;%1&quot; is not a valid BottleCaps address.</source>
-        <translation type="unfinished"/>
+        <location line="-5"/>
+        <source>The entered address &quot;%1&quot; is not a valid ColossusCoin2 address.</source>
+        <translation>Girilen %1 adresi, geçerli bir ColossusCoin2 adresi değildir.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+10"/>
         <source>Could not unlock wallet.</source>
         <translation>Cüzdan kilidi açılamadı.</translation>
     </message>
@@ -719,15 +1078,15 @@ Adres: %4
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+419"/>
+        <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>BottleCaps-Qt</source>
-        <translation type="unfinished"/>
+        <source>ColossusCoin2-Qt</source>
+        <translation>ColossusCoin2-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
         <source>version</source>
-        <translation>sürüm</translation>
+        <translation>versiyon</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -742,22 +1101,22 @@ Adres: %4
     <message>
         <location line="+4"/>
         <source>UI options</source>
-        <translation>Kullanıcı arayüzü seçenekleri</translation>
+        <translation>GA seçenekleri</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-        <translation>Lisan belirt, mesela &quot;de_De&quot; (varsayılan: sistem dili)</translation>
+        <translation>Dili ayarla, örneğin &quot;de_DE&quot; (varsayılan: sistem yerel ayarları)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Start minimized</source>
-        <translation>Küçültülmüş olarak başlat</translation>
+        <translation>Simge durumunda başlat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show splash screen on startup (default: 1)</source>
-        <translation>Başlatıldığında başlangıç ekranını göster (varsayılan: 1)</translation>
+        <translation>Başlangıçta açılış ekranını göster (varsayılan: 1)</translation>
     </message>
 </context>
 <context>
@@ -775,7 +1134,7 @@ Adres: %4
     <message>
         <location line="+6"/>
         <source>Optional transaction fee per kB that helps make sure your transactions are processed quickly. Most transactions are 1 kB. Fee 0.01 recommended.</source>
-        <translation type="unfinished"/>
+        <translation>İşlemlerinizin hızlıca gerçekleştirilmesini sağlayan kB başına opsiyonel işlem ücreti. Birçok işlem 1 kB&apos;tır. Tavsiye edilen ücret 0.01&apos;dir.</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -784,23 +1143,33 @@ Adres: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start BottleCaps after logging in to the system.</source>
+        <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
-        <source>&amp;Start BottleCaps on system login</source>
+        <location line="+15"/>
+        <source>Reserve</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Automatically start ColossusCoin2 after logging in to the system.</source>
+        <translation>Sisteme giriş yaptıktan sonra ColossusCoin2&apos;i otomatik olarak başlat</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Start ColossusCoin2 on system login</source>
+        <translation>Sisteme girişte ColossusCoin2&apos;i &amp;başlat</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Detach block and address databases at shutdown. This means they can be moved to another data directory, but it slows down shutdown. The wallet is always detached.</source>
-        <translation type="unfinished"/>
+        <translation>Kapanışta blok ve adres veritabanlarını birbirinden ayır. Bu, onların başka bir veri klasörüne taşınabileceği anlamına gelir ancak bu işlem kapanışı yavaşlatır. Cüzdan ise her zaman ayrılmıştır.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Detach databases at shutdown</source>
-        <translation type="unfinished"/>
+        <translation>Kapanışta veritabanlarını &amp;ayır</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -809,8 +1178,8 @@ Adres: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the BottleCaps client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
+        <source>Automatically open the ColossusCoin2 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Yönelticide ColossusCoin2 istemci portunu otomatik olarak aç. Bu, sadece yönelticiniz UPnP&apos;i desteklediğinde ve etkin olduğunda çalışır.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -819,13 +1188,13 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the BottleCaps network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation type="unfinished"/>
+        <source>Connect to the ColossusCoin2 network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>ColossusCoin2 ağına bir SOCKS vekil sunucusu yoluyla bağlan (örn. Tor yoluyla bağlanıldığında)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Connect through SOCKS proxy:</source>
-        <translation>SOCKS vekil sunucusu vasıtasıyla ba&amp;ğlan:</translation>
+        <translation>SOCKS vekil sunucusu yoluyla &amp;bağlan:</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -835,7 +1204,7 @@ Adres: %4
     <message>
         <location line="+19"/>
         <source>IP address of the proxy (e.g. 127.0.0.1)</source>
-        <translation>Vekil sunucunun İP adresi (mesela 127.0.0.1)</translation>
+        <translation>Vekil sunucunun IP adresi (örn. 127.0.0.1)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -894,28 +1263,38 @@ Adres: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting BottleCaps.</source>
-        <translation type="unfinished"/>
+        <source>The user interface language can be set here. This setting will take effect after restarting ColossusCoin2.</source>
+        <translation>Kullanıcı arabirimi dili buradan ayarlanabilir. Ayar, ColossusCoin2 yeniden başlatıldığında etkin olacaktır.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>Miktarı göstermek için &amp;birim:</translation>
+        <translation>Meblağları göstermek için &amp;birim:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>ColossusCoin gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
+        <translation>Bitcoin gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show BottleCaps addresses in the transaction list or not.</source>
+        <source>Whether to show ColossusCoin2 addresses in the transaction list or not.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
         <translation>Muamele listesinde adresleri &amp;göster</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Whether to show coin control features or not.</source>
+        <translation>Para kontrol özelliklerinin gösterilip gösterilmeyeceğini ayarlar.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Display coin &amp;control features (experts only!)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+71"/>
@@ -930,7 +1309,7 @@ Adres: %4
     <message>
         <location line="+10"/>
         <source>&amp;Apply</source>
-        <translation>&amp;Uygula</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="+55"/>
@@ -938,15 +1317,15 @@ Adres: %4
         <translation>varsayılan</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+149"/>
         <location line="+9"/>
         <source>Warning</source>
-        <translation>Uyarı</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting BottleCaps.</source>
+        <source>This setting will take effect after restarting ColossusCoin2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -964,37 +1343,37 @@ Adres: %4
     </message>
     <message>
         <location line="+33"/>
-        <location line="+183"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BottleCaps network after a connection is established, but this process has not completed yet.</source>
+        <location line="+231"/>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ColossusCoin2 network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-141"/>
-        <source>Balance:</source>
-        <translation>Bakiye:</translation>
-    </message>
-    <message>
-        <location line="+118"/>
+        <location line="-160"/>
         <source>Stake:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+58"/>
-        <source>Number of transactions:</source>
+        <location line="+29"/>
+        <source>Unconfirmed:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-29"/>
-        <source>Unconfirmed:</source>
-        <translation>Doğrulanmamış:</translation>
-    </message>
-    <message>
-        <location line="-78"/>
+        <location line="-107"/>
         <source>Wallet</source>
         <translation>Cüzdan</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+49"/>
+        <source>Spendable:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Your current spendable balance</source>
+        <translation>Güncel harcanabilir bakiyeniz</translation>
+    </message>
+    <message>
+        <location line="+71"/>
         <source>Immature:</source>
         <translation>Olgunlaşmamış:</translation>
     </message>
@@ -1004,32 +1383,32 @@ Adres: %4
         <translation>Oluşturulan bakiye henüz olgunlaşmamıştır</translation>
     </message>
     <message>
+        <location line="+20"/>
+        <source>Total:</source>
+        <translation>Toplam:</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Your current total balance</source>
+        <translation>Güncel toplam bakiyeniz</translation>
+    </message>
+    <message>
         <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
         <translation>&lt;b&gt;Son muameleler&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-118"/>
-        <source>Your current balance</source>
-        <translation>Güncel bakiyeniz</translation>
-    </message>
-    <message>
-        <location line="+29"/>
+        <location line="-108"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Doğrulanması beklenen ve henüz güncel bakiyeye ilâve edilmemiş muamelelerin toplamı</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="-29"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../overviewpage.cpp" line="+112"/>
+        <location filename="../overviewpage.cpp" line="+113"/>
         <location line="+1"/>
         <source>out of sync</source>
         <translation>eşleşme dışı</translation>
@@ -1040,57 +1419,57 @@ Adres: %4
     <message>
         <location filename="../forms/qrcodedialog.ui" line="+14"/>
         <source>QR Code Dialog</source>
-        <translation>QR kodu diyaloğu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation>Ödeme talebi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+56"/>
         <source>Amount:</source>
-        <translation>Miktar:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation>Etiket:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+19"/>
         <source>Message:</source>
-        <translation>Mesaj:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Farklı kaydet...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
         <source>Error encoding URI into QR Code.</source>
-        <translation>URI&apos;nin QR koduna kodlanmasında hata oluştu.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+40"/>
         <source>The entered amount is invalid, please check.</source>
-        <translation>Girilen miktar geçersizdir, kontrol ediniz.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>Sonuç URI çok uzun, etiket ya da mesaj metnini kısaltmayı deneyiniz.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
         <source>Save QR Code</source>
-        <translation>QR kodu kaydet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation>PNG resimleri (*.png)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1147,7 +1526,7 @@ Adres: %4
     <message>
         <location line="+23"/>
         <source>On testnet</source>
-        <translation>Testnet üzerinde</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+23"/>
@@ -1177,17 +1556,17 @@ Adres: %4
     <message>
         <location line="+16"/>
         <source>Command-line options</source>
-        <translation>Komut satırı seçenekleri</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the BottleCaps-Qt help message to get a list with possible BottleCaps command-line options.</source>
+        <source>Show the ColossusCoin2-Qt help message to get a list with possible ColossusCoin2 command-line options.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Show</source>
-        <translation>&amp;Göster</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+24"/>
@@ -1201,12 +1580,12 @@ Adres: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>BottleCaps - Debug window</source>
+        <source>ColossusCoin2 - Debug window</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
-        <source>BottleCaps Core</source>
+        <source>ColossusCoin2 Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1216,7 +1595,7 @@ Adres: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the BottleCaps debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the ColossusCoin2 debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1226,7 +1605,7 @@ Adres: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the BottleCaps RPC console.</source>
+        <source>Welcome to the ColossusCoin2 RPC console.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1244,7 +1623,7 @@ Adres: %4
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+124"/>
+        <location filename="../sendcoinsdialog.cpp" line="+182"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1252,10 +1631,99 @@ Adres: %4
         <location line="+5"/>
         <location line="+5"/>
         <source>Send Coins</source>
-        <translation>ColossusCoin yolla</translation>
+        <translation>Bitcoin yolla</translation>
+    </message>
+    <message>
+        <location line="+76"/>
+        <source>Coin Control Features</source>
+        <translation>Para kontrolü özellikleri</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs...</source>
+        <translation>Girdiler...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>automatically selected</source>
+        <translation>otomatik seçilmiş</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Insufficient funds!</source>
+        <translation>Yetersiz fon!</translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Quantity:</source>
+        <translation>Miktar:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+35"/>
+        <source>0</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Bytes:</source>
+        <translation>Bayt:</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Amount:</source>
+        <translation>Meblağ:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+86"/>
+        <location line="+86"/>
+        <location line="+32"/>
+        <source>0.00 hack</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Priority:</source>
+        <translation>Öncelik:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Fee:</source>
+        <translation>Ücret:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation>Düşük çıktı:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>no</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>After Fee:</source>
+        <translation>Ücretten sonra:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+50"/>
+        <source>custom change address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+106"/>
         <source>Send to multiple recipients at once</source>
         <translation>Birçok alıcıya aynı anda gönder</translation>
     </message>
@@ -1267,7 +1735,7 @@ Adres: %4
     <message>
         <location line="+20"/>
         <source>Remove all transaction fields</source>
-        <translation>Bütün muamele alanlarını kaldır</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -1275,14 +1743,14 @@ Adres: %4
         <translation>Tümünü &amp;temizle</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+28"/>
         <source>Balance:</source>
         <translation>Bakiye:</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>123.456 BTC</source>
-        <translation>123.456 BTC</translation>
+        <location line="+16"/>
+        <source>123.456 hack</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+31"/>
@@ -1295,9 +1763,54 @@ Adres: %4
         <translation>G&amp;önder</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-59"/>
+        <location filename="../sendcoinsdialog.cpp" line="-173"/>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Copy quantity</source>
+        <translation>Miktarı kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy amount</source>
+        <translation>Meblağı kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy fee</source>
+        <translation>Ücreti kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation>Ücretten sonrakini kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation>Baytları kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation>Önceliği kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation>Düşük çıktıyı kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation>Para üstünü kopyala</translation>
+    </message>
+    <message>
+        <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; şu adrese: %2 (%3)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -1307,15 +1820,15 @@ Adres: %4
     <message>
         <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>%1 göndermek istediğinizden emin misiniz?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source> and </source>
-        <translation> ve </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+29"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation>Alıcı adresi geçerli değildir, lütfen denetleyiniz.</translation>
     </message>
@@ -1347,7 +1860,22 @@ Adres: %4
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Hata: Muamele reddedildi. Cüzdanınızdaki madenî paraların bazıları zaten harcanmış olduğunda bu meydana gelebilir. Örneğin wallet.dat dosyasının bir kopyasını kullandıysanız ve kopyada para harcandığında ancak burada harcandığı işaretlenmediğinde.</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+251"/>
+        <source>WARNING: Invalid ColossusCoin2 address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>(no label)</source>
+        <translation>(boş etiket)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>WARNING: unknown change address</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1355,17 +1883,17 @@ Adres: %4
     <message>
         <location filename="../forms/sendcoinsentry.ui" line="+14"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
         <source>A&amp;mount:</source>
-        <translation>M&amp;iktar:</translation>
+        <translation>Mebla&amp;ğ:</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Pay &amp;To:</source>
-        <translation>&amp;Şu kişiye öde:</translation>
+        <translation>&amp;Şu adrese öde:</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1380,13 +1908,13 @@ Adres: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. 4Zo1ga6xuKuQ7JV7M9rGDoxdbYwV5zgQJ5)</source>
+        <source>The address to send the payment to  (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Adres defterinden adres seç</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
@@ -1406,11 +1934,11 @@ Adres: %4
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Bu alıcıyı kaldır</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a valid BottleCaps address</source>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1434,14 +1962,14 @@ Adres: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with </source>
+        <source>The address to sign the message with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation>Adres defterinden bir adres seç</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-193"/>
@@ -1471,7 +1999,7 @@ Adres: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this BottleCaps address</source>
+        <source>Sign the message to prove you own this ColossusCoin2 address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1498,12 +2026,12 @@ Adres: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with </source>
+        <source>The address the message was signed with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified BottleCaps address</source>
+        <source>Verify the message to ensure it was signed with the specified ColossusCoin2 address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1514,7 +2042,7 @@ Adres: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a valid BottleCaps address</source>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1524,7 +2052,7 @@ Adres: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter BottleCaps signature</source>
+        <source>Enter ColossusCoin2 signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1608,6 +2136,11 @@ Adres: %4
     </message>
     <message>
         <location line="+8"/>
+        <source>conflicted</source>
+        <translation>çakışma</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>%1/offline</source>
         <translation>%1/çevrim dışı</translation>
     </message>
@@ -1705,7 +2238,7 @@ Adres: %4
     <message>
         <location line="+16"/>
         <source>Net amount</source>
-        <translation>Net miktar</translation>
+        <translation>Net meblağ</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1724,12 +2257,7 @@ Adres: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Staked coins must wait 520 blocks before they can return to balance and be spent.  When you generated this proof-of-stake block, it was broadcast to the network to be added to the block chain.  If it fails to get into the chain, it will change to \&quot;not accepted\&quot; and not be a valid stake.  This may occasionally happen if another node generates a proof-of-stake block within a few seconds of yours.</source>
+        <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1750,7 +2278,7 @@ Adres: %4
     <message>
         <location line="+23"/>
         <source>Amount</source>
-        <translation>Miktar</translation>
+        <translation>Meblağ</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1806,40 +2334,50 @@ Adres: %4
     <message>
         <location line="+0"/>
         <source>Amount</source>
-        <translation>Miktar</translation>
-    </message>
-    <message numerus="yes">
-        <location line="+57"/>
-        <source>Open for %n block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation>Meblağ</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+60"/>
         <source>Open until %1</source>
         <translation>%1 değerine dek açık</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Offline (%1 confirmations)</source>
-        <translation>Çevrimdışı (%1 teyit)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Unconfirmed (%1 of %2 confirmations)</source>
-        <translation>Doğrulanmadı (%1 (toplam %2 üzerinden) teyit)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+12"/>
         <source>Confirmed (%1 confirmations)</source>
         <translation>Doğrulandı (%1 teyit)</translation>
     </message>
     <message numerus="yes">
-        <location line="+8"/>
-        <source>Mined balance will be available when it matures in %n more block(s)</source>
+        <location line="-15"/>
+        <source>Open for %n more block(s)</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
+        <source>Offline</source>
+        <translation>Çevrim dışı</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Unconfirmed</source>
+        <translation>Teyit edilmemiş</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirming (%1 of %2 recommended confirmations)</source>
+        <translation>Teyit ediliyor (tavsiye edilen %2 teyit üzerinden %1 doğrulama)</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Conflicted</source>
+        <translation>Çakışma</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Immature (%1 confirmations, will be available after %2)</source>
+        <translation>Olgunlaşmamış (%1 teyit, %2 teyit ardından kullanılabilir olacaktır)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>This block was not received by any other nodes and will probably not be accepted!</source>
         <translation>Bu blok başka hiçbir düğüm tarafından alınmamıştır ve muhtemelen kabul edilmeyecektir!</translation>
     </message>
@@ -1849,9 +2387,9 @@ Adres: %4
         <translation>Oluşturuldu ama kabul edilmedi</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+42"/>
         <source>Received with</source>
-        <translation>Şununla alınan</translation>
+        <translation>Şununla alındı</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1871,12 +2409,7 @@ Adres: %4
     <message>
         <location line="+2"/>
         <source>Mined</source>
-        <translation>Oluşturulan</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Minted</source>
-        <translation type="unfinished"/>
+        <translation>Madenden çıkarılan</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -1884,7 +2417,7 @@ Adres: %4
         <translation>(mevcut değil)</translation>
     </message>
     <message>
-        <location line="+199"/>
+        <location line="+190"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
         <translation>Muamele durumu. Doğrulama sayısını görüntülemek için imleci bu alanda tutunuz.</translation>
     </message>
@@ -1906,7 +2439,7 @@ Adres: %4
     <message>
         <location line="+2"/>
         <source>Amount removed from or added to balance.</source>
-        <translation>Bakiyeden alınan ya da bakiyeye eklenen miktar.</translation>
+        <translation>Bakiyeden alınan ya da bakiyeye eklenen meblağ.</translation>
     </message>
 </context>
 <context>
@@ -1969,11 +2502,6 @@ Adres: %4
     </message>
     <message>
         <location line="+1"/>
-        <source>Minted</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Other</source>
         <translation>Diğer</translation>
     </message>
@@ -1985,7 +2513,7 @@ Adres: %4
     <message>
         <location line="+7"/>
         <source>Min amount</source>
-        <translation>Asgari miktar</translation>
+        <translation>Asgari meblağ</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -2000,7 +2528,12 @@ Adres: %4
     <message>
         <location line="+1"/>
         <source>Copy amount</source>
-        <translation>Miktarı kopyala</translation>
+        <translation>Meblağı kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy transaction ID</source>
+        <translation>Muamele kimliğini kopyala</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2013,9 +2546,9 @@ Adres: %4
         <translation>Muamele detaylarını göster</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+144"/>
         <source>Export Transaction Data</source>
-        <translation>Muamele verilerini dışa aktar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -2050,7 +2583,7 @@ Adres: %4
     <message>
         <location line="+1"/>
         <source>Amount</source>
-        <translation>Miktar</translation>
+        <translation>Meblağ</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2060,15 +2593,15 @@ Adres: %4
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation>Dışa aktarımda hata oluştu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>%1 dosyasına yazılamadı.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+100"/>
         <source>Range:</source>
         <translation>Aralık:</translation>
     </message>
@@ -2081,7 +2614,7 @@ Adres: %4
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+192"/>
+        <location filename="../walletmodel.cpp" line="+206"/>
         <source>Sending...</source>
         <translation type="unfinished"/>
     </message>
@@ -2089,62 +2622,57 @@ Adres: %4
 <context>
     <name>bitcoin-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+82"/>
-        <source>BottleCaps version</source>
+        <location filename="../bitcoinstrings.cpp" line="+33"/>
+        <source>ColossusCoin2 version</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+1"/>
         <source>Usage:</source>
         <translation>Kullanım:</translation>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Send command to -server or bitcoind</source>
+        <location line="+1"/>
+        <source>Send command to -server or ColossusCoin2d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="+1"/>
         <source>List commands</source>
         <translation>Komutları listele</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="+1"/>
         <source>Get help for a command</source>
         <translation>Bir komut için yardım al</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+2"/>
         <source>Options:</source>
         <translation>Seçenekler:</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <source>Specify configuration file (default: BottleCaps.conf)</source>
+        <location line="+2"/>
+        <source>Specify configuration file (default: ColossusCoin2.conf)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Specify pid file (default: BottleCapsd.pid)</source>
+        <location line="+1"/>
+        <source>Specify pid file (default: ColossusCoin2d.pid)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-47"/>
-        <source>Generate coins</source>
-        <translation type="unfinished"/>
+        <location line="+2"/>
+        <source>Specify wallet file (within data directory)</source>
+        <translation>Cüzdan dosyası belirtiniz (veri klasörünün içinde)</translation>
     </message>
     <message>
-        <location line="-14"/>
-        <source>Don&apos;t generate coins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+60"/>
+        <location line="-1"/>
         <source>Specify data directory</source>
         <translation>Veri dizinini belirt</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+2"/>
         <source>Set database cache size in megabytes (default: 25)</source>
         <translation>Veritabanı önbellek boyutunu megabayt olarak belirt (varsayılan: 25)</translation>
     </message>
@@ -2154,82 +2682,87 @@ Adres: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-26"/>
-        <source>Listen for connections on &lt;port&gt; (default: 7777 or testnet: 17777)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>Eşler ile en çok &lt;n&gt; adet bağlantı kur (varsayılan: 125)</translation>
-    </message>
-    <message>
-        <location line="-33"/>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>Eş adresleri elde etmek için bir düğüme bağlan ve ardından bağlantıyı kes</translation>
-    </message>
-    <message>
-        <location line="+64"/>
-        <source>Specify your own public address</source>
-        <translation>Kendi genel adresinizi tanımlayın</translation>
-    </message>
-    <message>
-        <location line="-75"/>
-        <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+77"/>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation>Aksaklık gösteren eşlerle bağlantıyı kesme sınırı (varsayılan: 100)</translation>
-    </message>
-    <message>
-        <location line="-112"/>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation>Aksaklık gösteren eşlerle yeni bağlantıları engelleme süresi, saniye olarak (varsayılan: 86400)</translation>
-    </message>
-    <message>
-        <location line="-25"/>
-        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
-        <translation>IPv4 üzerinde dinlemek için %u numaralı RPC portunun kurulumu sırasında hata meydana geldi: %s</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location line="+6"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8344 or testnet: 18344)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>Konut satırı ve JSON-RPC komutlarını kabul et</translation>
-    </message>
-    <message>
-        <location line="+26"/>
-        <source>Error: Transaction creation failed  </source>
+        <source>Listen for connections on &lt;port&gt; (default: 15714 or testnet: 25714)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
+        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
+        <translation>Eşler ile en çok &lt;n&gt; adet bağlantı kur (varsayılan: 125)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
+        <translation>Eş adresleri elde etmek için bir düğüme bağlan ve ardından bağlantıyı kes</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Specify your own public address</source>
+        <translation>Kendi genel adresinizi tanımlayın</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Bind to given address. Use [host]:port notation for IPv6</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Stake your coins to support network and gain reward (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
+        <translation>Aksaklık gösteren eşlerle bağlantıyı kesme sınırı (varsayılan: 100)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
+        <translation>Aksaklık gösteren eşlerle yeni bağlantıları engelleme süresi, saniye olarak (varsayılan: 86400)</translation>
+    </message>
+    <message>
+        <location line="-44"/>
+        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
+        <translation>IPv4 üzerinde dinlemek için %u numaralı RPC portunun kurulumu sırasında hata meydana geldi: %s</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+109"/>
+        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-87"/>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 15715 or testnet: 25715)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>Accept command line and JSON-RPC commands</source>
+        <translation>Konut satırı ve JSON-RPC komutlarını kabul et</translation>
+    </message>
+    <message>
+        <location line="+101"/>
+        <source>Error: Transaction creation failed  </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-5"/>
         <source>Error: Wallet locked, unable to create transaction  </source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-8"/>
         <source>Importing blockchain data file.</source>
         <translation type="unfinished"/>
     </message>
@@ -2239,62 +2772,57 @@ Adres: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="-88"/>
         <source>Run in the background as a daemon and accept commands</source>
         <translation>Arka planda daemon (servis) olarak çalış ve komutları kabul et</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+1"/>
         <source>Use the test network</source>
         <translation>Deneme şebekesini kullan</translation>
     </message>
     <message>
-        <location line="-93"/>
+        <location line="-24"/>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>Dışarıdan gelen bağlantıları kabul et (varsayılan: -proxy veya -connect yoksa 1)</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-38"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
         <translation>IPv6 üzerinde dinlemek için %u numaralı RPC portu kurulurken bir hata meydana geldi, IPv4&apos;e dönülüyor: %s</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+117"/>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-20"/>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation>Yüksek öncelikli/düşük ücretli muamelelerin boyutunu bayt olarak tanımla (varsayılan: 27000)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+11"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
         <translation>Uyarı: -paytxfee çok yüksek bir değere ayarlanmış! Bu, muamele gönderirseniz ödeyeceğiniz muamele ücretidir.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation>Uyarı: Görüntülenen muameleler doğru olmayabilir! Sizin ya da diğer düğümlerin güncelleme yapması gerekebilir.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong BottleCaps will not work properly.</source>
+        <location line="+61"/>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ColossusCoin2 will not work properly.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-31"/>
         <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Uyarı: wallet.dat dosyasının okunması sırasında bir hata meydana geldi! Tüm anahtarlar doğru bir şekilde okundu, ancak muamele verileri ya da adres defteri unsurları hatalı veya eksik olabilir.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-18"/>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Uyarı: wallet.dat bozuk, veriler geri kazanıldı! Özgün wallet.dat, wallet.{zamandamgası}.bak olarak %s klasörüne kaydedildi; bakiyeniz ya da muameleleriniz yanlışsa bir yedeklemeden tekrar yüklemeniz gerekir.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-30"/>
         <source>Attempt to recover private keys from a corrupt wallet.dat</source>
         <translation>Bozuk bir wallet.dat dosyasından özel anahtarları geri kazanmayı dene</translation>
     </message>
@@ -2304,32 +2832,42 @@ Adres: %4
         <translation>Blok oluşturma seçenekleri:</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-62"/>
         <source>Connect only to the specified node(s)</source>
         <translation>Sadece belirtilen düğüme veya düğümlere bağlan</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
         <translation>Kendi IP adresini keşfet (varsayılan: dinlenildiğinde ve -externalip yoksa 1)</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+94"/>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Herhangi bir portun dinlenmesi başarısız oldu. Bunu istiyorsanız -listen=0 seçeneğini kullanınız.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Find peers using DNS lookup (default: 0)</source>
+        <location line="-90"/>
+        <source>Find peers using DNS lookup (default: 1)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation>Geçersiz -tor adresi: &apos;%s&apos;</translation>
+        <location line="+5"/>
+        <source>Sync checkpoints policy (default: strict)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+83"/>
+        <source>Invalid -tor address: &apos;%s&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-82"/>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
         <translation>Bağlantı başına azami alım tamponu, &lt;n&gt;*1000 bayt (varsayılan: 5000)</translation>
     </message>
@@ -2339,142 +2877,203 @@ Adres: %4
         <translation>Bağlantı başına azami yollama tamponu, &lt;n&gt;*1000 bayt (varsayılan: 1000)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-16"/>
         <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
         <translation>Sadece &lt;net&gt; şebekesindeki düğümlere bağlan (IPv4, IPv6 ya da Tor)</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+28"/>
         <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation>İlâve hata ayıklama verileri çıkart. Diğer tüm -debug* seçeneklerini ima eder</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Output extra network debugging information</source>
-        <translation>İlâve şebeke hata ayıklama verileri çıkart</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Prepend debug output with timestamp</source>
-        <translation>Hata ayıklama çıktısına tarih ön ekleri ilâve et</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the version of socks proxy to use (4-5, default: 5)</source>
-        <translation>Kullanılacak socks vekil sunucu sürümünü seç (4-5, varsayılan: 5)</translation>
+        <source>Output extra network debugging information</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Prepend debug output with timestamp</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
+        <translation> SSL seçenekleri: (SSL kurulum bilgisi için Bitcoin vikisine bakınız)</translation>
+    </message>
+    <message>
+        <location line="-74"/>
+        <source>Select the version of socks proxy to use (4-5, default: 5)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Trace/hata ayıklama verilerini debug.log dosyası yerine konsola gönder</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Send trace/debug info to debugger</source>
-        <translation>Hata ayıklayıcıya -debugger- trace/hata ayıklama verileri gönder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+28"/>
         <source>Set maximum block size in bytes (default: 250000)</source>
-        <translation>Bayt olarak azami blok boyutunu tanımla (varsayılan: 250000)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Set minimum block size in bytes (default: 0)</source>
         <translation>Bayt olarak asgari blok boyutunu tanımla (varsayılan: 0)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-29"/>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>İstemci başlatıldığında debug.log dosyasını küçült (varsayılan: -debug bulunmadığında 1)</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-42"/>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
         <translation>Bağlantı zaman aşım süresini milisaniye olarak belirt (varsayılan: 5000)</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+109"/>
+        <source>Unable to sign checkpoint, wrong checkpointkey?
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-80"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
         <translation>Dinlenecek portu haritalamak için UPnP kullan (varsayılan: 0)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
         <translation>Dinlenecek portu haritalamak için UPnP kullan (varsayılan: dinlenildiğinde 1)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-25"/>
         <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
-        <translation>Gizli tor servislerine erişmek için vekil sunucu kullan (varsayılan: -proxy ile aynısı)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+42"/>
         <source>Username for JSON-RPC connections</source>
         <translation>JSON-RPC bağlantıları için kullanıcı ismi</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+47"/>
         <source>Verifying database integrity...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Warning: Disk space is low!</source>
+        <location line="+57"/>
+        <source>WARNING: syncronized checkpoint violation detected, but skipped!</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
+        <source>Warning: Disk space is low!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-2"/>
         <source>Warning: This version is obsolete, upgrade required!</source>
         <translation>Uyarı: Bu sürüm çok eskidir, güncellemeniz gerekir!</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-48"/>
         <source>wallet.dat corrupt, salvage failed</source>
         <translation>wallet.dat bozuk, geri kazanım başarısız oldu</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-54"/>
         <source>Password for JSON-RPC connections</source>
         <translation>JSON-RPC bağlantıları için parola</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-84"/>
+        <source>%s, you must set a rpcpassword in the configuration file:
+ %s
+It is recommended you use the following random password:
+rpcuser=ColossusCoin2rpc
+rpcpassword=%s
+(you do not need to remember this password)
+The username and password MUST NOT be the same.
+If the file does not exist, create it with owner-readable-only file permissions.
+It is also recommended to set alertnotify so you are notified of problems;
+for example: alertnotify=echo %%s | mail -s &quot;ColossusCoin2 Alert&quot; admin@foo.com
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Find peers using internet relay chat (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>When creating transactions, ignore inputs with value less than this (default: 0.01)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Allow JSON-RPC connections from specified IP address</source>
         <translation>Belirtilen İP adresinden JSON-RPC bağlantılarını kabul et</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+1"/>
         <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
         <translation>Şu &lt;ip&gt; adresinde (varsayılan: 127.0.0.1) çalışan düğüme komut yolla</translation>
     </message>
     <message>
-        <location line="-99"/>
+        <location line="+1"/>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>En iyi blok değiştiğinde komutu çalıştır (komut için %s parametresi blok hash değeri ile değiştirilecektir)</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+3"/>
+        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
+        <translation>Bir cüzdan muamelesi değiştiğinde komutu çalıştır (komuttaki %s TxID ile değiştirilecektir)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Require a confirmations for change (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enforce transaction scripts to use canonical PUSH operators (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Execute command when a relevant alert is received (%s in cmd is replaced by message)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Upgrade wallet to latest format</source>
         <translation>Cüzdanı en yeni biçime güncelle</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="+1"/>
         <source>Set key pool size to &lt;n&gt; (default: 100)</source>
         <translation>Anahtar alan boyutunu &lt;n&gt; değerine ayarla (varsayılan: 100)</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="+1"/>
         <source>Rescan the block chain for missing wallet transactions</source>
         <translation>Blok zincirini eksik cüzdan muameleleri için tekrar tara</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="+2"/>
         <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
         <translation type="unfinished"/>
     </message>
@@ -2484,17 +3083,17 @@ Adres: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
         <source>Imports blocks from external blk000?.dat file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+8"/>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation>JSON-RPC bağlantıları için OpenSSL (https) kullan</translation>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="+1"/>
         <source>Server certificate file (default: server.cert)</source>
         <translation>Sunucu sertifika dosyası (varsayılan: server.cert)</translation>
     </message>
@@ -2504,47 +3103,62 @@ Adres: %4
         <translation>Sunucu özel anahtarı (varsayılan: server.pem)</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="+1"/>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation>Kabul edilebilir şifreler (varsayılan: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+53"/>
+        <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>WARNING: Invalid checkpoint found! Displayed transactions may not be correct! You may need to upgrade, or notify developers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-158"/>
         <source>This help message</source>
         <translation>Bu yardım mesajı</translation>
     </message>
     <message>
-        <location line="-131"/>
-        <source>Cannot obtain a lock on data directory %s.  BottleCaps is probably already running.</source>
+        <location line="+95"/>
+        <source>Wallet %s resides outside data directory %s.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+57"/>
-        <source>BottleCaps</source>
+        <location line="+1"/>
+        <source>Cannot obtain a lock on data directory %s.  ColossusCoin2 is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="-98"/>
+        <source>ColossusCoin2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+140"/>
         <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
         <translation>Bu bilgisayarda %s unsuruna bağlanılamadı. (bind şu hatayı iletti: %d, %s)</translation>
     </message>
     <message>
-        <location line="-69"/>
+        <location line="-130"/>
         <source>Connect through socks proxy</source>
-        <translation>Socks vekil sunucusu vasıtasıyla bağlan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="+3"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
         <translation>-addnode, -seednode ve -connect için DNS aramalarına izin ver</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+122"/>
         <source>Loading addresses...</source>
         <translation>Adresler yükleniyor...</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-15"/>
         <source>Error loading blkindex.dat</source>
         <translation type="unfinished"/>
     </message>
@@ -2554,27 +3168,27 @@ Adres: %4
         <translation>wallet.dat dosyasının yüklenmesinde hata oluştu: bozuk cüzdan</translation>
     </message>
     <message>
+        <location line="+4"/>
+        <source>Error loading wallet.dat: Wallet requires newer version of ColossusCoin2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of BottleCaps</source>
+        <source>Wallet needed to be rewritten: restart ColossusCoin2 to complete</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+73"/>
-        <source>Wallet needed to be rewritten: restart BottleCaps to complete</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-75"/>
+        <location line="+1"/>
         <source>Error loading wallet.dat</source>
         <translation>wallet.dat dosyasının yüklenmesinde hata oluştu</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="-16"/>
         <source>Invalid -proxy address: &apos;%s&apos;</source>
         <translation>Geçersiz -proxy adresi: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="-1"/>
         <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
         <translation>-onlynet için bilinmeyen bir şebeke belirtildi: &apos;%s&apos;</translation>
     </message>
@@ -2584,72 +3198,72 @@ Adres: %4
         <translation>Bilinmeyen bir -socks vekil sürümü talep edildi: %i</translation>
     </message>
     <message>
-        <location line="-74"/>
+        <location line="+4"/>
         <source>Cannot resolve -bind address: &apos;%s&apos;</source>
         <translation>-bind adresi çözümlenemedi: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Cannot resolve -externalip address: &apos;%s&apos;</source>
         <translation>-externalip adresi çözümlenemedi: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="-24"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation>-paytxfee=&lt;miktar&gt; için geçersiz miktar: &apos;%s&apos;</translation>
+        <translation>-paytxfee=&lt;meblağ&gt; için geçersiz meblağ: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="+44"/>
         <source>Error: could not start node</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+11"/>
         <source>Sending...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="+5"/>
         <source>Invalid amount</source>
-        <translation>Geçersiz miktar</translation>
+        <translation>Geçersiz meblağ</translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="+1"/>
         <source>Insufficient funds</source>
         <translation>Yetersiz bakiye</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-34"/>
         <source>Loading block index...</source>
         <translation>Blok indeksi yükleniyor...</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-103"/>
         <source>Add a node to connect to and attempt to keep the connection open</source>
         <translation>Bağlanılacak düğüm ekle ve bağlantıyı zinde tutmaya çalış</translation>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Unable to bind to %s on this computer. BottleCaps is probably already running.</source>
+        <location line="+122"/>
+        <source>Unable to bind to %s on this computer. ColossusCoin2 is probably already running.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-97"/>
+        <source>Fee per KB to add to transactions you send</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+55"/>
-        <source>Find peers using internet relay chat (default: 1)</source>
+        <source>Invalid amount for -mininput=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2"/>
-        <source>Fee per KB to add to transactions you send</source>
-        <translation>Yolladığınız muameleler için eklenecek KB başı ücret</translation>
-    </message>
-    <message>
-        <location line="+19"/>
+        <location line="+25"/>
         <source>Loading wallet...</source>
         <translation>Cüzdan yükleniyor...</translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="+8"/>
         <source>Cannot downgrade wallet</source>
         <translation>Cüzdan eski biçime geri alınamaz</translation>
     </message>
@@ -2659,44 +3273,32 @@ Adres: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
         <source>Cannot write default address</source>
         <translation>Varsayılan adres yazılamadı</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+1"/>
         <source>Rescanning...</source>
         <translation>Yeniden tarama...</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="+5"/>
         <source>Done loading</source>
         <translation>Yükleme tamamlandı</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="-167"/>
         <source>To use the %s option</source>
         <translation>%s seçeneğini kullanmak için</translation>
     </message>
     <message>
-        <location line="-150"/>
-        <source>%s, you must set a rpcpassword in the configuration file:
- %s
-It is recommended you use the following random password:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-If the file does not exist, create it with owner-readable-only file permissions.
-</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+91"/>
+        <location line="+14"/>
         <source>Error</source>
         <translation>Hata</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="+6"/>
         <source>You must set rpcpassword=&lt;password&gt; in the configuration file:
 %s
 If the file does not exist, create it with owner-readable-only file permissions.</source>

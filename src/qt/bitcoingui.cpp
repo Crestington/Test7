@@ -19,9 +19,6 @@
 #include "addresstablemodel.h"
 #include "transactionview.h"
 #include "overviewpage.h"
-#include "statisticspage.h"
-#include "blockbrowser.h"
-#include "poolbrowser.h"
 #include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "askpassphrasedialog.h"
@@ -63,8 +60,8 @@
 #include <iostream>
 
 extern CWallet* pwalletMain;
-// extern int64_t nLastCoinStakeSearchInterval;
-extern unsigned int nStakeTargetSpacing;
+extern int64_t nLastCoinStakeSearchInterval;
+extern unsigned int nTargetSpacing;
 double GetPoSKernelPS();
 
 BitcoinGUI::BitcoinGUI(QWidget *parent):
@@ -80,36 +77,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     notificator(0),
     rpcConsole(0)
 {
-    resize(1040, 650); //setFixedSize(970, 550);
-    setWindowTitle(tr("ColossusCoin") + " " + tr("Wallet"));
-    qApp->setStyleSheet(
-                    "QMainWindow { background:white url(:/images/wallet_logo_background) no-repeat right bottom; background-origin: border; font-family:'Open Sans,sans-serif'; } " \
-                "QLineEdit { border: 4px solid rgb(0,102,51); } " \
-                    "#frame { } QToolBar QLabel { padding-top:15px;padding-bottom:10px;margin:0px; border: 0px; border-color: yellow;} " \
-                    "#spacer { background: rgb(0,102,51);border:none; } " \
-                    "#toolbar2 { border:none;width:10px; background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(255,255,255), stop: 1 rgb(218,218,218)); } " \
-                    "#toolbar { height:100%;padding-top:20px; background: white; text-align: left; min-width:200px;max-width:200px; border: none; margin: -2px; padding: -2px;} " \
-                    "QToolBar QToolButton { font-family:Open Sans;padding-left:0px;padding-top:10px;padding-bottom:10px; width:200px; color: white; text-align: left; background-color: rgb(0,102,51) } " \
-                    "QToolBar QToolButton:hover { color: black; background-color: white; border: none; } " \
-                    "QToolBar QToolButton:pressed {color: black; background-color: white; border: none; } " \
-                    "QToolBar QToolButton:checked { color: black; background-color: white; border: none; } " \
-                    "QToolButton { color: white;  background-color: rgb(0,102,51); } " \
-                    "#labelMiningIcon { padding-left:5px;font-family:Open Sans;width:100%;font-size:10px;text-align:center;color:grey; } " \
-                    "QMenu { background: rgb(255,255,255); color:black; padding-bottom:10px; } QMenu::item { color:grey; background-color: transparent; } " \
-                    "QMenu::item:selected { color: white; background-color: rgb(0,102,51); } " \
-                    "QMenuBar { background: rgb(255,255,255); color:black; } " \
-                    "QMenuBar::item { font-size:12px;padding-bottom:12px;padding-top:12px;padding-left:15px;padding-right:15px;color:grey; background-color: transparent; } " \
-                    "QMenuBar::item:selected { color: white; background-color:rgb(0,102,51); }" \
-                    "QRadionButton::indicator { background-color: rgb(0,102,51); } " \
-                    "QIcon {}" \
-                    "QTabWidget { background-color: rbg(0,102,51); }" \
-                    "#debug QLabel {color: white; }" \
-                    "QLineEdit { border: 1px solid rbg(0,102,51); border-radius: 4px; }" \
-                    "#scrollArea { border-color: transparent; } " \
-                    "QPushButton {}" \
-                    "QStackedWidget {}" \
-                    "QDateTime {}"
-    );
+    resize(850, 550);
+    setWindowTitle(tr("ColossusCoin2") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
     setWindowIcon(QIcon(":icons/bitcoin"));
@@ -134,10 +103,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create tabs
     overviewPage = new OverviewPage();
-    statisticsPage = new StatisticsPage(this);
-
-	blockBrowser = new BlockBrowser(this);
-	poolBrowser = new PoolBrowser(this);
 
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -153,57 +118,39 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     signVerifyMessageDialog = new SignVerifyMessageDialog(this);
 
-    //QVBoxLayout *vboxcentral = new QVBoxLayout();
-    //QWidget *centralWidgetWrapper = new QWidget(this);
-
-
-    //centralWidgetWrapper->setStyleSheet("QStackedWidget{border:1px solid #555;}");
-
-    //centralWidget = new QStackedWidget(centralWidgetWrapper);
     centralWidget = new QStackedWidget(this);
-
-    centralWidget->setStyleSheet("QStackedWidget{border:0px solid #000;}");
-
     centralWidget->addWidget(overviewPage);
-    centralWidget->addWidget(statisticsPage);
-    centralWidget->addWidget(blockBrowser);
-	centralWidget->addWidget(poolBrowser);
     centralWidget->addWidget(transactionsPage);
     centralWidget->addWidget(addressBookPage);
     centralWidget->addWidget(receiveCoinsPage);
     centralWidget->addWidget(sendCoinsPage);
-
-    //vboxcentral->addWidget(centralWidget);
-    //centralWidgetWrapper->setLayout(vboxcentral);
-
-//    setCentralWidget(centralWidgetWrapper);
     setCentralWidget(centralWidget);
 
-    // create status bar
-//    statusBar();
+    // Create status bar
+    statusBar();
 
     // Status bar notification icons
     QFrame *frameBlocks = new QFrame();
-    frameBlocks->setStyleSheet("frameBlocks { background: rgb(255,255,255); }");
     frameBlocks->setContentsMargins(0,0,0,0);
-
-    frameBlocks->setMinimumHeight(26);
-    frameBlocks->setMaximumHeight(26);
-    frameBlocks->setMaximumWidth(96);
+    frameBlocks->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     QHBoxLayout *frameBlocksLayout = new QHBoxLayout(frameBlocks);
-    frameBlocksLayout->setContentsMargins(0,1,0,1);
-    frameBlocksLayout->setSpacing(-1);
+    frameBlocksLayout->setContentsMargins(3,0,3,0);
+    frameBlocksLayout->setSpacing(3);
     labelEncryptionIcon = new QLabel();
     labelStakingIcon = new QLabel();
     labelConnectionsIcon = new QLabel();
     labelBlocksIcon = new QLabel();
+    frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelEncryptionIcon);
+    frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelStakingIcon);
+    frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelConnectionsIcon);
+    frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelBlocksIcon);
     frameBlocksLayout->addStretch();
 
-    if (!GetBoolArg("-posmint", false))
+    if (GetBoolArg("-staking", true))
     {
         QTimer *timerStakingIcon = new QTimer(labelStakingIcon);
         connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingIcon()));
@@ -217,11 +164,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     progressBar = new QProgressBar();
     progressBar->setAlignment(Qt::AlignCenter);
     progressBar->setVisible(false);
-    progressBar->setOrientation(Qt::Horizontal);
-    progressBar->setObjectName("progress");
-    progressBar->setStyleSheet("QProgressBar { border: 0px; font-size:9px; text-align: center; color: white); border-radius: 5px; background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(182, 182, 182, 100), stop:1 rgba(209, 209, 209, 100)); }" \
-                               "QProgressBar::chunk{ background-color: rgb(0,102,51); }");
-    frameBlocks->setObjectName("frame");
 
     // Override style sheet for progress bar for styles that have a segmented progress bar,
     // as they make the text unreadable (workaround for issue #1071)
@@ -229,16 +171,12 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     QString curStyle = qApp->style()->metaObject()->className();
     if(curStyle == "QWindowsStyle" || curStyle == "QWindowsXPStyle")
     {
-        progressBar->setStyleSheet("QProgressBar { background-color: #e8e8e8; border: none; border-radius: 7px; padding: 1px; text-align: center; } " \
-                                   "QProgressBar::chunk { background: rgb(0,102,51); border-radius: 7px; margin: 0px; }"
-                                  );
+        progressBar->setStyleSheet("QProgressBar { background-color: #e8e8e8; border: 1px solid grey; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF8000, stop: 1 orange); border-radius: 7px; margin: 0px; }");
     }
 
     statusBar()->addWidget(progressBarLabel);
     statusBar()->addWidget(progressBar);
     statusBar()->addPermanentWidget(frameBlocks);
-
-
 
     syncIconMovie = new QMovie(":/movies/update_spinner", "mng", this);
 
@@ -273,90 +211,38 @@ void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
-    QIcon overviewIcon;
-    overviewIcon.addFile(":/icons/overview", QSize(), QIcon::Normal, QIcon::Off);
-    overviewIcon.addFile(":/icons/overview", QSize(), QIcon::Active, QIcon::Off);
-    overviewIcon.addFile(":/icons/overview", QSize(), QIcon::Normal, QIcon::On);
-    overviewAction = new QAction(overviewIcon, tr("&My Wallet"), this);
+    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
     overviewAction->setToolTip(tr("Show general overview of wallet"));
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
 
-    QIcon statisticsIcon;
-    statisticsIcon.addFile(":/icons/statistics", QSize(), QIcon::Normal, QIcon::Off);
-    statisticsIcon.addFile(":/icons/statistics", QSize(), QIcon::Active, QIcon::Off);
-    statisticsIcon.addFile(":/icons/statistics", QSize(), QIcon::Normal, QIcon::On);
-    statisticsAction = new QAction(statisticsIcon, tr("&Statistics"), this);
-    statisticsAction->setToolTip(tr("View statistics"));
-    statisticsAction->setCheckable(true);
-    tabGroup->addAction(statisticsAction);
-
-    QIcon sendCoinsIcon;
-    sendCoinsIcon.addFile(":/icons/send", QSize(), QIcon::Normal, QIcon::Off);
-    sendCoinsIcon.addFile(":/icons/send", QSize(), QIcon::Active, QIcon::Off);
-    sendCoinsIcon.addFile(":/icons/send", QSize(), QIcon::Normal, QIcon::On);
-    sendCoinsAction = new QAction(sendCoinsIcon, tr("&Send coins"), this);
-    sendCoinsAction->setToolTip(tr("Send coins to a ColossusCoin address"));
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
+    sendCoinsAction->setToolTip(tr("Send coins to a ColossusCoin2 address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
-    QIcon receiveCoinsIcon;
-    receiveCoinsIcon.addFile(":/icons/receiving_addresses", QSize(), QIcon::Normal, QIcon::Off);
-    receiveCoinsIcon.addFile(":/icons/receiving_addresses", QSize(), QIcon::Active, QIcon::Off);
-    receiveCoinsIcon.addFile(":/icons/receiving_addresses", QSize(), QIcon::Normal, QIcon::On);
-    receiveCoinsAction = new QAction(receiveCoinsIcon, tr("&Receive coins"), this);
+    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
 
-    QIcon historyIcon;
-    historyIcon.addFile(":/icons/history", QSize(), QIcon::Normal, QIcon::Off);
-    historyIcon.addFile(":/icons/history", QSize(), QIcon::Active, QIcon::Off);
-    historyIcon.addFile(":/icons/history", QSize(), QIcon::Normal, QIcon::On);
-    historyAction = new QAction(historyIcon, tr("&Transactions"), this);
+    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
     historyAction->setToolTip(tr("Browse transaction history"));
     historyAction->setCheckable(true);
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    QIcon addressBookIcon;
-    addressBookIcon.addFile(":/icons/address-book", QSize(), QIcon::Normal, QIcon::Off);
-    addressBookIcon.addFile(":/icons/address-book", QSize(), QIcon::Active, QIcon::Off);
-    addressBookIcon.addFile(":/icons/address-book", QSize(), QIcon::Normal, QIcon::On);
-    addressBookAction = new QAction(addressBookIcon, tr("&Address Book"), this);
+    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
     addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels"));
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
-    QIcon blockIcon;
-    blockIcon.addFile(":/icons/block", QSize(), QIcon::Normal, QIcon::Off);
-    blockIcon.addFile(":/icons/block", QSize(), QIcon::Active, QIcon::Off);
-    blockIcon.addFile(":/icons/block", QSize(), QIcon::Normal, QIcon::On);
-    blockAction = new QAction(blockIcon, tr("&Block Explorer"), this);
-    blockAction->setToolTip(tr("Explore the BlockChain"));
-    blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
-    blockAction->setCheckable(true);
-    tabGroup->addAction(blockAction);
-	
-    QIcon poolIcon;
-    poolIcon.addFile(":/icons/ex", QSize(), QIcon::Normal, QIcon::Off);
-    poolIcon.addFile(":/icons/ex_black", QSize(), QIcon::Active, QIcon::Off);
-    poolIcon.addFile(":/icons/ex_black", QSize(), QIcon::Normal, QIcon::On);
-    poolAction = new QAction(poolIcon, tr("&Donate"), this);
-    poolAction->setToolTip(tr("Donate"));
-    poolAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
-    poolAction->setCheckable(true);
-    tabGroup->addAction(poolAction);
-
-    connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
-	connect(poolAction, SIGNAL(triggered()), this, SLOT(gotoPoolBrowser()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
-	connect(statisticsAction, SIGNAL(triggered()), this, SLOT(gotoStatisticsPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
     connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -370,16 +256,14 @@ void BitcoinGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutCardAction = new QAction(tr("About ColossusCoin card"), this);
-    aboutCardAction->setToolTip(tr("Show information about ColossusCoin card"));
-    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About ColossusCoin"), this);
-    aboutAction->setToolTip(tr("Show information about ColossusCoin"));
+    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About ColossusCoin2"), this);
+    aboutAction->setToolTip(tr("Show information about ColossusCoin2"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setToolTip(tr("Modify configuration options for ColossusCoin"));
+    optionsAction->setToolTip(tr("Modify configuration options for ColossusCoin2"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Show / Hide"), this);
     encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
@@ -389,33 +273,19 @@ void BitcoinGUI::createActions()
     backupWalletAction->setToolTip(tr("Backup wallet to another location"));
     changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setToolTip(tr("Change the passphrase used for wallet encryption"));
-
-    QIcon unlockWalletIcon;
-    unlockWalletIcon.addFile(":/icons/mint_open", QSize(), QIcon::Normal, QIcon::Off);
-    unlockWalletIcon.addFile(":/icons/mint_open", QSize(), QIcon::Active, QIcon::Off);
-    unlockWalletIcon.addFile(":/icons/mint_open", QSize(), QIcon::Normal, QIcon::On);
-    unlockWalletAction = new QAction(unlockWalletIcon, tr("&Unlock Wallet..."), this);
+    unlockWalletAction = new QAction(QIcon(":/icons/lock_open"), tr("&Unlock Wallet..."), this);
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
-
-    QIcon lockWalletIcon;
-    lockWalletIcon.addFile(":/icons/mint_closed", QSize(), QIcon::Normal, QIcon::Off);
-    lockWalletIcon.addFile(":/icons/mint_closed", QSize(), QIcon::Active, QIcon::Off);
-    lockWalletIcon.addFile(":/icons/mint_closed", QSize(), QIcon::Normal, QIcon::On);
-    lockWalletAction = new QAction(lockWalletIcon, tr("&Lock Wallet"), this);
+    lockWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Lock Wallet"), this);
     lockWalletAction->setToolTip(tr("Lock wallet"));
-
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    verifyMessageAction = new QAction(QIcon(":/icons/questionmark"), tr("&Verify message..."), this);
+    verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
 
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
 
-    torAction = new QAction(QIcon(":icons/forums"), tr("Forum Support"), this);
-
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(aboutCardAction, SIGNAL(triggered()), this, SLOT(aboutCardClicked()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
@@ -427,7 +297,6 @@ void BitcoinGUI::createActions()
     connect(lockWalletAction, SIGNAL(triggered()), this, SLOT(lockWallet()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
-    connect(torAction, SIGNAL(triggered()), this, SLOT(viewTorSupport()));
 }
 
 void BitcoinGUI::createMenuBar()
@@ -452,46 +321,31 @@ void BitcoinGUI::createMenuBar()
     QMenu *settings = appMenuBar->addMenu(tr("&Settings"));
     settings->addAction(encryptWalletAction);
     settings->addAction(changePassphraseAction);
+    settings->addAction(unlockWalletAction);
+    settings->addAction(lockWalletAction);
     settings->addSeparator();
     settings->addAction(optionsAction);
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
     help->addSeparator();
-#ifdef WIN32
-    help->addAction(aboutCardAction);
-#endif
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
-    help->addSeparator();
-    help->addAction(torAction);
 }
 
 void BitcoinGUI::createToolBars()
 {
-    QToolBar *toolbar = addToolBar(tr("Screens toolbar"));
-    toolbar->setObjectName("toolbar");
-    addToolBar(Qt::LeftToolBarArea,toolbar);
-    toolbar->setOrientation(Qt::Vertical);
-    toolbar->setMovable( false );
+    QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar->setIconSize(QSize(50,25));
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
-	toolbar->addAction(statisticsAction);
-	toolbar->addAction(blockAction);
-	toolbar->addAction(poolAction);
-	toolbar->addAction(unlockWalletAction);
-	toolbar->addAction(lockWalletAction);
-    QWidget* spacer = new QWidget();
-    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    toolbar->addWidget(spacer);
-    spacer->setObjectName("spacer");
 
-
+    QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
+    toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    toolbar2->addAction(exportAction);
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -511,7 +365,7 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
 #endif
             if(trayIcon)
             {
-                trayIcon->setToolTip(tr("ColossusCoin client") + QString(" ") + tr("[testnet]"));
+                trayIcon->setToolTip(tr("ColossusCoin2 client") + QString(" ") + tr("[testnet]"));
                 trayIcon->setIcon(QIcon(":/icons/toolbar_testnet"));
                 toggleHideAction->setIcon(QIcon(":/icons/toolbar_testnet"));
             }
@@ -552,9 +406,6 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
 
-        statisticsPage->setModel(clientModel);
-        blockBrowser->setModel(clientModel);
-        poolBrowser->setModel(clientModel);
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
 
@@ -574,7 +425,7 @@ void BitcoinGUI::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setToolTip(tr("ColossusCoin client"));
+    trayIcon->setToolTip(tr("ColossusCoin2 client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
@@ -625,11 +476,6 @@ void BitcoinGUI::optionsClicked()
     dlg.exec();
 }
 
-void BitcoinGUI::aboutCardClicked()
-{
-    QDesktopServices::openUrl(QUrl("http://www.colossuscoin.org/"));
-}
-
 void BitcoinGUI::aboutClicked()
 {
     AboutDialog dlg;
@@ -649,7 +495,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to ColossusCoin network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to ColossusCoin2 network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -854,39 +700,10 @@ void BitcoinGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
     centralWidget->setCurrentWidget(overviewPage);
-    //centralWidget->setMaximumWidth(750);
-    //centralWidget->setMaximumHeight(520);
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
-
-void BitcoinGUI::gotoPoolBrowser()
-{
-    poolAction->setChecked(true);
-    centralWidget->setCurrentWidget(poolBrowser);
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotoBlockBrowser()
-{
-    blockAction->setChecked(true);
-    centralWidget->setCurrentWidget(blockBrowser);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotoStatisticsPage()
-{
-    statisticsAction->setChecked(true);
-    centralWidget->setCurrentWidget(statisticsPage);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
 
 void BitcoinGUI::gotoHistoryPage()
 {
@@ -968,7 +785,7 @@ void BitcoinGUI::dropEvent(QDropEvent *event)
         if (nValidUrisFound)
             gotoSendCoinsPage();
         else
-            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid ColossusCoin address or malformed URI parameters."));
+            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid ColossusCoin2 address or malformed URI parameters."));
     }
 
     event->acceptProposedAction();
@@ -983,7 +800,7 @@ void BitcoinGUI::handleURI(QString strURI)
         gotoSendCoinsPage();
     }
     else
-        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid ColossusCoin address or malformed URI parameters."));
+        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid ColossusCoin2 address or malformed URI parameters."));
 }
 
 void BitcoinGUI::setEncryptionStatus(int status)
@@ -1059,7 +876,7 @@ void BitcoinGUI::unlockWallet()
     if(walletModel->getEncryptionStatus() == WalletModel::Locked)
     {
         AskPassphraseDialog::Mode mode = sender() == unlockWalletAction ?
-              AskPassphraseDialog::UnlockMinting : AskPassphraseDialog::Unlock;
+              AskPassphraseDialog::UnlockStaking : AskPassphraseDialog::Unlock;
         AskPassphraseDialog dlg(mode, this);
         dlg.setModel(walletModel);
         dlg.exec();
@@ -1103,14 +920,14 @@ void BitcoinGUI::toggleHidden()
 
 void BitcoinGUI::updateStakingIcon()
 {
-    uint64 nMinWeight = 0, nMaxWeight = 0, nWeight = 0;
+    uint64_t nMinWeight = 0, nMaxWeight = 0, nWeight = 0;
     if (pwalletMain)
         pwalletMain->GetStakeWeight(*pwalletMain, nMinWeight, nMaxWeight, nWeight);
 
     if (nLastCoinStakeSearchInterval && nWeight)
     {
         uint64_t nNetworkWeight = GetPoSKernelPS();
-        unsigned nEstimateTime = nStakeTargetSpacing * nNetworkWeight / nWeight;
+        unsigned nEstimateTime = nTargetSpacing * nNetworkWeight / nWeight;
 
         QString text;
         if (nEstimateTime < 60)
@@ -1147,9 +964,4 @@ void BitcoinGUI::updateStakingIcon()
         else
             labelStakingIcon->setToolTip(tr("Not staking"));
     }
-}
-
-void BitcoinGUI::viewTorSupport()
-{
-    QDesktopServices::openUrl(QUrl("http://www.colossuscointalk.org/index.php?board=16.0"));
 }

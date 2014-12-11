@@ -1,24 +1,25 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ar" version="2.0">
-<defaultcodec>UTF-8</defaultcodec>
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ar" version="2.1">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About BottleCaps</source>
-        <translation type="unfinished"/>
+        <source>About ColossusCoin2</source>
+        <translation>عن البلاك كوين</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;BottleCaps&lt;/b&gt; version</source>
-        <translation type="unfinished"/>
+        <source>&lt;b&gt;ColossusCoin2&lt;/b&gt; version</source>
+        <translation>جزء البلاك كوين</translation>
     </message>
     <message>
         <location line="+41"/>
-        <source>Copyright © 2009-2012 The BottleCaps developers</source>
+        <source>Copyright © 2009-2014 The Bitcoin developers
+Copyright © 2012-2014 The NovaCoin developers
+Copyright © 2014 The ColossusCoin2 developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>
 This is experimental software.
 
@@ -33,67 +34,67 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
         <source>Address Book</source>
-        <translation>دفتر العناوين</translation>
+        <translation>كتاب العنوان</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Double-click to edit address or label</source>
-        <translation>أنقر على الماوس مرتين لتعديل عنوان</translation>
+        <translation>أنقر على الماوس مرتين لتعديل العنوان</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Create a new address</source>
-        <translation>قم بعمل عنوان جديد</translation>
+        <translation>انشأ عنوان جديد</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>قم بنسخ القوانين المختارة لحافظة النظام</translation>
+        <translation>قم بنسخ العنوان المختار لحافظة النظام</translation>
     </message>
     <message>
         <location line="-11"/>
         <source>&amp;New Address</source>
-        <translation type="unfinished"/>
+        <translation>&amp;عنوان جديد</translation>
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your BottleCaps addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation type="unfinished"/>
+        <source>These are your ColossusCoin2 addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>هذه هي عناوين البلاك كوين لاستقبال الدفعات. يمكن أن تعطي عنوان مختلف لكل مرسل من اجل أن تتابع من يرسل لك.</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>&amp;Copy Address</source>
-        <translation type="unfinished"/>
+        <translation>انسخ العنوان</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Show &amp;QR Code</source>
-        <translation type="unfinished"/>
+        <translation>اظهار &amp;رمز الاستجابة السريعة</translation>
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Sign a message to prove you own a ColossusCoin2 address</source>
+        <translation>التوقيع علي رسالة لاثبات بانك تملك عنوان البلاك كوين</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation type="unfinished"/>
+        <translation>وقع &amp;الرسالة</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished"/>
+        <translation>خذف العنوان الحالي التي تم اختياره من القائمة</translation>
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Verify a message to ensure it was signed with a specified ColossusCoin2 address</source>
+        <translation>تحقق من الرسالة لتثبت بانه تم توقيعه بعنوان بلاك كوين محدد</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Verify Message</source>
-        <translation type="unfinished"/>
+        <translation>&amp;تحقق الرسالة</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -103,17 +104,17 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
         <source>Copy &amp;Label</source>
-        <translation type="unfinished"/>
+        <translation>نسخ &amp;التسمية</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"/>
+        <translation>تعديل</translation>
     </message>
     <message>
         <location line="+250"/>
         <source>Export Address Book Data</source>
-        <translation type="unfinished"/>
+        <translation>تصدير بيانات كتاب العناوين</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -123,30 +124,30 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+13"/>
         <source>Error exporting</source>
-        <translation type="unfinished"/>
+        <translation>خطا في التصدير</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation type="unfinished"/>
+        <translation>لا يمكن الكتابة الي الملف %1.</translation>
     </message>
 </context>
 <context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+142"/>
+        <location filename="../addresstablemodel.cpp" line="+144"/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>وصف</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>عنوان</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>(no label)</source>
-        <translation type="unfinished"/>
+        <translation>(لا وصف)</translation>
     </message>
 </context>
 <context>
@@ -154,77 +155,87 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../forms/askpassphrasedialog.ui" line="+26"/>
         <source>Passphrase Dialog</source>
-        <translation type="unfinished"/>
+        <translation>حوار كلمة المرور</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Enter passphrase</source>
-        <translation type="unfinished"/>
+        <translation>ادخل كلمة المرور</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>New passphrase</source>
-        <translation type="unfinished"/>
+        <translation>عبارة مرور جديدة</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Repeat new passphrase</source>
+        <translation>ادخل الجملة السرية مرة أخرى</translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+33"/>
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <location line="+3"/>
+        <source>For staking only</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../askpassphrasedialog.cpp" line="+35"/>
+        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation>أدخل عبارة مرور جديدة إلى المحفظة. الرجاء استخدام عبارة مرور تتكون من10  حروف عشوائية على الاقل, أو أكثر من 7 كلمات </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypt wallet</source>
-        <translation type="unfinished"/>
+        <translation>تشفير المحفظة</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation type="unfinished"/>
+        <translation>هذه العملية تحتاج عبارة المرور محفظتك لفتحها</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Unlock wallet</source>
-        <translation type="unfinished"/>
+        <translation>إفتح المحفظة</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation type="unfinished"/>
+        <translation>هذه العملية تحتاج عبارة المرور محفظتك فك تشفيرها</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Decrypt wallet</source>
-        <translation type="unfinished"/>
+        <translation>فك تشفير المحفظة</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Change passphrase</source>
-        <translation type="unfinished"/>
+        <translation>تغيير عبارة المرور</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation type="unfinished"/>
+        <translation>أدخل عبارة المرور القديمة والجديدة إلى المحفظة.</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Confirm wallet encryption</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد التشفير المحفظة</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation type="unfinished"/>
+        <translation>تخذير : اذا تم تشفير المحفظة وضيعت كلمة المرور, لن تستطيع الحصول علي البلاك كوين</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation type="unfinished"/>
+        <translation>هل انت متأكد من رغبتك في تشفير المحفظة؟</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -232,168 +243,170 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+103"/>
         <location line="+24"/>
         <source>Warning: The Caps Lock key is on!</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-130"/>
-        <location line="+58"/>
+        <location line="-133"/>
+        <location line="+60"/>
         <source>Wallet encrypted</source>
-        <translation type="unfinished"/>
+        <translation>محفظة مشفرة</translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>BottleCaps will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished"/>
+        <location line="-58"/>
+        <source>ColossusCoin2 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>بلاك كوين</translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+7"/>
-        <location line="+42"/>
+        <location line="+44"/>
         <location line="+6"/>
         <source>Wallet encryption failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل تشفير المحفظة</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-56"/>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation type="unfinished"/>
+        <translation>شل تشفير المحفظة بسبب خطأ داخلي. لم يتم تشفير محفظتك.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+48"/>
+        <location line="+50"/>
         <source>The supplied passphrases do not match.</source>
-        <translation type="unfinished"/>
+        <translation>عبارتي المرور ليستا متطابقتان
+</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-38"/>
         <source>Wallet unlock failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل فتح المحفظة</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+11"/>
+        <location line="+12"/>
         <location line="+19"/>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation type="unfinished"/>
+        <translation>عبارة المرور التي تم إدخالها لفك شفرة المحفظة غير صحيحة.
+</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>Wallet decryption failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل   فك التشفير المحفظة</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation type="unfinished"/>
+        <translation>كلمة مرور المحفظة تم تغييره بشكل ناجح</translation>
     </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+257"/>
+        <location filename="../bitcoingui.cpp" line="+282"/>
         <source>Sign &amp;message...</source>
-        <translation type="unfinished"/>
+        <translation>التوقيع و الرسائل</translation>
     </message>
     <message>
-        <location line="+237"/>
+        <location line="+251"/>
         <source>Synchronizing with network...</source>
-        <translation type="unfinished"/>
+        <translation>مزامنة مع شبكة ...</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-319"/>
         <source>&amp;Overview</source>
-        <translation type="unfinished"/>
+        <translation>نظرة عامة</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show general overview of wallet</source>
-        <translation type="unfinished"/>
+        <translation>إظهار نظرة عامة على المحفظة</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>&amp;Transactions</source>
-        <translation type="unfinished"/>
+        <translation>المعاملات</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Browse transaction history</source>
-        <translation type="unfinished"/>
+        <translation>تصفح التاريخ المعاملات</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation type="unfinished"/>
+        <translation>&amp;كتاب العنوان</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation type="unfinished"/>
+        <translation>تعديل قائمة العنوان المحفوظة</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>&amp;Receive coins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;استقبال البلاك كوين</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation type="unfinished"/>
+        <translation>اظهار قائمة العناوين التي تستقبل التعاملات</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>&amp;Send coins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ارسال البلاك كوين</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"/>
+        <translation>خروج</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Quit application</source>
-        <translation type="unfinished"/>
+        <translation>الخروج من التطبيق</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Show information about BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+6"/>
+        <source>Show information about ColossusCoin2</source>
+        <translation>اظهار المعلومات عن البلاك كوين</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"/>
+        <translation>عن</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show information about Qt</source>
-        <translation type="unfinished"/>
+        <translation>اظهر المعلومات</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Options...</source>
-        <translation type="unfinished"/>
+        <translation>خيارات ...</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation type="unfinished"/>
+        <translation>تشفير المحفظة</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation type="unfinished"/>
+        <translation>حفظ ودعم المحفظة</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation type="unfinished"/>
+        <translation>تغيير كلمة المرور</translation>
     </message>
     <message numerus="yes">
-        <location line="+241"/>
+        <location line="+259"/>
         <source>~%n block(s) remaining</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
@@ -403,42 +416,42 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-242"/>
+        <location line="-256"/>
         <source>&amp;Export...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;تصدير...</translation>
     </message>
     <message>
-        <location line="-58"/>
-        <source>Send coins to a BottleCaps address</source>
-        <translation type="unfinished"/>
+        <location line="-64"/>
+        <source>Send coins to a ColossusCoin2 address</source>
+        <translation>ارسال البلاك كوين الي عنوان اخر</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <source>Modify configuration options for BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+47"/>
+        <source>Modify configuration options for ColossusCoin2</source>
+        <translation>تعديل خيارات التكوين للبلاك كوين</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+18"/>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished"/>
+        <translation>ارسال البيانات الحالية الي ملف</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-14"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation type="unfinished"/>
+        <translation>تشفير او فك التشفير للمحفظة</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation type="unfinished"/>
+        <translation>احفظ نسخة احتياطية للمحفظة في مكان آخر</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation type="unfinished"/>
+        <translation>تغيير عبارة المرور المستخدمة لتشفير المحفظة</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>&amp;Debug window</source>
         <translation type="unfinished"/>
     </message>
@@ -450,47 +463,62 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-5"/>
         <source>&amp;Verify message...</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد الرسالة</translation>
     </message>
     <message>
-        <location line="-186"/>
-        <source>BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="-202"/>
+        <source>ColossusCoin2</source>
+        <translation>البلاك كوين</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet</source>
-        <translation type="unfinished"/>
+        <translation>محفظة</translation>
     </message>
     <message>
-        <location line="+168"/>
-        <source>&amp;About BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+180"/>
+        <source>&amp;About ColossusCoin2</source>
+        <translation>عن البلاك كوين</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&amp;Show / Hide</source>
-        <translation type="unfinished"/>
+        <translation>اظهار/ اخفاء</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+9"/>
+        <source>Unlock wallet</source>
+        <translation>فتح المحفظة</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Lock Wallet</source>
+        <translation>قفل المحفظة</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lock wallet</source>
+        <translation>قفل المحفظة</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>&amp;File</source>
-        <translation type="unfinished"/>
+        <translation>ملف</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>&amp;Settings</source>
-        <translation type="unfinished"/>
+        <translation>الاعدادات</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"/>
+        <translation>مساعدة</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
         <source>Tabs toolbar</source>
-        <translation type="unfinished"/>
+        <translation>شريط أدوات علامات التبويب</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -501,17 +529,17 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+13"/>
         <location line="+9"/>
         <source>[testnet]</source>
-        <translation type="unfinished"/>
+        <translation>[testnet]</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>BottleCaps client</source>
-        <translation type="unfinished"/>
+        <source>ColossusCoin2 client</source>
+        <translation>برنامج البلاك كوين</translation>
     </message>
     <message numerus="yes">
-        <location line="+69"/>
-        <source>%n active connection(s) to BottleCaps network</source>
+        <location line="+75"/>
+        <source>%n active connection(s) to ColossusCoin2 network</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
@@ -519,13 +547,53 @@ This product includes software developed by the OpenSSL Project for use in the O
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location line="+413"/>
+        <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Not staking because wallet is locked</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because wallet is offline</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because wallet is syncing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because you don&apos;t have mature coins</source>
+        <translation type="unfinished"/>
+    </message>
     <message numerus="yes">
-        <location line="+22"/>
+        <location line="-403"/>
         <source>%n second(s) ago</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
+    <message>
+        <location line="-312"/>
+        <source>About ColossusCoin2 card</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show information about ColossusCoin2 card</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>&amp;Unlock Wallet...</source>
+        <translation type="unfinished"/>
+    </message>
     <message numerus="yes">
-        <location line="+4"/>
+        <location line="+297"/>
         <source>%n minute(s) ago</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
@@ -542,12 +610,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+6"/>
         <source>Up to date</source>
-        <translation type="unfinished"/>
+        <translation>محين</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Catching up...</source>
-        <translation type="unfinished"/>
+        <translation>اللحاق بالركب ...</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -562,17 +630,17 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+5"/>
         <source>Confirm transaction fee</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد رسوم المعاملة</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Sent transaction</source>
-        <translation type="unfinished"/>
+        <translation>المعاملات  المرسلة</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Incoming transaction</source>
-        <translation type="unfinished"/>
+        <translation>المعاملات واردة</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -592,50 +660,329 @@ Address: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid BottleCaps address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid ColossusCoin2 address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>المحفظة مشفرة و مفتوحة حاليا</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>المحفظة مشفرة و مقفلة حاليا</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <source>Backup Wallet</source>
-        <translation type="unfinished"/>
+        <translation>النسخ الاحتياطي للمحفظة</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Wallet Data (*.dat)</source>
-        <translation type="unfinished"/>
+        <translation>بيانات المحفظة (*.dat)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Backup Failed</source>
-        <translation type="unfinished"/>
+        <translation>فشل الدعم</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>There was an error trying to save the wallet data to the new location.</source>
+        <translation>خطا في محاولة حفظ بيانات الحفظة في مكان جديد</translation>
+    </message>
+    <message numerus="yes">
+        <location line="+76"/>
+        <source>%n second(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n minute(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n hour(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n day(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Not staking</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. BottleCaps can no longer continue safely and will quit.</source>
-        <translation type="unfinished"/>
+        <source>A fatal error occurred. ColossusCoin2 can no longer continue safely and will quit.</source>
+        <translation>خطا فادح! بلاك كوين لا يمكن أن يستمر جاري الاغلاق</translation>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+87"/>
+        <location filename="../clientmodel.cpp" line="+90"/>
         <source>Network Alert</source>
+        <translation>تحذير الشبكة</translation>
+    </message>
+</context>
+<context>
+    <name>CoinControlDialog</name>
+    <message>
+        <location filename="../forms/coincontroldialog.ui" line="+14"/>
+        <source>Coin Control</source>
+        <translation>سيطرة الكوين</translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Quantity:</source>
+        <translation>الكمية:</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Bytes:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Amount:</source>
+        <translation>المبلغ:</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Priority:</source>
+        <translation>اهمية:</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Fee:</source>
+        <translation>رسوم:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../coincontroldialog.cpp" line="+551"/>
+        <source>no</source>
+        <translation>لا</translation>
+    </message>
+    <message>
+        <location filename="../forms/coincontroldialog.ui" line="+51"/>
+        <source>After Fee:</source>
+        <translation>بعد الرسوم:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change:</source>
+        <translation>تغيير:</translation>
+    </message>
+    <message>
+        <location line="+69"/>
+        <source>(un)select all</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Tree mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>List mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Amount</source>
+        <translation>المبلغ</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Address</source>
+        <translation>عنوان</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Date</source>
+        <translation>التاريخ</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Confirmations</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirmed</source>
+        <translation>تأكيد</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Priority</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../coincontroldialog.cpp" line="-515"/>
+        <source>Copy address</source>
+        <translation>  انسخ عنوان</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy label</source>
+        <translation> انسخ التسمية</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+26"/>
+        <source>Copy amount</source>
+        <translation>نسخ الكمية</translation>
+    </message>
+    <message>
+        <location line="-25"/>
+        <source>Copy transaction ID</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Copy quantity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Copy fee</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+317"/>
+        <source>highest</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>high</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>medium-high</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>low-medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>low</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>lowest</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+155"/>
+        <source>DUST</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>yes</source>
+        <translation>نعم</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>This label turns red, if the transaction size is bigger than 10000 bytes.
+
+ This means a fee of at least %1 per kb is required.
+
+ Can vary +/- 1 Byte per input.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Transactions with higher priority get more likely into a block.
+
+This label turns red, if the priority is smaller than &quot;medium&quot;.
+
+ This means a fee of at least %1 per kb is required.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This label turns red, if any recipient receives an amount smaller than %1.
+
+ This means a fee of at least %2 is required. 
+
+ Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This label turns red, if the change is smaller than %1.
+
+ This means a fee of at least %2 is required.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+37"/>
+        <location line="+66"/>
+        <source>(no label)</source>
+        <translation>(لا وصف)</translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>change from %1 (%2)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>(change)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -644,7 +991,7 @@ Address: %4
     <message>
         <location filename="../forms/editaddressdialog.ui" line="+14"/>
         <source>Edit Address</source>
-        <translation type="unfinished"/>
+        <translation>عدل العنوان</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -659,7 +1006,7 @@ Address: %4
     <message>
         <location line="+7"/>
         <source>&amp;Address</source>
-        <translation type="unfinished"/>
+        <translation>العنوان</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -669,50 +1016,51 @@ Address: %4
     <message>
         <location filename="../editaddressdialog.cpp" line="+20"/>
         <source>New receiving address</source>
-        <translation type="unfinished"/>
+        <translation>عنوان تلقي جديد</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>New sending address</source>
-        <translation type="unfinished"/>
+        <translation>عنوان إرسال جديد</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Edit receiving address</source>
-        <translation type="unfinished"/>
+        <translation>تعديل عنوان التلقي
+</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Edit sending address</source>
-        <translation type="unfinished"/>
+        <translation>تعديل عنوان الارسال</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+76"/>
         <source>The entered address &quot;%1&quot; is already in the address book.</source>
+        <translation>هدا العنوان &quot;%1&quot; موجود مسبقا في دفتر العناوين</translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>The entered address &quot;%1&quot; is not a valid ColossusCoin2 address.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
-        <source>The entered address &quot;%1&quot; is not a valid BottleCaps address.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+10"/>
         <source>Could not unlock wallet.</source>
-        <translation type="unfinished"/>
+        <translation> يمكن فتح المحفظة.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>New key generation failed.</source>
-        <translation type="unfinished"/>
+        <translation>فشل توليد مفتاح جديد.</translation>
     </message>
 </context>
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+419"/>
+        <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>BottleCaps-Qt</source>
+        <source>ColossusCoin2-Qt</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -756,12 +1104,12 @@ Address: %4
     <message>
         <location filename="../forms/optionsdialog.ui" line="+14"/>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>خيارات ...</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>&amp;Main</source>
-        <translation type="unfinished"/>
+        <translation>الرئيسي</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -771,16 +1119,26 @@ Address: %4
     <message>
         <location line="+15"/>
         <source>Pay transaction &amp;fee</source>
-        <translation type="unfinished"/>
+        <translation>ادفع &amp;رسوم المعاملة</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start BottleCaps after logging in to the system.</source>
+        <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+15"/>
+        <source>Reserve</source>
+        <translation>حجز</translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Automatically start ColossusCoin2 after logging in to the system.</source>
+        <translation>بد البلاك كوين تلقائي عند الدخول الي الجهاز</translation>
+    </message>
+    <message>
         <location line="+3"/>
-        <source>&amp;Start BottleCaps on system login</source>
+        <source>&amp;Start ColossusCoin2 on system login</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -796,11 +1154,11 @@ Address: %4
     <message>
         <location line="+21"/>
         <source>&amp;Network</source>
-        <translation type="unfinished"/>
+        <translation>&amp;الشبكة</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the BottleCaps client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the ColossusCoin2 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -810,7 +1168,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the BottleCaps network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the ColossusCoin2 network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -851,7 +1209,7 @@ Address: %4
     <message>
         <location line="+36"/>
         <source>&amp;Window</source>
-        <translation type="unfinished"/>
+        <translation>نافذه</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -885,7 +1243,7 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting BottleCaps.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting ColossusCoin2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -900,23 +1258,33 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show BottleCaps addresses in the transaction list or not.</source>
+        <source>Whether to show ColossusCoin2 addresses in the transaction list or not.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
+        <translation>عرض العناوين في قائمة الصفقة</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Whether to show coin control features or not.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Display coin &amp;control features (experts only!)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"/>
+        <translation>تم</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"/>
+        <translation>الغاء</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -926,10 +1294,10 @@ Address: %4
     <message>
         <location filename="../optionsdialog.cpp" line="+55"/>
         <source>default</source>
-        <translation type="unfinished"/>
+        <translation>الافتراضي</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+149"/>
         <location line="+9"/>
         <source>Warning</source>
         <translation type="unfinished"/>
@@ -937,13 +1305,13 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting BottleCaps.</source>
+        <source>This setting will take effect after restarting ColossusCoin2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+29"/>
         <source>The supplied proxy address is invalid.</source>
-        <translation type="unfinished"/>
+        <translation>عنوان الوكيل توفيره غير صالح.</translation>
     </message>
 </context>
 <context>
@@ -951,43 +1319,43 @@ Address: %4
     <message>
         <location filename="../forms/overviewpage.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>نمودج</translation>
     </message>
     <message>
         <location line="+33"/>
-        <location line="+183"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BottleCaps network after a connection is established, but this process has not completed yet.</source>
+        <location line="+231"/>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ColossusCoin2 network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-141"/>
-        <source>Balance:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+118"/>
+        <location line="-160"/>
         <source>Stake:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+58"/>
-        <source>Number of transactions:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-29"/>
+        <location line="+29"/>
         <source>Unconfirmed:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-78"/>
+        <location line="-107"/>
         <source>Wallet</source>
+        <translation>محفظة</translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <source>Spendable:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+124"/>
-        <source>Immature:</source>
+        <location line="+16"/>
+        <source>Your current spendable balance</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Immature:</source>
+        <translation>غير ناضجة</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -995,35 +1363,35 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+20"/>
+        <source>Total:</source>
+        <translation>الكامل:</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Your current total balance</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>اخر المعملات </translation>
     </message>
     <message>
-        <location line="-118"/>
-        <source>Your current balance</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+29"/>
+        <location line="-108"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="-29"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../overviewpage.cpp" line="+112"/>
+        <location filename="../overviewpage.cpp" line="+113"/>
         <location line="+1"/>
         <source>out of sync</source>
-        <translation type="unfinished"/>
+        <translation>خارج المزامنه</translation>
     </message>
 </context>
 <context>
@@ -1089,7 +1457,7 @@ Address: %4
     <message>
         <location filename="../forms/rpcconsole.ui" line="+46"/>
         <source>Client name</source>
-        <translation type="unfinished"/>
+        <translation>اسم العميل</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1103,17 +1471,17 @@ Address: %4
         <location line="+23"/>
         <location filename="../rpcconsole.cpp" line="+348"/>
         <source>N/A</source>
-        <translation type="unfinished"/>
+        <translation>غير معروف</translation>
     </message>
     <message>
         <location line="-217"/>
         <source>Client version</source>
-        <translation type="unfinished"/>
+        <translation>نسخه العميل</translation>
     </message>
     <message>
         <location line="-45"/>
         <source>&amp;Information</source>
-        <translation type="unfinished"/>
+        <translation>المعلومات</translation>
     </message>
     <message>
         <location line="+68"/>
@@ -1128,12 +1496,12 @@ Address: %4
     <message>
         <location line="+29"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>الشبكه</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Number of connections</source>
-        <translation type="unfinished"/>
+        <translation>عدد الاتصالات</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1163,7 +1531,7 @@ Address: %4
     <message>
         <location line="+52"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"/>
+        <translation>الفتح</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -1172,7 +1540,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the BottleCaps-Qt help message to get a list with possible BottleCaps command-line options.</source>
+        <source>Show the ColossusCoin2-Qt help message to get a list with possible ColossusCoin2 command-line options.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1188,16 +1556,16 @@ Address: %4
     <message>
         <location line="-260"/>
         <source>Build date</source>
-        <translation type="unfinished"/>
+        <translation>وقت البناء</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>BottleCaps - Debug window</source>
+        <source>ColossusCoin2 - Debug window</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
-        <source>BottleCaps Core</source>
+        <source>ColossusCoin2 Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1207,7 +1575,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the BottleCaps debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the ColossusCoin2 debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1217,7 +1585,7 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the BottleCaps RPC console.</source>
+        <source>Welcome to the ColossusCoin2 RPC console.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1235,7 +1603,7 @@ Address: %4
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+124"/>
+        <location filename="../sendcoinsdialog.cpp" line="+182"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1243,12 +1611,101 @@ Address: %4
         <location line="+5"/>
         <location line="+5"/>
         <source>Send Coins</source>
+        <translation>إرسال Coins</translation>
+    </message>
+    <message>
+        <location line="+76"/>
+        <source>Coin Control Features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>automatically selected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Insufficient funds!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Quantity:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+35"/>
+        <source>0</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Bytes:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Amount:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+86"/>
+        <location line="+86"/>
+        <location line="+32"/>
+        <source>0.00 hack</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Priority:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Fee:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>no</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>After Fee:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+50"/>
-        <source>Send to multiple recipients at once</source>
+        <source>custom change address</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+106"/>
+        <source>Send to multiple recipients at once</source>
+        <translation>إرسال إلى عدة مستلمين في وقت واحد</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1263,22 +1720,22 @@ Address: %4
     <message>
         <location line="+3"/>
         <source>Clear &amp;All</source>
-        <translation type="unfinished"/>
+        <translation>مسح الكل</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+28"/>
         <source>Balance:</source>
-        <translation type="unfinished"/>
+        <translation>الرصيد:</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>123.456 BTC</source>
+        <location line="+16"/>
+        <source>123.456 hack</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+31"/>
         <source>Confirm the send action</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد الإرسال</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1286,14 +1743,59 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-59"/>
+        <location filename="../sendcoinsdialog.cpp" line="-173"/>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Copy quantity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy amount</source>
+        <translation>نسخ الكمية</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy fee</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Confirm send coins</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد الإرسال Coins</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1306,14 +1808,14 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+29"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>The amount to pay must be larger than 0.</source>
-        <translation type="unfinished"/>
+        <translation>المبلغ المدفوع يجب ان يكون اكبر من 0</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1340,6 +1842,21 @@ Address: %4
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location line="+251"/>
+        <source>WARNING: Invalid ColossusCoin2 address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>(no label)</source>
+        <translation>(لا وصف)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>WARNING: unknown change address</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>SendCoinsEntry</name>
@@ -1356,13 +1873,13 @@ Address: %4
     <message>
         <location line="+13"/>
         <source>Pay &amp;To:</source>
-        <translation type="unfinished"/>
+        <translation>ادفع الى </translation>
     </message>
     <message>
         <location line="+24"/>
         <location filename="../sendcoinsentry.cpp" line="+25"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation type="unfinished"/>
+        <translation>إدخال تسمية لهذا العنوان لإضافته إلى دفتر العناوين الخاص بك</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1371,38 +1888,38 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. 4Zo1ga6xuKuQ7JV7M9rGDoxdbYwV5zgQJ5)</source>
-        <translation type="unfinished"/>
+        <source>The address to send the payment to  (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>العنوان لارسال المعاملة الي (مثلا ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation type="unfinished"/>
+        <translation>اختيار عنوان من كتاب العناوين</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+A</source>
-        <translation type="unfinished"/>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Paste address from clipboard</source>
-        <translation type="unfinished"/>
+        <translation>انسخ العنوان من لوحة المفاتيح</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+P</source>
-        <translation type="unfinished"/>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation type="unfinished"/>
+        <translation>خذف هذا المستخدم</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a valid BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>ادخال عنوان البلاك كوين (مثلا ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
 </context>
 <context>
@@ -1410,13 +1927,13 @@ Address: %4
     <message>
         <location filename="../forms/signverifymessagedialog.ui" line="+14"/>
         <source>Signatures - Sign / Verify a Message</source>
-        <translation type="unfinished"/>
+        <translation>التواقيع - التوقيع /تأكيد الرسالة</translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+124"/>
         <source>&amp;Sign Message</source>
-        <translation type="unfinished"/>
+        <translation>&amp;وقع الرسالة</translation>
     </message>
     <message>
         <location line="-118"/>
@@ -1425,30 +1942,30 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with </source>
+        <source>The address to sign the message with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation type="unfinished"/>
+        <translation>اختيار عنوان من كتاب العناوين</translation>
     </message>
     <message>
         <location line="-193"/>
         <location line="+203"/>
         <source>Alt+A</source>
-        <translation type="unfinished"/>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <location line="-193"/>
         <source>Paste address from clipboard</source>
-        <translation type="unfinished"/>
+        <translation>انسخ العنوان من لوحة المفاتيح</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+P</source>
-        <translation type="unfinished"/>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1462,7 +1979,7 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this BottleCaps address</source>
+        <source>Sign the message to prove you own this ColossusCoin2 address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1474,7 +1991,7 @@ Address: %4
         <location line="+3"/>
         <location line="+146"/>
         <source>Clear &amp;All</source>
-        <translation type="unfinished"/>
+        <translation>مسح الكل</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -1489,12 +2006,12 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with </source>
+        <source>The address the message was signed with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified BottleCaps address</source>
+        <source>Verify the message to ensure it was signed with the specified ColossusCoin2 address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1505,7 +2022,7 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a valid BottleCaps address</source>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1515,14 +2032,14 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter BottleCaps signature</source>
+        <source>Enter ColossusCoin2 signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+82"/>
         <location line="+81"/>
         <source>The entered address is invalid.</source>
-        <translation type="unfinished"/>
+        <translation>العنوان المدخل غير صالح</translation>
     </message>
     <message>
         <location line="-81"/>
@@ -1530,13 +2047,13 @@ Address: %4
         <location line="+73"/>
         <location line="+8"/>
         <source>Please check the address and try again.</source>
-        <translation type="unfinished"/>
+        <translation>الرجاء التأكد من العنوان والمحاولة مرة اخرى</translation>
     </message>
     <message>
         <location line="-81"/>
         <location line="+81"/>
         <source>The entered address does not refer to a key.</source>
-        <translation type="unfinished"/>
+        <translation>العنوان المدخل لا يشير الى مفتاح</translation>
     </message>
     <message>
         <location line="-73"/>
@@ -1546,17 +2063,17 @@ Address: %4
     <message>
         <location line="+8"/>
         <source>Private key for the entered address is not available.</source>
-        <translation type="unfinished"/>
+        <translation>المفتاح الخاص للعنوان المدخل غير موجود.</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Message signing failed.</source>
-        <translation type="unfinished"/>
+        <translation>فشل توقيع الرسالة.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Message signed.</source>
-        <translation type="unfinished"/>
+        <translation>الرسالة موقعة.</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -1577,12 +2094,12 @@ Address: %4
     <message>
         <location line="+7"/>
         <source>Message verification failed.</source>
-        <translation type="unfinished"/>
+        <translation>فشلت عملية التأكد من الرسالة.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Message verified.</source>
-        <translation type="unfinished"/>
+        <translation>تم تأكيد الرسالة.</translation>
     </message>
 </context>
 <context>
@@ -1590,7 +2107,7 @@ Address: %4
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
         <source>Open until %1</source>
-        <translation type="unfinished"/>
+        <translation>مفتوح حتى 1٪</translation>
     </message>
     <message numerus="yes">
         <location line="-2"/>
@@ -1599,23 +2116,28 @@ Address: %4
     </message>
     <message>
         <location line="+8"/>
-        <source>%1/offline</source>
+        <source>conflicted</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1/offline</source>
+        <translation>1% غير متواجد</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1/unconfirmed</source>
-        <translation type="unfinished"/>
+        <translation>غير مؤكدة/1%</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 confirmations</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد %1</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Status</source>
-        <translation type="unfinished"/>
+        <translation>الحالة.</translation>
     </message>
     <message numerus="yes">
         <location line="+7"/>
@@ -1625,36 +2147,36 @@ Address: %4
     <message>
         <location line="+4"/>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>التاريخ</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Source</source>
-        <translation type="unfinished"/>
+        <translation>المصدر</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Generated</source>
-        <translation type="unfinished"/>
+        <translation>تم اصداره.</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+17"/>
         <source>From</source>
-        <translation type="unfinished"/>
+        <translation>من</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+22"/>
         <location line="+58"/>
         <source>To</source>
-        <translation type="unfinished"/>
+        <translation>الى</translation>
     </message>
     <message>
         <location line="-77"/>
         <location line="+2"/>
         <source>own address</source>
-        <translation type="unfinished"/>
+        <translation>عنوانه</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1678,7 +2200,7 @@ Address: %4
     <message>
         <location line="+2"/>
         <source>not accepted</source>
-        <translation type="unfinished"/>
+        <translation>غير مقبولة</translation>
     </message>
     <message>
         <location line="+44"/>
@@ -1686,12 +2208,12 @@ Address: %4
         <location line="+15"/>
         <location line="+30"/>
         <source>Debit</source>
-        <translation type="unfinished"/>
+        <translation>دين</translation>
     </message>
     <message>
         <location line="-39"/>
         <source>Transaction fee</source>
-        <translation type="unfinished"/>
+        <translation>رسوم التحويل</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -1706,21 +2228,16 @@ Address: %4
     <message>
         <location line="+2"/>
         <source>Comment</source>
-        <translation type="unfinished"/>
+        <translation>تعليق</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Transaction ID</source>
-        <translation type="unfinished"/>
+        <translation>رقم المعاملة</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Staked coins must wait 520 blocks before they can return to balance and be spent.  When you generated this proof-of-stake block, it was broadcast to the network to be added to the block chain.  If it fails to get into the chain, it will change to \&quot;not accepted\&quot; and not be a valid stake.  This may occasionally happen if another node generates a proof-of-stake block within a few seconds of yours.</source>
+        <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1731,7 +2248,7 @@ Address: %4
     <message>
         <location line="+8"/>
         <source>Transaction</source>
-        <translation type="unfinished"/>
+        <translation>معاملة</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1741,27 +2258,27 @@ Address: %4
     <message>
         <location line="+23"/>
         <source>Amount</source>
-        <translation type="unfinished"/>
+        <translation>المبلغ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>true</source>
-        <translation type="unfinished"/>
+        <translation>صحيح</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>false</source>
-        <translation type="unfinished"/>
+        <translation>خاطئ</translation>
     </message>
     <message>
         <location line="-211"/>
         <source>, has not been successfully broadcast yet</source>
-        <translation type="unfinished"/>
+        <translation>لم يتم حتى الآن البث بنجاح</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>unknown</source>
-        <translation type="unfinished"/>
+        <translation>غير معروف</translation>
     </message>
 </context>
 <context>
@@ -1769,12 +2286,12 @@ Address: %4
     <message>
         <location filename="../forms/transactiondescdialog.ui" line="+14"/>
         <source>Transaction details</source>
-        <translation type="unfinished"/>
+        <translation>تفاصيل المعاملة</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>This pane shows a detailed description of the transaction</source>
-        <translation type="unfinished"/>
+        <translation>يبين هذا الجزء وصفا مفصلا لهده المعاملة</translation>
     </message>
 </context>
 <context>
@@ -1782,122 +2299,127 @@ Address: %4
     <message>
         <location filename="../transactiontablemodel.cpp" line="+226"/>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>التاريخ</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>النوع</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>عنوان</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Amount</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <location line="+57"/>
-        <source>Open for %n block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation>المبلغ</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+60"/>
         <source>Open until %1</source>
-        <translation type="unfinished"/>
+        <translation>مفتوح حتى 1٪</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Offline (%1 confirmations)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Unconfirmed (%1 of %2 confirmations)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+12"/>
         <source>Confirmed (%1 confirmations)</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد الإرسال Coins</translation>
     </message>
     <message numerus="yes">
-        <location line="+8"/>
-        <source>Mined balance will be available when it matures in %n more block(s)</source>
+        <location line="-15"/>
+        <source>Open for %n more block(s)</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>This block was not received by any other nodes and will probably not be accepted!</source>
+        <location line="+6"/>
+        <source>Offline</source>
+        <translation>غير متصل</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Unconfirmed</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirming (%1 of %2 recommended confirmations)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Conflicted</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Immature (%1 confirmations, will be available after %2)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This block was not received by any other nodes and will probably not be accepted!</source>
+        <translation>لم يتم تلقى هذه الكتلة (Block) من قبل أي العقد الأخرى وربما لن تكون مقبولة!</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Generated but not accepted</source>
-        <translation type="unfinished"/>
+        <translation>ولدت ولكن لم تقبل</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+42"/>
         <source>Received with</source>
-        <translation type="unfinished"/>
+        <translation>استقبل مع</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Received from</source>
-        <translation type="unfinished"/>
+        <translation>استقبل من</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sent to</source>
-        <translation type="unfinished"/>
+        <translation>أرسل إلى</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Payment to yourself</source>
-        <translation type="unfinished"/>
+        <translation>دفع لنفسك</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Mined</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Minted</source>
-        <translation type="unfinished"/>
+        <translation>Mined</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>(n/a)</source>
-        <translation type="unfinished"/>
+        <translation>غير متوفر</translation>
     </message>
     <message>
-        <location line="+199"/>
+        <location line="+190"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
-        <translation type="unfinished"/>
+        <translation>حالة المعاملة. تحوم حول هذا الحقل لعرض عدد  التأكيدات.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Date and time that the transaction was received.</source>
-        <translation type="unfinished"/>
+        <translation>التاريخ والوقت الذي تم فيه تلقي المعاملة.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Type of transaction.</source>
-        <translation type="unfinished"/>
+        <translation>نوع المعاملات</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation type="unfinished"/>
+        <translation>عنوان وجهة  المعاملة</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Amount removed from or added to balance.</source>
-        <translation type="unfinished"/>
+        <translation>المبلغ الذي أزيل أو أضيف الى الرصيد</translation>
     </message>
 </context>
 <context>
@@ -1906,107 +2428,107 @@ Address: %4
         <location filename="../transactionview.cpp" line="+55"/>
         <location line="+16"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>الكل</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Today</source>
-        <translation type="unfinished"/>
+        <translation>اليوم</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This week</source>
-        <translation type="unfinished"/>
+        <translation>هدا الاسبوع</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This month</source>
-        <translation type="unfinished"/>
+        <translation>هدا الشهر</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last month</source>
-        <translation type="unfinished"/>
+        <translation>الشهر الماضي</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This year</source>
-        <translation type="unfinished"/>
+        <translation>هدا العام</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Range...</source>
-        <translation type="unfinished"/>
+        <translation>نطاق</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Received with</source>
-        <translation type="unfinished"/>
+        <translation>استقبل مع</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Sent to</source>
-        <translation type="unfinished"/>
+        <translation>أرسل إلى</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>To yourself</source>
-        <translation type="unfinished"/>
+        <translation>إليك</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mined</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Minted</source>
-        <translation type="unfinished"/>
+        <translation>Mined</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other</source>
-        <translation type="unfinished"/>
+        <translation>اخرى</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Enter address or label to search</source>
-        <translation type="unfinished"/>
+        <translation>ادخل عنوان أووصف للبحث</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Min amount</source>
-        <translation type="unfinished"/>
+        <translation>الكمية الادني</translation>
     </message>
     <message>
         <location line="+34"/>
         <source>Copy address</source>
-        <translation type="unfinished"/>
+        <translation>  انسخ عنوان</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy label</source>
-        <translation type="unfinished"/>
+        <translation> انسخ التسمية</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy amount</source>
-        <translation type="unfinished"/>
+        <translation>نسخ الكمية</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy transaction ID</source>
+        <translation>نسخ رقم المعاملة</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit label</source>
-        <translation type="unfinished"/>
+        <translation>عدل الوصف</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show transaction details</source>
-        <translation type="unfinished"/>
+        <translation>اظهار تفاصيل المعاملة</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+144"/>
         <source>Export Transaction Data</source>
-        <translation type="unfinished"/>
+        <translation>تصدير بيانات المعاملة</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2016,128 +2538,123 @@ Address: %4
     <message>
         <location line="+8"/>
         <source>Confirmed</source>
-        <translation type="unfinished"/>
+        <translation>تأكيد</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Date</source>
-        <translation type="unfinished"/>
+        <translation>التاريخ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>النوع</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>وصف</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Address</source>
-        <translation type="unfinished"/>
+        <translation>عنوان</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount</source>
-        <translation type="unfinished"/>
+        <translation>المبلغ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>ID</source>
-        <translation type="unfinished"/>
+        <translation>العنوان</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation type="unfinished"/>
+        <translation>خطا في التصدير</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation type="unfinished"/>
+        <translation>لا يمكن الكتابة الي الملف %1.</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+100"/>
         <source>Range:</source>
-        <translation type="unfinished"/>
+        <translation>نطاق:</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>to</source>
-        <translation type="unfinished"/>
+        <translation>الى</translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+192"/>
+        <location filename="../walletmodel.cpp" line="+206"/>
         <source>Sending...</source>
-        <translation type="unfinished"/>
+        <translation>ارسال....</translation>
     </message>
 </context>
 <context>
     <name>bitcoin-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+82"/>
-        <source>BottleCaps version</source>
-        <translation type="unfinished"/>
+        <location filename="../bitcoinstrings.cpp" line="+33"/>
+        <source>ColossusCoin2 version</source>
+        <translation>جزع البلاك كوين</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+1"/>
         <source>Usage:</source>
+        <translation>المستخدم</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Send command to -server or ColossusCoin2d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Send command to -server or bitcoind</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-19"/>
+        <location line="+1"/>
         <source>List commands</source>
-        <translation type="unfinished"/>
+        <translation>اعرض الأوامر</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="+1"/>
         <source>Get help for a command</source>
-        <translation type="unfinished"/>
+        <translation>مساعدة في كتابة الاوامر</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+2"/>
         <source>Options:</source>
+        <translation>خيارات: </translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Specify configuration file (default: ColossusCoin2.conf)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
-        <source>Specify configuration file (default: BottleCaps.conf)</source>
+        <location line="+1"/>
+        <source>Specify pid file (default: ColossusCoin2d.pid)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Specify pid file (default: BottleCapsd.pid)</source>
+        <location line="+2"/>
+        <source>Specify wallet file (within data directory)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-47"/>
-        <source>Generate coins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-14"/>
-        <source>Don&apos;t generate coins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+60"/>
+        <location line="-1"/>
         <source>Specify data directory</source>
-        <translation type="unfinished"/>
+        <translation>حدد موقع مجلد المعلومات او data directory</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+2"/>
         <source>Set database cache size in megabytes (default: 25)</source>
-        <translation type="unfinished"/>
+        <translation>ضع حجم كاش قاعدة البيانات بالميجابايت (الافتراضي: 25)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2145,84 +2662,89 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-26"/>
-        <source>Listen for connections on &lt;port&gt; (default: 7777 or testnet: 17777)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-33"/>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+64"/>
-        <source>Specify your own public address</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-75"/>
-        <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+77"/>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-112"/>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-25"/>
-        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location line="+6"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8344 or testnet: 18344)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+26"/>
-        <source>Error: Transaction creation failed  </source>
+        <source>Listen for connections on &lt;port&gt; (default: 15714 or testnet: 25714)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error: Wallet locked, unable to create transaction  </source>
+        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+10"/>
-        <source>Importing blockchain data file.</source>
+        <location line="+3"/>
+        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Specify your own public address</source>
+        <translation>حدد عنوانك العام هنا</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Bind to given address. Use [host]:port notation for IPv6</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Stake your coins to support network and gain reward (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-44"/>
+        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+109"/>
+        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-87"/>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 15715 or testnet: 25715)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>Accept command line and JSON-RPC commands</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+101"/>
+        <source>Error: Transaction creation failed  </source>
+        <translation>تحذير صناعة المعاملة فشلت</translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Error: Wallet locked, unable to create transaction  </source>
+        <translation>خطا : المحفظة مقفلة, لا يمكن عمل المعاملة</translation>
+    </message>
+    <message>
+        <location line="-8"/>
+        <source>Importing blockchain data file.</source>
+        <translation>استيراد بيانات ملف سلسلة الكتل</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2230,97 +2752,102 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="-88"/>
         <source>Run in the background as a daemon and accept commands</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+1"/>
         <source>Use the test network</source>
-        <translation type="unfinished"/>
+        <translation>استخدم التحقق من الشبكه</translation>
     </message>
     <message>
-        <location line="-93"/>
+        <location line="-24"/>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
-        <translation type="unfinished"/>
+        <translation>قبول الاتصالات من خارج</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-38"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+117"/>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-20"/>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+11"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation type="unfinished"/>
+        <location line="+61"/>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ColossusCoin2 will not work properly.</source>
+        <translation>تحذير : تأكد من ساعة وتاريخ الكمبيوتر! اذا ساعة غير صحيحة بلاك كوين لن يعمل بشكل صحيح</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong BottleCaps will not work properly.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="-31"/>
         <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation type="unfinished"/>
+        <translation>تحذير : خطا في قراءة wallet.dat! كل المفاتيح تم قرائتة بشكل صحيح لكن بيانات الصفقة او إدخالات كتاب العنوان غير صحيحة او غير موجودة</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-18"/>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
-        <translation type="unfinished"/>
+        <translation>تخذير :wallet.dat غير صالح تم حفظ البيانات. المحفظة الاصلية تم حفظه ك  wallet.{timestamp}.bak  %s في ; اذا حسابك او صفقاتك غير صحيح يجب عليك استعادة النسخ الاحتياطي</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-30"/>
         <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation type="unfinished"/>
+        <translation>محاولة استرجاع المفاتيح الخاصة من wallet.dat الغير صالح</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Block creation options:</source>
-        <translation type="unfinished"/>
+        <translation>خيارات صناعة الكتل</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-62"/>
         <source>Connect only to the specified node(s)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+94"/>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
+        <translation>فشل في الاستماع على أي منفذ. استخدام الاستماع = 0 إذا كنت تريد هذا.</translation>
+    </message>
+    <message>
+        <location line="-90"/>
+        <source>Find peers using DNS lookup (default: 1)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Find peers using DNS lookup (default: 0)</source>
+        <location line="+5"/>
+        <source>Sync checkpoints policy (default: strict)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+83"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+4"/>
+        <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-82"/>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
         <translation type="unfinished"/>
     </message>
@@ -2330,12 +2857,12 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-16"/>
         <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+28"/>
         <source>Output extra debugging information. Implies all other -debug* options</source>
         <translation type="unfinished"/>
     </message>
@@ -2345,22 +2872,22 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Prepend debug output with timestamp</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+35"/>
         <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-74"/>
         <source>Select the version of socks proxy to use (4-5, default: 5)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+41"/>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation type="unfinished"/>
     </message>
@@ -2370,122 +2897,183 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+28"/>
         <source>Set maximum block size in bytes (default: 250000)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Set minimum block size in bytes (default: 0)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-29"/>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-42"/>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+109"/>
+        <source>Unable to sign checkpoint, wrong checkpointkey?
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-80"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-25"/>
         <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+42"/>
         <source>Username for JSON-RPC connections</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+47"/>
         <source>Verifying database integrity...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+57"/>
+        <source>WARNING: syncronized checkpoint violation detected, but skipped!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Warning: Disk space is low!</source>
-        <translation type="unfinished"/>
+        <translation>تحذير : مساحة القرص منخفض</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-2"/>
         <source>Warning: This version is obsolete, upgrade required!</source>
-        <translation type="unfinished"/>
+        <translation>تحذير هذا الجزء قديم, التجديد مطلوب</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-48"/>
         <source>wallet.dat corrupt, salvage failed</source>
-        <translation type="unfinished"/>
+        <translation>wallet.dat غير صالح لا يمكن الاسترجاع</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-54"/>
         <source>Password for JSON-RPC connections</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-53"/>
-        <source>Allow JSON-RPC connections from specified IP address</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+61"/>
-        <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-99"/>
-        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+122"/>
-        <source>Upgrade wallet to latest format</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-15"/>
-        <source>Set key pool size to &lt;n&gt; (default: 100)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-14"/>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-24"/>
-        <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Imports blocks from external blk000?.dat file</source>
+        <location line="-84"/>
+        <source>%s, you must set a rpcpassword in the configuration file:
+ %s
+It is recommended you use the following random password:
+rpcuser=ColossusCoin2rpc
+rpcpassword=%s
+(you do not need to remember this password)
+The username and password MUST NOT be the same.
+If the file does not exist, create it with owner-readable-only file permissions.
+It is also recommended to set alertnotify so you are notified of problems;
+for example: alertnotify=echo %%s | mail -s &quot;ColossusCoin2 Alert&quot; admin@foo.com
+</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+51"/>
+        <source>Find peers using internet relay chat (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>When creating transactions, ignore inputs with value less than this (default: 0.01)</source>
+        <translation>عند</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Allow JSON-RPC connections from specified IP address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Require a confirmations for change (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enforce transaction scripts to use canonical PUSH operators (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Execute command when a relevant alert is received (%s in cmd is replaced by message)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Upgrade wallet to latest format</source>
+        <translation>ارقاء المحفظة الي اخر نسخة</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Set key pool size to &lt;n&gt; (default: 100)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Rescan the block chain for missing wallet transactions</source>
+        <translation>اعادة بحث سلسلة الكتلة لايجاد معالمات المحفظة</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
+        <translation>كمية الكتل التي تريد ان تبحث عنه عند بداية البرنامج (التلقائي 2500, 0 = الكل)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>How thorough the block verification is (0-6, default: 1)</source>
+        <translation>كمية تأكيد الكتل (0-6 التلقائي 1)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Imports blocks from external blk000?.dat file</source>
+        <translation>نقل كتل من ملف blk000.dat خارجي</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="+1"/>
         <source>Server certificate file (default: server.cert)</source>
         <translation type="unfinished"/>
     </message>
@@ -2495,77 +3083,92 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="+1"/>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+53"/>
+        <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>WARNING: Invalid checkpoint found! Displayed transactions may not be correct! You may need to upgrade, or notify developers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-158"/>
         <source>This help message</source>
-        <translation type="unfinished"/>
+        <translation>رسالة المساعدة هذه</translation>
     </message>
     <message>
-        <location line="-131"/>
-        <source>Cannot obtain a lock on data directory %s.  BottleCaps is probably already running.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+57"/>
-        <source>BottleCaps</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+77"/>
-        <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-69"/>
-        <source>Connect through socks proxy</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-13"/>
-        <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+44"/>
-        <source>Loading addresses...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-26"/>
-        <source>Error loading blkindex.dat</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Error loading wallet.dat: Wallet corrupted</source>
+        <location line="+95"/>
+        <source>Wallet %s resides outside data directory %s.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of BottleCaps</source>
+        <source>Cannot obtain a lock on data directory %s.  ColossusCoin2 is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+73"/>
-        <source>Wallet needed to be rewritten: restart BottleCaps to complete</source>
+        <location line="-98"/>
+        <source>ColossusCoin2</source>
+        <translation>البلاك كوين</translation>
+    </message>
+    <message>
+        <location line="+140"/>
+        <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-75"/>
+        <location line="-130"/>
+        <source>Connect through socks proxy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+122"/>
+        <source>Loading addresses...</source>
+        <translation>تحميل العنوان</translation>
+    </message>
+    <message>
+        <location line="-15"/>
+        <source>Error loading blkindex.dat</source>
+        <translation>خظا في تحميل blkindex.dat</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Error loading wallet.dat: Wallet corrupted</source>
+        <translation>خطأ عند تنزيل wallet.dat: المحفظة تالفة</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error loading wallet.dat: Wallet requires newer version of ColossusCoin2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Wallet needed to be rewritten: restart ColossusCoin2 to complete</source>
+        <translation>المحفظة يجب أن يعاد كتابته : أعد البلاك كوين لتكتمل</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error loading wallet.dat</source>
-        <translation type="unfinished"/>
+        <translation>خطأ عند تنزيل wallet.dat</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="-16"/>
         <source>Invalid -proxy address: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="-1"/>
         <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
@@ -2575,74 +3178,74 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-74"/>
+        <location line="+4"/>
         <source>Cannot resolve -bind address: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Cannot resolve -externalip address: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="-24"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="+44"/>
         <source>Error: could not start node</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+11"/>
         <source>Sending...</source>
-        <translation type="unfinished"/>
+        <translation>ارسال....</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="+5"/>
         <source>Invalid amount</source>
-        <translation type="unfinished"/>
+        <translation>مبلغ خاطئ</translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="+1"/>
         <source>Insufficient funds</source>
-        <translation type="unfinished"/>
+        <translation>حسابك لا يكفي</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-34"/>
         <source>Loading block index...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-103"/>
         <source>Add a node to connect to and attempt to keep the connection open</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Unable to bind to %s on this computer. BottleCaps is probably already running.</source>
+        <location line="+122"/>
+        <source>Unable to bind to %s on this computer. ColossusCoin2 is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+55"/>
-        <source>Find peers using internet relay chat (default: 1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-2"/>
+        <location line="-97"/>
         <source>Fee per KB to add to transactions you send</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+19"/>
-        <source>Loading wallet...</source>
+        <location line="+55"/>
+        <source>Invalid amount for -mininput=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="+25"/>
+        <source>Loading wallet...</source>
+        <translation>تحميل المحفظه</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Cannot downgrade wallet</source>
-        <translation type="unfinished"/>
+        <translation> لا يمكن خفض المحفظة</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2650,44 +3253,32 @@ Address: %4
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
         <source>Cannot write default address</source>
-        <translation type="unfinished"/>
+        <translation> لا يمكن كتابة العنوان الافتراضي</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+1"/>
         <source>Rescanning...</source>
-        <translation type="unfinished"/>
+        <translation>إعادة مسح</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="+5"/>
         <source>Done loading</source>
-        <translation type="unfinished"/>
+        <translation>انتهاء التحميل</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="-167"/>
         <source>To use the %s option</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-150"/>
-        <source>%s, you must set a rpcpassword in the configuration file:
- %s
-It is recommended you use the following random password:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-If the file does not exist, create it with owner-readable-only file permissions.
-</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+91"/>
+        <location line="+14"/>
         <source>Error</source>
-        <translation type="unfinished"/>
+        <translation>خطأ</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="+6"/>
         <source>You must set rpcpassword=&lt;password&gt; in the configuration file:
 %s
 If the file does not exist, create it with owner-readable-only file permissions.</source>

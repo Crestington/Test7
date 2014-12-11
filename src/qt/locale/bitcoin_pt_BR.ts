@@ -1,24 +1,25 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pt_BR" version="2.0">
-<defaultcodec>UTF-8</defaultcodec>
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="pt_BR" version="2.1">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About BottleCaps</source>
-        <translation type="unfinished"/>
+        <source>About ColossusCoin2</source>
+        <translation>Sobre o ColossusCoin2</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;BottleCaps&lt;/b&gt; version</source>
-        <translation type="unfinished"/>
+        <source>&lt;b&gt;ColossusCoin2&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ColossusCoin2&lt;/b&gt; versao</translation>
     </message>
     <message>
         <location line="+41"/>
-        <source>Copyright © 2009-2012 The BottleCaps developers</source>
+        <source>Copyright © 2009-2014 The Bitcoin developers
+Copyright © 2012-2014 The NovaCoin developers
+Copyright © 2014 The ColossusCoin2 developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+15"/>
         <source>
 This is experimental software.
 
@@ -38,12 +39,12 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
         <source>Address Book</source>
-        <translation>Catálogo de endereços</translation>
+        <translation>Livro de Endereços</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Double-click to edit address or label</source>
-        <translation>Clique duas vezes para editar o endereço ou o etiqueta</translation>
+        <translation>Clique duas vezes para editar o endereço ou a etiqueta</translation>
     </message>
     <message>
         <location line="+27"/>
@@ -58,12 +59,12 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="-11"/>
         <source>&amp;New Address</source>
-        <translation>&amp;Novo endereço</translation>
+        <translation>&amp;Novo Endereço</translation>
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your BottleCaps addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation type="unfinished"/>
+        <source>These are your ColossusCoin2 addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Estes são os seus endereços ColossusCoin2 para receber pagamentos. Você pode dar um diferente a cada remetente para que você possa acompanhar quem está pagando.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -77,13 +78,13 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Sign a message to prove you own a ColossusCoin2 address</source>
+        <translation>Assine a mensagem para provar que você possui um endereço ColossusCoin2</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sign &amp;Message</source>
-        <translation>&amp;Assinar Mensagem</translation>
+        <translation>Assinar &amp;Mensagem</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -92,8 +93,8 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified BottleCaps address</source>
-        <translation type="unfinished"/>
+        <source>Verify a message to ensure it was signed with a specified ColossusCoin2 address</source>
+        <translation>Verifique a mensagem para garantir que ela foi assinada com um endereço ColossusCoin2 específico</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -118,7 +119,7 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="+250"/>
         <source>Export Address Book Data</source>
-        <translation>Exportar Catálogo de Endereços</translation>
+        <translation>Exportar Dados do Livro de Endereços</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -133,15 +134,15 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>Não foi possível gravar no arquivo %1.</translation>
+        <translation>Não foi possível escrever no arquivo %1.</translation>
     </message>
 </context>
 <context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+142"/>
+        <location filename="../addresstablemodel.cpp" line="+144"/>
         <source>Label</source>
-        <translation>Etiqueta</translation>
+        <translation>Rótulo</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -177,7 +178,17 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>Repita a nova frase de segurança</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+33"/>
+        <location line="+33"/>
+        <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
+        <translation>Serve para desativar o envio de dinheiro trivial quando conta do SO for comprometida. Não oferece segurança real.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>For staking only</source>
+        <translation>Apenas para participação</translation>
+    </message>
+    <message>
+        <location filename="../askpassphrasedialog.cpp" line="+35"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>Digite a nova frase de seguraça da sua carteira. &lt;br/&gt; Por favor, use uma frase de &lt;b&gt;10 ou mais caracteres aleatórios,&lt;/b&gt; ou &lt;b&gt;oito ou mais palavras.&lt;/b&gt;</translation>
     </message>
@@ -187,7 +198,7 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>Criptografar carteira</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+7"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
         <translation>Esta operação precisa de sua frase de segurança para desbloquear a carteira.</translation>
     </message>
@@ -224,7 +235,7 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation type="unfinished"/>
+        <translation>Aviso: Se você criptografar sua carteira e perder sua senha, você vai &lt;b&gt;PERDER TODAS AS SUAS MOEDAS&lt;/ b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -237,49 +248,49 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>IMPORTANTE: Qualquer backup prévio que você tenha feito do seu arquivo wallet deve ser substituído pelo novo e encriptado arquivo wallet gerado. Por razões de segurança, qualquer backup do arquivo wallet não criptografado se tornará inútil assim que você começar  a usar uma nova carteira criptografada.</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+103"/>
         <location line="+24"/>
         <source>Warning: The Caps Lock key is on!</source>
         <translation>Cuidado: A tecla Caps Lock está ligada!</translation>
     </message>
     <message>
-        <location line="-130"/>
-        <location line="+58"/>
+        <location line="-133"/>
+        <location line="+60"/>
         <source>Wallet encrypted</source>
         <translation>Carteira criptografada</translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>BottleCaps will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished"/>
+        <location line="-58"/>
+        <source>ColossusCoin2 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>ColossusCoin2 vai fechar agora para concluir o processo de criptografia. Lembre-se que a criptografia de sua carteira não pode proteger totalmente suas moedas de serem roubados por malwares infectem seu computador.</translation>
     </message>
     <message>
         <location line="+13"/>
         <location line="+7"/>
-        <location line="+42"/>
+        <location line="+44"/>
         <location line="+6"/>
         <source>Wallet encryption failed</source>
         <translation>A criptografia da carteira falhou</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-56"/>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
         <translation>A criptografia da carteira falhou devido a um erro interno. Sua carteira não estava criptografada.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+48"/>
+        <location line="+50"/>
         <source>The supplied passphrases do not match.</source>
         <translation>A frase de segurança fornecida não confere.</translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-38"/>
         <source>Wallet unlock failed</source>
         <translation>A abertura da carteira falhou</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+11"/>
+        <location line="+12"/>
         <location line="+19"/>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
         <translation>A frase de segurança digitada para a descriptografia da carteira estava incorreta.</translation>
@@ -298,17 +309,17 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+257"/>
+        <location filename="../bitcoingui.cpp" line="+282"/>
         <source>Sign &amp;message...</source>
         <translation>&amp;Assinar Mensagem...</translation>
     </message>
     <message>
-        <location line="+237"/>
+        <location line="+251"/>
         <source>Synchronizing with network...</source>
         <translation>Sincronizando com a rede...</translation>
     </message>
     <message>
-        <location line="-299"/>
+        <location line="-319"/>
         <source>&amp;Overview</source>
         <translation>&amp;Visão geral</translation>
     </message>
@@ -330,27 +341,27 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="+5"/>
         <source>&amp;Address Book</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Livro de Endereços</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Edit the list of stored addresses and labels</source>
-        <translation>Editar a lista de endereços e rótulos</translation>
+        <translation>Edite a lista de endereços armazenados e rótulos</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>&amp;Receive coins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Receber moedas</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show the list of addresses for receiving payments</source>
-        <translation>Mostrar a lista de endereços para receber pagamentos</translation>
+        <translation>Mostrar a lista de endereços para o recebimento de pagamentos</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>&amp;Send coins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Enviar moedas</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -363,9 +374,9 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>Sair da aplicação</translation>
     </message>
     <message>
-        <location line="+4"/>
-        <source>Show information about BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+6"/>
+        <source>Show information about ColossusCoin2</source>
+        <translation>Mostrar informações sobre o ColossusCoin2</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -398,39 +409,39 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>&amp;Mudar frase de segurança...</translation>
     </message>
     <message numerus="yes">
-        <location line="+241"/>
+        <location line="+259"/>
         <source>~%n block(s) remaining</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>~%n bloco faltando</numerusform><numerusform>~%n blocos faltando</numerusform></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
-        <translation type="unfinished"/>
+        <translation>Baixados %1 de %2 blocos de histórico de transações (%3% completo).</translation>
     </message>
     <message>
-        <location line="-242"/>
+        <location line="-256"/>
         <source>&amp;Export...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Exportar...</translation>
     </message>
     <message>
-        <location line="-58"/>
-        <source>Send coins to a BottleCaps address</source>
-        <translation type="unfinished"/>
+        <location line="-64"/>
+        <source>Send coins to a ColossusCoin2 address</source>
+        <translation>Enviar moedas para um endereço ColossusCoin2</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <source>Modify configuration options for BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+47"/>
+        <source>Modify configuration options for ColossusCoin2</source>
+        <translation>Modificar opções de configuração para ColossusCoin2</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+18"/>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished"/>
+        <translation>Exportar os dados da guia atual para um arquivo</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="-14"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation type="unfinished"/>
+        <translation>Cryptografar ou Decryptografar carteira</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -443,7 +454,7 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>Mudar a frase de segurança utilizada na criptografia da carteira</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+10"/>
         <source>&amp;Debug window</source>
         <translation>Janela de &amp;Depuração</translation>
     </message>
@@ -458,9 +469,9 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>&amp;Verificar mensagem...</translation>
     </message>
     <message>
-        <location line="-186"/>
-        <source>BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="-202"/>
+        <source>ColossusCoin2</source>
+        <translation>ColossusCoin2</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -468,9 +479,9 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>Carteira</translation>
     </message>
     <message>
-        <location line="+168"/>
-        <source>&amp;About BottleCaps</source>
-        <translation type="unfinished"/>
+        <location line="+180"/>
+        <source>&amp;About ColossusCoin2</source>
+        <translation>Sobre o ColossusCoin2</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -478,7 +489,22 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>&amp;Exibir/Ocultar</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+9"/>
+        <source>Unlock wallet</source>
+        <translation>Desbloquear carteira</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Lock Wallet</source>
+        <translation>&amp;Bloquear Carteira</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lock wallet</source>
+        <translation>Bloquear Carteira</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>&amp;File</source>
         <translation>&amp;Arquivo</translation>
     </message>
@@ -488,12 +514,12 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <translation>&amp;Configurações</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+8"/>
         <source>&amp;Help</source>
         <translation>&amp;Ajuda</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+12"/>
         <source>Tabs toolbar</source>
         <translation>Barra de ferramentas</translation>
     </message>
@@ -511,12 +537,12 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>BottleCaps client</source>
+        <source>ColossusCoin2 client</source>
         <translation type="unfinished"/>
     </message>
     <message numerus="yes">
-        <location line="+69"/>
-        <source>%n active connection(s) to BottleCaps network</source>
+        <location line="+75"/>
+        <source>%n active connection(s) to ColossusCoin2 network</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
@@ -524,13 +550,53 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location line="+413"/>
+        <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Not staking because wallet is locked</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because wallet is offline</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because wallet is syncing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not staking because you don&apos;t have mature coins</source>
+        <translation type="unfinished"/>
+    </message>
     <message numerus="yes">
-        <location line="+22"/>
+        <location line="-403"/>
         <source>%n second(s) ago</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
+    <message>
+        <location line="-312"/>
+        <source>About ColossusCoin2 card</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show information about ColossusCoin2 card</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>&amp;Unlock Wallet...</source>
+        <translation type="unfinished"/>
+    </message>
     <message numerus="yes">
-        <location line="+4"/>
+        <location line="+297"/>
         <source>%n minute(s) ago</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
@@ -567,7 +633,7 @@ Este produto inclui software desenvolvido pelo Projeto OpenSSL para uso no OpenS
     <message>
         <location line="+5"/>
         <source>Confirm transaction fee</source>
-        <translation>Confirmar taxa de transação</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+27"/>
@@ -595,26 +661,26 @@ Endereço: %4</translation>
         <location line="+100"/>
         <location line="+15"/>
         <source>URI handling</source>
-        <translation>Manipulação de URI</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid BottleCaps address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid ColossusCoin2 address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Carteira está &lt;b&gt;criptografada&lt;/b&gt; e atualmente &lt;b&gt;desbloqueada&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+10"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Carteira está &lt;b&gt;criptografada&lt;/b&gt; e atualmente &lt;b&gt;bloqueada&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+25"/>
         <source>Backup Wallet</source>
         <translation type="unfinished"/>
     </message>
@@ -633,18 +699,297 @@ Endereço: %4</translation>
         <source>There was an error trying to save the wallet data to the new location.</source>
         <translation type="unfinished"/>
     </message>
+    <message numerus="yes">
+        <location line="+76"/>
+        <source>%n second(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n minute(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n hora</numerusform><numerusform>%n horas</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+4"/>
+        <source>%n day(s)</source>
+        <translation><numerusform>%n dia</numerusform><numerusform>%n dias</numerusform></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Not staking</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. BottleCaps can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. ColossusCoin2 can no longer continue safely and will quit.</source>
         <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+87"/>
+        <location filename="../clientmodel.cpp" line="+90"/>
         <source>Network Alert</source>
         <translation>Alerta da Rede</translation>
+    </message>
+</context>
+<context>
+    <name>CoinControlDialog</name>
+    <message>
+        <location filename="../forms/coincontroldialog.ui" line="+14"/>
+        <source>Coin Control</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Quantity:</source>
+        <translation>Quantidade:</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Bytes:</source>
+        <translation>Bytes:</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Amount:</source>
+        <translation>Quantia:</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Priority:</source>
+        <translation>Prioridade:</translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>Fee:</source>
+        <translation>Taxa:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation>Rendimento baixo:</translation>
+    </message>
+    <message>
+        <location filename="../coincontroldialog.cpp" line="+551"/>
+        <source>no</source>
+        <translation>não</translation>
+    </message>
+    <message>
+        <location filename="../forms/coincontroldialog.ui" line="+51"/>
+        <source>After Fee:</source>
+        <translation>Depois da taxa:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change:</source>
+        <translation>trocar</translation>
+    </message>
+    <message>
+        <location line="+69"/>
+        <source>(un)select all</source>
+        <translation>(de)selecionar tudo</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Tree mode</source>
+        <translation>Modo árvore</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>List mode</source>
+        <translation>Modo lista</translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Amount</source>
+        <translation>Quantidade</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Address</source>
+        <translation>Endereço</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Confirmations</source>
+        <translation>Confirmações</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirmed</source>
+        <translation>Confirmado</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Priority</source>
+        <translation>Prioridade</translation>
+    </message>
+    <message>
+        <location filename="../coincontroldialog.cpp" line="-515"/>
+        <source>Copy address</source>
+        <translation>Copiar endereço</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy label</source>
+        <translation>Copiar etiqueta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+26"/>
+        <source>Copy amount</source>
+        <translation>Copiar quantia</translation>
+    </message>
+    <message>
+        <location line="-25"/>
+        <source>Copy transaction ID</source>
+        <translation>Copiar ID da transação</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>Copy quantity</source>
+        <translation>Copiar quantidade</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Copy fee</source>
+        <translation>Copiar taxa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation>Copia pós-taxa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation>Copiar bytes</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation>Copia prioridade</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation>Copia saída de pouco valor</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation>Copia alteração</translation>
+    </message>
+    <message>
+        <location line="+317"/>
+        <source>highest</source>
+        <translation>mais alta possível</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>high</source>
+        <translation>alta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>medium-high</source>
+        <translation>média-alta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>medium</source>
+        <translation>média</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>low-medium</source>
+        <translation>média-baixa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>low</source>
+        <translation>baixa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>lowest</source>
+        <translation>a mais baixa possível</translation>
+    </message>
+    <message>
+        <location line="+155"/>
+        <source>DUST</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>yes</source>
+        <translation>sim</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>This label turns red, if the transaction size is bigger than 10000 bytes.
+
+ This means a fee of at least %1 per kb is required.
+
+ Can vary +/- 1 Byte per input.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Transactions with higher priority get more likely into a block.
+
+This label turns red, if the priority is smaller than &quot;medium&quot;.
+
+ This means a fee of at least %1 per kb is required.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This label turns red, if any recipient receives an amount smaller than %1.
+
+ This means a fee of at least %2 is required. 
+
+ Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This label turns red, if the change is smaller than %1.
+
+ This means a fee of at least %2 is required.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+37"/>
+        <location line="+66"/>
+        <source>(no label)</source>
+        <translation>(Sem rótulo)</translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>change from %1 (%2)</source>
+        <translation>troco de %1 (%2)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>(change)</source>
+        <translation>(troco)</translation>
     </message>
 </context>
 <context>
@@ -662,7 +1007,7 @@ Endereço: %4</translation>
     <message>
         <location line="+10"/>
         <source>The label associated with this address book entry</source>
-        <translation>A etiqueta associada a esse endereço do catálogo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
@@ -672,7 +1017,7 @@ Endereço: %4</translation>
     <message>
         <location line="+10"/>
         <source>The address associated with this address book entry. This can only be modified for sending addresses.</source>
-        <translation>O endereço associado à essa entrada do seu catálogo de endereços. Isso só pode ser modificado para endereço de envio.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../editaddressdialog.cpp" line="+20"/>
@@ -695,17 +1040,17 @@ Endereço: %4</translation>
         <translation>Editar endereço de envio</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+76"/>
         <source>The entered address &quot;%1&quot; is already in the address book.</source>
         <translation>O endereço digitado &quot;%1&quot; já se encontra no catálogo de endereços.</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>The entered address &quot;%1&quot; is not a valid BottleCaps address.</source>
+        <location line="-5"/>
+        <source>The entered address &quot;%1&quot; is not a valid ColossusCoin2 address.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+10"/>
         <source>Could not unlock wallet.</source>
         <translation>Não foi possível destravar a carteira.</translation>
     </message>
@@ -718,45 +1063,45 @@ Endereço: %4</translation>
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+419"/>
+        <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>BottleCaps-Qt</source>
+        <source>ColossusCoin2-Qt</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="-12"/>
         <source>version</source>
-        <translation>versão</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Usage:</source>
-        <translation>Uso:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>command-line options</source>
-        <translation>opções da linha de comando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>UI options</source>
-        <translation>opções da UI</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Set language, for example &quot;de_DE&quot; (default: system locale)</source>
-        <translation>Escolher língua, por exemplo &quot;de_DE&quot; (padrão: localização do sistema)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Start minimized</source>
-        <translation>Inicializar minimizado</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Show splash screen on startup (default: 1)</source>
-        <translation>Mostrar tela inicial ao ligar (padrão: 1)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -783,12 +1128,22 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start BottleCaps after logging in to the system.</source>
+        <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Reserve</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Automatically start ColossusCoin2 after logging in to the system.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start BottleCaps on system login</source>
+        <source>&amp;Start ColossusCoin2 on system login</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -808,7 +1163,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the BottleCaps client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the ColossusCoin2 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -818,13 +1173,13 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the BottleCaps network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the ColossusCoin2 network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Connect through SOCKS proxy:</source>
-        <translation>&amp;Conectar através de um proxy SOCKS:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
@@ -834,7 +1189,7 @@ Endereço: %4</translation>
     <message>
         <location line="+19"/>
         <source>IP address of the proxy (e.g. 127.0.0.1)</source>
-        <translation>Endereço &amp;IP do proxy (ex. 127.0.0.1)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
@@ -893,7 +1248,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting BottleCaps.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting ColossusCoin2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -904,17 +1259,27 @@ Endereço: %4</translation>
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Escolha a unidade padrão de subdivisão para interface mostrar quando enviar ColossusCoins.</translation>
+        <translation>Escolha a unidade padrão de subdivisão para interface mostrar quando enviar bitcoins.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show BottleCaps addresses in the transaction list or not.</source>
+        <source>Whether to show ColossusCoin2 addresses in the transaction list or not.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
         <translation>Mostrar en&amp;dereços na lista de transações</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Whether to show coin control features or not.</source>
+        <translation>Mostrar ou não opções de controle da moeda.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Display coin &amp;control features (experts only!)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+71"/>
@@ -929,7 +1294,7 @@ Endereço: %4</translation>
     <message>
         <location line="+10"/>
         <source>&amp;Apply</source>
-        <translation>&amp;Aplicar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../optionsdialog.cpp" line="+55"/>
@@ -937,15 +1302,15 @@ Endereço: %4</translation>
         <translation>padrão</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+149"/>
         <location line="+9"/>
         <source>Warning</source>
-        <translation>Cuidado</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting BottleCaps.</source>
+        <source>This setting will take effect after restarting ColossusCoin2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -963,37 +1328,37 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+33"/>
-        <location line="+183"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BottleCaps network after a connection is established, but this process has not completed yet.</source>
+        <location line="+231"/>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ColossusCoin2 network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-141"/>
-        <source>Balance:</source>
-        <translation>Saldo:</translation>
-    </message>
-    <message>
-        <location line="+118"/>
+        <location line="-160"/>
         <source>Stake:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+58"/>
-        <source>Number of transactions:</source>
+        <location line="+29"/>
+        <source>Unconfirmed:</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-29"/>
-        <source>Unconfirmed:</source>
-        <translation>Não confirmadas:</translation>
-    </message>
-    <message>
-        <location line="-78"/>
+        <location line="-107"/>
         <source>Wallet</source>
         <translation>Carteira</translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+49"/>
+        <source>Spendable:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Your current spendable balance</source>
+        <translation>Seu saldo atual spendable</translation>
+    </message>
+    <message>
+        <location line="+71"/>
         <source>Immature:</source>
         <translation>Imaturo:</translation>
     </message>
@@ -1003,32 +1368,32 @@ Endereço: %4</translation>
         <translation>Saldo minerado que ainda não maturou</translation>
     </message>
     <message>
+        <location line="+20"/>
+        <source>Total:</source>
+        <translation>Total:</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Your current total balance</source>
+        <translation>Seu saldo total atual</translation>
+    </message>
+    <message>
         <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
         <translation>&lt;b&gt;Transações recentes&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-118"/>
-        <source>Your current balance</source>
-        <translation>Seu saldo atual</translation>
-    </message>
-    <message>
-        <location line="+29"/>
+        <location line="-108"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation>Total de transações ainda não confirmadas, e que ainda não contam no saldo atual</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="-29"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+20"/>
-        <source>Total number of transactions in wallet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../overviewpage.cpp" line="+112"/>
+        <location filename="../overviewpage.cpp" line="+113"/>
         <location line="+1"/>
         <source>out of sync</source>
         <translation>fora de sincronia</translation>
@@ -1039,57 +1404,57 @@ Endereço: %4</translation>
     <message>
         <location filename="../forms/qrcodedialog.ui" line="+14"/>
         <source>QR Code Dialog</source>
-        <translation>Janela do código QR</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation>Requisitar Pagamento</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+56"/>
         <source>Amount:</source>
-        <translation>Quantia:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation>Etiqueta:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+19"/>
         <source>Message:</source>
-        <translation>Mensagem:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Salvar como...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
         <source>Error encoding URI into QR Code.</source>
-        <translation>Erro ao codigicar o URI em código QR</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+40"/>
         <source>The entered amount is invalid, please check.</source>
-        <translation>A quantidade digitada é inválida, favor verificar.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI resultante muito longa. Tente reduzir o texto do rótulo ou da mensagem.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
         <source>Save QR Code</source>
-        <translation>Salvar código QR</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation>Imagens PNG (*.png)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1146,7 +1511,7 @@ Endereço: %4</translation>
     <message>
         <location line="+23"/>
         <source>On testnet</source>
-        <translation>Na rede de teste</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+23"/>
@@ -1176,17 +1541,17 @@ Endereço: %4</translation>
     <message>
         <location line="+16"/>
         <source>Command-line options</source>
-        <translation>Opções da linha de comando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the BottleCaps-Qt help message to get a list with possible BottleCaps command-line options.</source>
+        <source>Show the ColossusCoin2-Qt help message to get a list with possible ColossusCoin2 command-line options.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Show</source>
-        <translation>&amp;Mostrar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+24"/>
@@ -1200,12 +1565,12 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>BottleCaps - Debug window</source>
+        <source>ColossusCoin2 - Debug window</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
-        <source>BottleCaps Core</source>
+        <source>ColossusCoin2 Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1215,7 +1580,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the BottleCaps debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the ColossusCoin2 debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1225,7 +1590,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the BottleCaps RPC console.</source>
+        <source>Welcome to the ColossusCoin2 RPC console.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1243,7 +1608,7 @@ Endereço: %4</translation>
     <name>SendCoinsDialog</name>
     <message>
         <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+124"/>
+        <location filename="../sendcoinsdialog.cpp" line="+182"/>
         <location line="+5"/>
         <location line="+5"/>
         <location line="+5"/>
@@ -1254,7 +1619,96 @@ Endereço: %4</translation>
         <translation>Enviar dinheiro</translation>
     </message>
     <message>
+        <location line="+76"/>
+        <source>Coin Control Features</source>
+        <translation>Opções de Controle da Moeda</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs...</source>
+        <translation>Entradas...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>automatically selected</source>
+        <translation>automaticamente selecionado</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Insufficient funds!</source>
+        <translation>Saldo insuficiente!</translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Quantity:</source>
+        <translation>Quantidade:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+35"/>
+        <source>0</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Bytes:</source>
+        <translation>Bytes:</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Amount:</source>
+        <translation>Quantia:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+86"/>
+        <location line="+86"/>
+        <location line="+32"/>
+        <source>0.00 hack</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Priority:</source>
+        <translation>Prioridade:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>medium</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Fee:</source>
+        <translation>Taxa:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation>Rendimento baixo:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>no</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>After Fee:</source>
+        <translation>Depois da taxa:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+50"/>
+        <source>custom change address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+106"/>
         <source>Send to multiple recipients at once</source>
         <translation>Enviar para vários destinatários de uma só vez</translation>
     </message>
@@ -1266,7 +1720,7 @@ Endereço: %4</translation>
     <message>
         <location line="+20"/>
         <source>Remove all transaction fields</source>
-        <translation>Remover todos os campos da transação</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -1274,14 +1728,14 @@ Endereço: %4</translation>
         <translation>Limpar Tudo</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+28"/>
         <source>Balance:</source>
         <translation>Saldo:</translation>
     </message>
     <message>
-        <location line="+10"/>
-        <source>123.456 BTC</source>
-        <translation>123.456 BTC</translation>
+        <location line="+16"/>
+        <source>123.456 hack</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+31"/>
@@ -1294,9 +1748,54 @@ Endereço: %4</translation>
         <translation>Enviar</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-59"/>
+        <location filename="../sendcoinsdialog.cpp" line="-173"/>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Copy quantity</source>
+        <translation>Copiar quantidade</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy amount</source>
+        <translation>Copiar quantia</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy fee</source>
+        <translation>Copiar taxa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation>Copia pós-taxa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation>Copiar bytes</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation>Copia prioridade</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation>Copia saída de pouco valor</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation>Copia alteração</translation>
+    </message>
+    <message>
+        <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; para %2 (%3)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -1306,15 +1805,15 @@ Endereço: %4</translation>
     <message>
         <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>Você tem certeza que deseja enviar %1?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source> and </source>
-        <translation>e</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+29"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation>O endereço do destinatário não é válido, favor verificar.</translation>
     </message>
@@ -1346,7 +1845,22 @@ Endereço: %4</translation>
     <message>
         <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Erro: A transação foi rejeitada. Isso pode acontecer se alguns dos ColossusCoins de sua carteira já haviam sido gastos, por exemplo se você usou uma cópia do arquivo wallet.dat e alguns ColossusCoins foram gastos na cópia mas não foram marcados como gastos aqui.</translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+251"/>
+        <source>WARNING: Invalid ColossusCoin2 address</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>(no label)</source>
+        <translation>(Sem rótulo)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>WARNING: unknown change address</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1354,7 +1868,7 @@ Endereço: %4</translation>
     <message>
         <location filename="../forms/sendcoinsentry.ui" line="+14"/>
         <source>Form</source>
-        <translation>Formulário</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
@@ -1379,13 +1893,13 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. 4Zo1ga6xuKuQ7JV7M9rGDoxdbYwV5zgQJ5)</source>
+        <source>The address to send the payment to  (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Escolha um endereço do seu catálogo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
@@ -1405,11 +1919,11 @@ Endereço: %4</translation>
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Remover este destinatário</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a valid BottleCaps address</source>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1433,14 +1947,14 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with </source>
+        <source>The address to sign the message with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation>Escolha um endereço do catálogo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-193"/>
@@ -1470,7 +1984,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this BottleCaps address</source>
+        <source>Sign the message to prove you own this ColossusCoin2 address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1497,12 +2011,12 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with </source>
+        <source>The address the message was signed with (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified BottleCaps address</source>
+        <source>Verify the message to ensure it was signed with the specified ColossusCoin2 address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1513,7 +2027,7 @@ Endereço: %4</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a valid BottleCaps address</source>
+        <source>Enter a ColossusCoin2 address (e.g. ColossusCoin2fwYhBmGXcFP2Po1NpRUEiK8km2)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1523,7 +2037,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter BottleCaps signature</source>
+        <source>Enter ColossusCoin2 signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1607,6 +2121,11 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+8"/>
+        <source>conflicted</source>
+        <translation>em conflito</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>%1/offline</source>
         <translation>%1/offline</translation>
     </message>
@@ -1628,7 +2147,7 @@ Endereço: %4</translation>
     <message numerus="yes">
         <location line="+7"/>
         <source>, broadcast through %n node(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>, difundir atráves de %n nó</numerusform><numerusform>, difundir atráves de %n nós</numerusform></translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1681,7 +2200,7 @@ Endereço: %4</translation>
     <message numerus="yes">
         <location line="-102"/>
         <source>matures in %n more block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>matura em mais %n bloco</numerusform><numerusform>matura em mais %n blocos</numerusform></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1723,12 +2242,7 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Generated coins must mature 520 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Staked coins must wait 520 blocks before they can return to balance and be spent.  When you generated this proof-of-stake block, it was broadcast to the network to be added to the block chain.  If it fails to get into the chain, it will change to \&quot;not accepted\&quot; and not be a valid stake.  This may occasionally happen if another node generates a proof-of-stake block within a few seconds of yours.</source>
+        <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1807,38 +2321,48 @@ Endereço: %4</translation>
         <source>Amount</source>
         <translation>Quantidade</translation>
     </message>
-    <message numerus="yes">
-        <location line="+57"/>
-        <source>Open for %n block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
     <message>
-        <location line="+3"/>
+        <location line="+60"/>
         <source>Open until %1</source>
         <translation>Aberto até %1</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Offline (%1 confirmations)</source>
-        <translation>Offline (%1 confirmações)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Unconfirmed (%1 of %2 confirmations)</source>
-        <translation>Não confirmado (%1 of %2 confirmações)</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+12"/>
         <source>Confirmed (%1 confirmations)</source>
         <translation>Confirmado (%1 confirmações)</translation>
     </message>
     <message numerus="yes">
-        <location line="+8"/>
-        <source>Mined balance will be available when it matures in %n more block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <location line="-15"/>
+        <source>Open for %n more block(s)</source>
+        <translation><numerusform>Abrir para mais %n bloco</numerusform><numerusform>Abrir para mais %n blocos</numerusform></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
+        <source>Offline</source>
+        <translation>Offline</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Unconfirmed</source>
+        <translation>Não confirmado</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirming (%1 of %2 recommended confirmations)</source>
+        <translation>Confirmando (%1 de %2 confirmações recomendadas)</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Conflicted</source>
+        <translation>Conflitou</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Immature (%1 confirmations, will be available after %2)</source>
+        <translation>Recém-criado (%1 confirmações, disponível somente após %2)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>This block was not received by any other nodes and will probably not be accepted!</source>
         <translation>Este bloco não foi recebido por nenhum outro participante da rede e provavelmente não será aceito!</translation>
     </message>
@@ -1848,7 +2372,7 @@ Endereço: %4</translation>
         <translation>Gerado mas não aceito</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+42"/>
         <source>Received with</source>
         <translation>Recebido por</translation>
     </message>
@@ -1873,17 +2397,12 @@ Endereço: %4</translation>
         <translation>Minerado</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Minted</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location line="+38"/>
         <source>(n/a)</source>
         <translation>(n/a)</translation>
     </message>
     <message>
-        <location line="+199"/>
+        <location line="+190"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
         <translation>Status da transação. Passe o mouse sobre este campo para mostrar o número de confirmações.</translation>
     </message>
@@ -1968,11 +2487,6 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Minted</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Other</source>
         <translation>Outro</translation>
     </message>
@@ -2003,6 +2517,11 @@ Endereço: %4</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Copy transaction ID</source>
+        <translation>Copiar ID da transação</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Edit label</source>
         <translation>Editar etiqueta</translation>
     </message>
@@ -2012,9 +2531,9 @@ Endereço: %4</translation>
         <translation>Mostrar detalhes da transação</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+144"/>
         <source>Export Transaction Data</source>
-        <translation>Exportar Dados das Transações</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -2059,15 +2578,15 @@ Endereço: %4</translation>
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation>Erro ao exportar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation>Não foi possível gravar no arquivo %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+100"/>
         <source>Range:</source>
         <translation>Intervalo: </translation>
     </message>
@@ -2080,7 +2599,7 @@ Endereço: %4</translation>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+192"/>
+        <location filename="../walletmodel.cpp" line="+206"/>
         <source>Sending...</source>
         <translation type="unfinished"/>
     </message>
@@ -2088,62 +2607,57 @@ Endereço: %4</translation>
 <context>
     <name>bitcoin-core</name>
     <message>
-        <location filename="../bitcoinstrings.cpp" line="+82"/>
-        <source>BottleCaps version</source>
+        <location filename="../bitcoinstrings.cpp" line="+33"/>
+        <source>ColossusCoin2 version</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+1"/>
         <source>Usage:</source>
         <translation>Uso:</translation>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Send command to -server or bitcoind</source>
+        <location line="+1"/>
+        <source>Send command to -server or ColossusCoin2d</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-19"/>
+        <location line="+1"/>
         <source>List commands</source>
         <translation>Lista de comandos</translation>
     </message>
     <message>
-        <location line="-11"/>
+        <location line="+1"/>
         <source>Get help for a command</source>
         <translation>Obtenha ajuda sobre um comando</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+2"/>
         <source>Options:</source>
         <translation>Opções:</translation>
     </message>
     <message>
-        <location line="+23"/>
-        <source>Specify configuration file (default: BottleCaps.conf)</source>
+        <location line="+2"/>
+        <source>Specify configuration file (default: ColossusCoin2.conf)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Specify pid file (default: BottleCapsd.pid)</source>
+        <location line="+1"/>
+        <source>Specify pid file (default: ColossusCoin2d.pid)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-47"/>
-        <source>Generate coins</source>
-        <translation type="unfinished"/>
+        <location line="+2"/>
+        <source>Specify wallet file (within data directory)</source>
+        <translation>Especifique o arquivo da carteira (dentro do diretório de dados)</translation>
     </message>
     <message>
-        <location line="-14"/>
-        <source>Don&apos;t generate coins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+60"/>
+        <location line="-1"/>
         <source>Specify data directory</source>
         <translation>Especificar diretório de dados</translation>
     </message>
     <message>
-        <location line="-8"/>
+        <location line="+2"/>
         <source>Set database cache size in megabytes (default: 25)</source>
         <translation>Definir o tamanho do cache do banco de dados em megabytes (padrão: 25)</translation>
     </message>
@@ -2153,82 +2667,87 @@ Endereço: %4</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-26"/>
-        <source>Listen for connections on &lt;port&gt; (default: 7777 or testnet: 17777)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
-        <translation>Manter no máximo &lt;n&gt; conexões aos peers (padrão: 125)</translation>
-    </message>
-    <message>
-        <location line="-33"/>
-        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>Conectar a um nó para receber endereços de participantes, e desconectar.</translation>
-    </message>
-    <message>
-        <location line="+64"/>
-        <source>Specify your own public address</source>
-        <translation>Especificar seu próprio endereço público</translation>
-    </message>
-    <message>
-        <location line="-75"/>
-        <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+77"/>
-        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
-        <translation>Limite para desconectar peers mal comportados (padrão: 100)</translation>
-    </message>
-    <message>
-        <location line="-112"/>
-        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
-        <translation>Número de segundos para impedir que peers mal comportados reconectem (padrão: 86400)</translation>
-    </message>
-    <message>
-        <location line="-25"/>
-        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
-        <translation>Um erro ocorreu ao configurar a porta RPC %u para escuta em IPv4: %s</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <location line="+6"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8344 or testnet: 18344)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+31"/>
-        <source>Accept command line and JSON-RPC commands</source>
-        <translation>Aceitar linha de comando e comandos JSON-RPC</translation>
-    </message>
-    <message>
-        <location line="+26"/>
-        <source>Error: Transaction creation failed  </source>
+        <source>Listen for connections on &lt;port&gt; (default: 15714 or testnet: 25714)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
+        <source>Maintain at most &lt;n&gt; connections to peers (default: 125)</source>
+        <translation>Manter no máximo &lt;n&gt; conexões aos peers (padrão: 125)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Connect to a node to retrieve peer addresses, and disconnect</source>
+        <translation>Conectar a um nó para receber endereços de participantes, e desconectar.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Specify your own public address</source>
+        <translation>Especificar seu próprio endereço público</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Bind to given address. Use [host]:port notation for IPv6</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Stake your coins to support network and gain reward (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Threshold for disconnecting misbehaving peers (default: 100)</source>
+        <translation>Limite para desconectar peers mal comportados (padrão: 100)</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Number of seconds to keep misbehaving peers from reconnecting (default: 86400)</source>
+        <translation>Número de segundos para impedir que peers mal comportados reconectem (padrão: 86400)</translation>
+    </message>
+    <message>
+        <location line="-44"/>
+        <source>An error occurred while setting up the RPC port %u for listening on IPv4: %s</source>
+        <translation>Um erro ocorreu ao configurar a porta RPC %u para escuta em IPv4: %s</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+109"/>
+        <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-5"/>
+        <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-87"/>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 15715 or testnet: 25715)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-11"/>
+        <source>Accept command line and JSON-RPC commands</source>
+        <translation>Aceitar linha de comando e comandos JSON-RPC</translation>
+    </message>
+    <message>
+        <location line="+101"/>
+        <source>Error: Transaction creation failed  </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-5"/>
         <source>Error: Wallet locked, unable to create transaction  </source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-8"/>
         <source>Importing blockchain data file.</source>
         <translation type="unfinished"/>
     </message>
@@ -2238,62 +2757,57 @@ Endereço: %4</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="-88"/>
         <source>Run in the background as a daemon and accept commands</source>
         <translation>Rodar em segundo plano como serviço e aceitar comandos</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="+1"/>
         <source>Use the test network</source>
         <translation>Usar rede de teste</translation>
     </message>
     <message>
-        <location line="-93"/>
+        <location line="-24"/>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>Aceitar conexões externas (padrão: 1 se opções -proxy ou -connect não estiverem presentes)</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-38"/>
         <source>An error occurred while setting up the RPC port %u for listening on IPv6, falling back to IPv4: %s</source>
         <translation>Um erro ocorreu ao configurar a porta RPC %u para escuta em IPv6, voltando ao IPv4: %s</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+117"/>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-20"/>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation>Determinar tamanho máximo de transações de alta-prioridade/baixa-taxa em bytes (padrão: 27000)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+11"/>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
         <translation>Cuidado: valor de -paytxfee escolhido é muito alto! Este é o valor da taxa de transação que você irá pagar se enviar a transação.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation>Cuidado: Transações mostradas podem não estar corretas! Você pode precisar atualizar, ou outros nós podem precisar atualizar o cliente.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong BottleCaps will not work properly.</source>
+        <location line="+61"/>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ColossusCoin2 will not work properly.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-31"/>
         <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
         <translation>Cuidado: erro ao ler arquivo wallet.dat! Todas as chaves foram lidas corretamente, mas dados transações e do catálogo de endereços podem estar faltando ou estar incorretas.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-18"/>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Aviso: wallet.dat corrompido, dados recuperados! Arquivo wallet.dat original salvo como wallet.{timestamp}.bak em %s; se seu saldo ou transações estiverem incorretos, você deve restauras o backup.</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-30"/>
         <source>Attempt to recover private keys from a corrupt wallet.dat</source>
         <translation>Tentar recuperar chaves privadas de um arquivo wallet.dat corrompido</translation>
     </message>
@@ -2303,32 +2817,42 @@ Endereço: %4</translation>
         <translation>Opções de criação de blocos:</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-62"/>
         <source>Connect only to the specified node(s)</source>
         <translation>Conectar apenas a nó(s) específico(s)</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Discover own IP address (default: 1 when listening and no -externalip)</source>
         <translation>Descobrir os próprios endereços IP (padrão: 1 quando no modo listening e opção -externalip não estiver presente)</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+94"/>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Falha ao escutar em qualquer porta. Use -listen=0 se você quiser isso.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Find peers using DNS lookup (default: 0)</source>
+        <location line="-90"/>
+        <source>Find peers using DNS lookup (default: 1)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+11"/>
-        <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation>Endereço -tor inválido: &apos;%s&apos;</translation>
+        <location line="+5"/>
+        <source>Sync checkpoints policy (default: strict)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+83"/>
+        <source>Invalid -tor address: &apos;%s&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-82"/>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: 5000)</source>
         <translation>Buffer máximo de recebimento por conexão, &lt;n&gt;*1000 bytes (padrão: 5000)</translation>
     </message>
@@ -2338,142 +2862,203 @@ Endereço: %4</translation>
         <translation>Buffer máximo de envio por conexão, &lt;n&gt;*1000 bytes (padrão: 1000)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-16"/>
         <source>Only connect to nodes in network &lt;net&gt; (IPv4, IPv6 or Tor)</source>
         <translation>Apenas conectar em nós na rede &lt;net&gt; (IPv4, IPv6, ou Tor)</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+28"/>
         <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation>Mostrar informações extras de depuração. Implica em outras opções -debug*</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Output extra network debugging information</source>
-        <translation>Mostrar informações extras de depuração da rede</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Prepend debug output with timestamp</source>
-        <translation>Pré anexar a saída de debug com estampa de tempo</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Select the version of socks proxy to use (4-5, default: 5)</source>
-        <translation>Escolher versão do proxy socks a ser usada (4-5, padrão: 5)</translation>
+        <source>Output extra network debugging information</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Prepend debug output with timestamp</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
+        <translation>Opções SSL: (veja a Wiki do Bitcoin para instruções de configuração SSL)</translation>
+    </message>
+    <message>
+        <location line="-74"/>
+        <source>Select the version of socks proxy to use (4-5, default: 5)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+41"/>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Mandar informação de trace/debug para o console em vez de para o arquivo debug.log</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Send trace/debug info to debugger</source>
-        <translation>Mandar informação de trace/debug para o debugger</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+28"/>
         <source>Set maximum block size in bytes (default: 250000)</source>
-        <translation>Determinar tamanho máximo de bloco em bytes (padrão: 250000)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Set minimum block size in bytes (default: 0)</source>
         <translation>Determinar tamanho mínimo de bloco em bytes (padrão: 0)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-29"/>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>Encolher arquivo debug.log ao iniciar o cliente (padrão 1 se opção -debug não estiver presente)</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-42"/>
         <source>Specify connection timeout in milliseconds (default: 5000)</source>
         <translation>Especifique o tempo limite (timeout) da conexão em milissegundos (padrão: 5000) </translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+109"/>
+        <source>Unable to sign checkpoint, wrong checkpointkey?
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-80"/>
         <source>Use UPnP to map the listening port (default: 0)</source>
         <translation>Usar UPnP para mapear porta de escuta (padrão: 0)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Use UPnP to map the listening port (default: 1 when listening)</source>
         <translation>Usar UPnP para mapear porta de escuta (padrão: 1 quando estiver escutando)</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-25"/>
         <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
-        <translation>Usar proxy para alcançar serviços escondidos (padrão: mesmo que -proxy)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+42"/>
         <source>Username for JSON-RPC connections</source>
         <translation>Nome de usuário para conexões JSON-RPC</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+47"/>
         <source>Verifying database integrity...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Warning: Disk space is low!</source>
+        <location line="+57"/>
+        <source>WARNING: syncronized checkpoint violation detected, but skipped!</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
+        <source>Warning: Disk space is low!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-2"/>
         <source>Warning: This version is obsolete, upgrade required!</source>
         <translation>Cuidado: Esta versão está obsoleta, atualização exigida!</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-48"/>
         <source>wallet.dat corrupt, salvage failed</source>
         <translation>wallet.dat corrompido, recuperação falhou</translation>
     </message>
     <message>
-        <location line="-43"/>
+        <location line="-54"/>
         <source>Password for JSON-RPC connections</source>
         <translation>Senha para conexões JSON-RPC</translation>
     </message>
     <message>
-        <location line="-53"/>
+        <location line="-84"/>
+        <source>%s, you must set a rpcpassword in the configuration file:
+ %s
+It is recommended you use the following random password:
+rpcuser=ColossusCoin2rpc
+rpcpassword=%s
+(you do not need to remember this password)
+The username and password MUST NOT be the same.
+If the file does not exist, create it with owner-readable-only file permissions.
+It is also recommended to set alertnotify so you are notified of problems;
+for example: alertnotify=echo %%s | mail -s &quot;ColossusCoin2 Alert&quot; admin@foo.com
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Find peers using internet relay chat (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>When creating transactions, ignore inputs with value less than this (default: 0.01)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Allow JSON-RPC connections from specified IP address</source>
         <translation>Permitir conexões JSON-RPC de endereços IP específicos</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+1"/>
         <source>Send commands to node running on &lt;ip&gt; (default: 127.0.0.1)</source>
         <translation>Enviar comando para nó rodando em &lt;ip&gt; (pardão: 127.0.0.1)</translation>
     </message>
     <message>
-        <location line="-99"/>
+        <location line="+1"/>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Executar comando quando o melhor bloco mudar (%s no comando será substituído pelo hash do bloco)</translation>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+3"/>
+        <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
+        <translation>Executar comando quando uma transação da carteira mudar (%s no comando será substituído por TxID)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Require a confirmations for change (default: 0)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enforce transaction scripts to use canonical PUSH operators (default: 1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Execute command when a relevant alert is received (%s in cmd is replaced by message)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Upgrade wallet to latest format</source>
         <translation>Atualizar carteira para o formato mais recente</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="+1"/>
         <source>Set key pool size to &lt;n&gt; (default: 100)</source>
         <translation>Determinar tamanho do pool de endereços para &lt;n&gt; (padrão: 100)</translation>
     </message>
     <message>
-        <location line="-14"/>
+        <location line="+1"/>
         <source>Rescan the block chain for missing wallet transactions</source>
         <translation>Re-escanear blocos procurando por transações perdidas da carteira</translation>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="+2"/>
         <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
         <translation type="unfinished"/>
     </message>
@@ -2483,17 +3068,17 @@ Endereço: %4</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
         <source>Imports blocks from external blk000?.dat file</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+51"/>
+        <location line="+8"/>
         <source>Use OpenSSL (https) for JSON-RPC connections</source>
         <translation>Usar OpenSSL (https) para conexões JSON-RPC</translation>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="+1"/>
         <source>Server certificate file (default: server.cert)</source>
         <translation>Arquivo de certificado do servidor (padrão: server.cert)</translation>
     </message>
@@ -2503,47 +3088,62 @@ Endereço: %4</translation>
         <translation>Chave privada do servidor (padrão: server.pem)</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="+1"/>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation>Algoritmos de criptografia aceitos (padrão: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+53"/>
+        <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>WARNING: Invalid checkpoint found! Displayed transactions may not be correct! You may need to upgrade, or notify developers.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-158"/>
         <source>This help message</source>
         <translation>Esta mensagem de ajuda</translation>
     </message>
     <message>
-        <location line="-131"/>
-        <source>Cannot obtain a lock on data directory %s.  BottleCaps is probably already running.</source>
+        <location line="+95"/>
+        <source>Wallet %s resides outside data directory %s.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+57"/>
-        <source>BottleCaps</source>
+        <location line="+1"/>
+        <source>Cannot obtain a lock on data directory %s.  ColossusCoin2 is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="-98"/>
+        <source>ColossusCoin2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+140"/>
         <source>Unable to bind to %s on this computer (bind returned error %d, %s)</source>
         <translation>Impossível vincular a %s neste computador (bind retornou erro %d, %s)</translation>
     </message>
     <message>
-        <location line="-69"/>
+        <location line="-130"/>
         <source>Connect through socks proxy</source>
-        <translation>Conectar através de um proxy socks</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="+3"/>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
         <translation>Permitir consultas DNS para -addnode, -seednode e -connect</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+122"/>
         <source>Loading addresses...</source>
         <translation>Carregando endereços...</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-15"/>
         <source>Error loading blkindex.dat</source>
         <translation type="unfinished"/>
     </message>
@@ -2553,27 +3153,27 @@ Endereço: %4</translation>
         <translation>Erro ao carregar wallet.dat: Carteira corrompida</translation>
     </message>
     <message>
+        <location line="+4"/>
+        <source>Error loading wallet.dat: Wallet requires newer version of ColossusCoin2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of BottleCaps</source>
+        <source>Wallet needed to be rewritten: restart ColossusCoin2 to complete</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+73"/>
-        <source>Wallet needed to be rewritten: restart BottleCaps to complete</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-75"/>
+        <location line="+1"/>
         <source>Error loading wallet.dat</source>
         <translation>Erro ao carregar wallet.dat</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="-16"/>
         <source>Invalid -proxy address: &apos;%s&apos;</source>
         <translation>Endereço -proxy inválido: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="-1"/>
         <source>Unknown network specified in -onlynet: &apos;%s&apos;</source>
         <translation>Rede desconhecida especificada em -onlynet: &apos;%s&apos;</translation>
     </message>
@@ -2583,72 +3183,72 @@ Endereço: %4</translation>
         <translation>Versão desconhecida do proxy -socks requisitada: %i</translation>
     </message>
     <message>
-        <location line="-74"/>
+        <location line="+4"/>
         <source>Cannot resolve -bind address: &apos;%s&apos;</source>
         <translation>Impossível encontrar o endereço -bind: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Cannot resolve -externalip address: &apos;%s&apos;</source>
         <translation>Impossível encontrar endereço -externalip: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="-24"/>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation>Quantidade inválida para -paytxfee=&lt;quantidade&gt;: &apos;%s&apos;</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="+44"/>
         <source>Error: could not start node</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+11"/>
         <source>Sending...</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-24"/>
+        <location line="+5"/>
         <source>Invalid amount</source>
         <translation>Quantidade inválida</translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="+1"/>
         <source>Insufficient funds</source>
         <translation>Saldo insuficiente</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="-34"/>
         <source>Loading block index...</source>
         <translation>Carregando índice de blocos...</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-103"/>
         <source>Add a node to connect to and attempt to keep the connection open</source>
         <translation>Adicionar um nó com o qual se conectar e tentar manter a conexão ativa</translation>
     </message>
     <message>
-        <location line="-25"/>
-        <source>Unable to bind to %s on this computer. BottleCaps is probably already running.</source>
+        <location line="+122"/>
+        <source>Unable to bind to %s on this computer. ColossusCoin2 is probably already running.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-97"/>
+        <source>Fee per KB to add to transactions you send</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+55"/>
-        <source>Find peers using internet relay chat (default: 1)</source>
+        <source>Invalid amount for -mininput=&lt;amount&gt;: &apos;%s&apos;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2"/>
-        <source>Fee per KB to add to transactions you send</source>
-        <translation>Taxa por KB a ser acrescida nas transações que você enviar</translation>
-    </message>
-    <message>
-        <location line="+19"/>
+        <location line="+25"/>
         <source>Loading wallet...</source>
         <translation>Carregando carteira...</translation>
     </message>
     <message>
-        <location line="-39"/>
+        <location line="+8"/>
         <source>Cannot downgrade wallet</source>
         <translation>Não é possível fazer downgrade da carteira</translation>
     </message>
@@ -2658,44 +3258,32 @@ Endereço: %4</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
         <source>Cannot write default address</source>
         <translation>Não foi possível escrever no endereço padrão</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+1"/>
         <source>Rescanning...</source>
         <translation>Re-escaneando...</translation>
     </message>
     <message>
-        <location line="-40"/>
+        <location line="+5"/>
         <source>Done loading</source>
         <translation>Carregamento terminado</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="-167"/>
         <source>To use the %s option</source>
         <translation>Para usar a opção %s</translation>
     </message>
     <message>
-        <location line="-150"/>
-        <source>%s, you must set a rpcpassword in the configuration file:
- %s
-It is recommended you use the following random password:
-rpcuser=bitcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-If the file does not exist, create it with owner-readable-only file permissions.
-</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+91"/>
+        <location line="+14"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="+6"/>
         <source>You must set rpcpassword=&lt;password&gt; in the configuration file:
 %s
 If the file does not exist, create it with owner-readable-only file permissions.</source>
