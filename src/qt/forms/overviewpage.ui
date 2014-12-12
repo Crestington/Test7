@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>OverviewPage</class>
+ 
  <widget class="QWidget" name="OverviewPage">
+ 
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>487</height>
+    <width>573</width>
+    <height>342</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +46,7 @@
           <item>
            <widget class="QLabel" name="labelWalletStatus">
             <property name="toolTip">
-             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the ColossusCoin2 network after a connection is established, but this process has not completed yet.</string>
+             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the HyperStake network after a connection is established, but this process has not completed yet.</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel { color: red; }</string>
@@ -72,6 +74,9 @@
           </item>
          </layout>
         </item>
+		
+		
+		
         <item>
          <layout class="QFormLayout" name="formLayout_2">
           <property name="fieldGrowthPolicy">
@@ -86,7 +91,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Spendable:</string>
+             <string>Balance:</string>
             </property>
            </widget>
           </item>
@@ -102,7 +107,7 @@
              <cursorShape>IBeamCursor</cursorShape>
             </property>
             <property name="toolTip">
-             <string>Your current spendable balance</string>
+             <string>Your current balance</string>
             </property>
             <property name="text">
              <string notr="true">0 CV2</string>
@@ -196,39 +201,20 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0" colspan="2">
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="labelTotalText">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Total:</string>
+             <string>Number of transactions:</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QLabel" name="labelTotal">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
+          <item row="4" column="1">
+           <widget class="QLabel" name="labelNumTransactions">
             <property name="toolTip">
-             <string>Your current total balance</string>
+             <string>Total number of transactions in wallet</string>
             </property>
             <property name="text">
-             <string notr="true">0 CV2</string>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+             <string notr="true">0</string>
             </property>
            </widget>
           </item>
@@ -251,21 +237,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="autoFillBackground">
-        <bool>true</bool>
-       </property>
+      <widget class="QLabel" name="coinLogo">
        <property name="text">
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../bitcoin.qrc">:/icons/drmbg</pixmap>
+        <pixmap resource="../bitcoin.qrc">:/images/backg</pixmap>
        </property>
        <property name="scaledContents">
         <bool>false</bool>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
        <property name="margin">
-        <number>0</number>
+        <number>-2</number>
        </property>
       </widget>
      </item>
@@ -294,7 +280,7 @@
           <item>
            <widget class="QLabel" name="labelTransactionsStatus">
             <property name="toolTip">
-             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the ColossusCoin2 network after a connection is established, but this process has not completed yet.</string>
+             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the HyperStake network after a connection is established, but this process has not completed yet.</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel { color: red; }</string>

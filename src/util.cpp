@@ -77,7 +77,7 @@ string strMiscWarning;
 bool fTestNet = false;
 bool fNoListen = false;
 bool fLogTimestamps = false;
-CMedianFilter<int64_t> vTimeOffsets(200,0);
+CMedianFilter<int64> vTimeOffsets(200,0);
 bool fReopenDebugLog = false;
 
 // Init OpenSSL library multithreading support
@@ -134,7 +134,7 @@ instance_of_cinit;
 void RandAddSeed()
 {
     // Seed with CPU performance counter
-    int64_t nCounter = GetPerformanceCounter();
+    int64 nCounter = GetPerformanceCounter();
     RAND_add(&nCounter, sizeof(nCounter), 1.5);
     memset(&nCounter, 0, sizeof(nCounter));
 }
@@ -144,7 +144,7 @@ void RandAddSeedPerfmon()
     RandAddSeed();
 
     // This can take up to 2 seconds, so only do it every 10 minutes
-    static int64_t nLastPerfmon;
+    static int64 nLastPerfmon;
     if (GetTime() < nLastPerfmon + 10 * 60)
         return;
     nLastPerfmon = GetTime();
@@ -166,15 +166,15 @@ void RandAddSeedPerfmon()
 #endif
 }
 
-uint64_t GetRand(uint64_t nMax)
+uint64 GetRand(uint64 nMax)
 {
     if (nMax == 0)
         return 0;
 
     // The range of the random source must be a multiple of the modulus
     // to give every possible output value an equal possibility
-    uint64_t nRange = (std::numeric_limits<uint64_t>::max() / nMax) * nMax;
-    uint64_t nRand = 0;
+    uint64 nRange = (std::numeric_limits<uint64>::max() / nMax) * nMax;
+    uint64 nRand = 0;
     do
         RAND_bytes((unsigned char*)&nRand, sizeof(nRand));
     while (nRand >= nRange);
@@ -364,14 +364,14 @@ void ParseString(const string& str, char c, vector<string>& v)
 }
 
 
-string FormatMoney(int64_t n, bool fPlus)
+string FormatMoney(int64 n, bool fPlus)
 {
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
-    int64_t n_abs = (n > 0 ? n : -n);
-    int64_t quotient = n_abs/COIN;
-    int64_t remainder = n_abs%COIN;
-    string str = strprintf("%"PRId64".%08"PRId64, quotient, remainder);
+    int64 n_abs = (n > 0 ? n : -n);
+    int64 quotient = n_abs/COIN;
+    int64 remainder = n_abs%COIN;
+    string str = strprintf("%"PRI64d".%06"PRI64d, quotient, remainder);
 
     // Right-trim excess zeros before the decimal point:
     int nTrim = 0;
@@ -388,15 +388,15 @@ string FormatMoney(int64_t n, bool fPlus)
 }
 
 
-bool ParseMoney(const string& str, int64_t& nRet)
+bool ParseMoney(const string& str, int64& nRet)
 {
     return ParseMoney(str.c_str(), nRet);
 }
 
-bool ParseMoney(const char* pszIn, int64_t& nRet)
+bool ParseMoney(const char* pszIn, int64& nRet)
 {
     string strWhole;
-    int64_t nUnits = 0;
+    int64 nUnits = 0;
     const char* p = pszIn;
     while (isspace(*p))
         p++;
@@ -405,7 +405,7 @@ bool ParseMoney(const char* pszIn, int64_t& nRet)
         if (*p == '.')
         {
             p++;
-            int64_t nMult = CENT*10;
+            int64 nMult = CENT*10;
             while (isdigit(*p) && (nMult > 0))
             {
                 nUnits += nMult * (*p++ - '0');
@@ -426,8 +426,8 @@ bool ParseMoney(const char* pszIn, int64_t& nRet)
         return false;
     if (nUnits < 0 || nUnits > COIN)
         return false;
-    int64_t nWhole = atoi64(strWhole);
-    int64_t nValue = nWhole*COIN + nUnits;
+    int64 nWhole = atoi64(strWhole);
+    int64 nValue = nWhole*COIN + nUnits;
 
     nRet = nValue;
     return true;
@@ -451,6 +451,52 @@ static const signed char phexdigit[256] =
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
   -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, };
+
+
+static const long hextable[] = 
+{
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 10-19
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 30-39
+	-1, -1, -1, -1, -1, -1, -1, -1,  0,  1,
+	 2,  3,  4,  5,  6,  7,  8,  9, -1, -1,		// 50-59
+	-1, -1, -1, -1, -1, 10, 11, 12, 13, 14,
+	15, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 70-79
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, 10, 11, 12,		// 90-99
+	13, 14, 15, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 110-109
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 130-139
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 150-159
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 170-179
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 190-199
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 210-219
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 230-239
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1
+};
+
+
+long hex2long(const char* hexString)
+{
+	long ret = 0; 
+
+	while (*hexString && ret >= 0) 
+	{
+		ret = (ret << 4) | hextable[*hexString++];
+	}
+
+	return ret; 
+}
+
+
 
 bool IsHex(const string& str)
 {
@@ -555,7 +601,7 @@ std::string GetArg(const std::string& strArg, const std::string& strDefault)
     return strDefault;
 }
 
-int64_t GetArg(const std::string& strArg, int64_t nDefault)
+int64 GetArg(const std::string& strArg, int64 nDefault)
 {
     if (mapArgs.count(strArg))
         return atoi64(mapArgs[strArg]);
@@ -960,14 +1006,14 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "ColossusCoin2";
+    const char* pszModule = "HyperStake";
 #endif
     if (pex)
         return strprintf(
-            "EXCEPTION: %s       \n%s       \n%s in %s       \n", typeid(*pex).name(), pex->what(), pszModule, pszThread);
+            "ETRKEPTION: %s       \n%s       \n%s in %s       \n", typeid(*pex).name(), pex->what(), pszModule, pszThread);
     else
         return strprintf(
-            "UNKNOWN EXCEPTION       \n%s in %s       \n", pszModule, pszThread);
+            "UNKNOWN ETRKEPTION       \n%s in %s       \n", pszModule, pszThread);
 }
 
 void LogException(std::exception* pex, const char* pszThread)
@@ -1009,13 +1055,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\ColossusCoin2
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\ColossusCoin2
-    // Mac: ~/Library/Application Support/ColossusCoin2
-    // Unix: ~/.ColossusCoin2
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\HyperStake
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\HyperStake
+    // Mac: ~/Library/Application Support/HyperStake
+    // Unix: ~/.HyperStake
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "ColossusCoin2";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "HyperStake";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -1027,10 +1073,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "ColossusCoin2";
+    return pathRet / "HyperStake";
 #else
     // Unix
-    return pathRet / ".ColossusCoin2";
+    return pathRet / ".HyperStake";
 #endif
 #endif
 }
@@ -1061,8 +1107,8 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
     } else {
         path = GetDefaultDataDir();
     }
-    if (fNetSpecific && fTestNet)
-        path /= "testnet";
+    if (fNetSpecific && GetBoolArg("-testnet", false))
+        path /= "testnet2";
 
     fs::create_directory(path);
 
@@ -1072,7 +1118,7 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "ColossusCoin2.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "HyperStake.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
 }
@@ -1103,12 +1149,11 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "ColossusCoin2d.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "HyperStaked.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
 
-#ifndef WIN32
 void CreatePidFile(const boost::filesystem::path &path, pid_t pid)
 {
     FILE* file = fopen(path.string().c_str(), "w");
@@ -1118,7 +1163,6 @@ void CreatePidFile(const boost::filesystem::path &path, pid_t pid)
         fclose(file);
     }
 }
-#endif
 
 bool RenameOver(boost::filesystem::path src, boost::filesystem::path dest)
 {
@@ -1141,12 +1185,22 @@ void FileCommit(FILE *fileout)
 #endif
 }
 
+int GetFilesize(FILE* file)
+{
+    int nSavePos = ftell(file);
+    int nFilesize = -1;
+    if (fseek(file, 0, SEEK_END) == 0)
+        nFilesize = ftell(file);
+    fseek(file, nSavePos, SEEK_SET);
+    return nFilesize;
+}
+
 void ShrinkDebugFile()
 {
     // Scroll debug.log if it's getting too big
     boost::filesystem::path pathLog = GetDataDir() / "debug.log";
     FILE* file = fopen(pathLog.string().c_str(), "r");
-    if (file && boost::filesystem::file_size(pathLog) > 10 * 1000000)
+    if (file && GetFilesize(file) > 10 * 1000000)
     {
         // Restart the file with some of the end
         char pch[200000];
@@ -1163,6 +1217,13 @@ void ShrinkDebugFile()
     }
 }
 
+
+
+
+
+
+
+
 //
 // "Never go to sea with two chronometers; take one or three."
 // Our three time sources are:
@@ -1170,35 +1231,30 @@ void ShrinkDebugFile()
 //  - Median of other nodes clocks
 //  - The user (asking the user to fix the system clock if the first two disagree)
 //
-static int64_t nMockTime = 0;  // For unit testing
+static int64 nMockTime = 0;  // For unit testing
 
-int64_t GetTime()
+int64 GetTime()
 {
     if (nMockTime) return nMockTime;
 
     return time(NULL);
 }
 
-void SetMockTime(int64_t nMockTimeIn)
+void SetMockTime(int64 nMockTimeIn)
 {
     nMockTime = nMockTimeIn;
 }
 
-static int64_t nTimeOffset = 0;
+static int64 nTimeOffset = 0;
 
-int64_t GetTimeOffset()
+int64 GetAdjustedTime()
 {
-    return nTimeOffset;
+    return GetTime() + nTimeOffset;
 }
 
-int64_t GetAdjustedTime()
+void AddTimeData(const CNetAddr& ip, int64 nTime)
 {
-    return GetTime() + GetTimeOffset();
-}
-
-void AddTimeData(const CNetAddr& ip, int64_t nTime)
-{
-    int64_t nOffsetSample = nTime - GetTime();
+    int64 nOffsetSample = nTime - GetTime();
 
     // Ignore duplicates
     static set<CNetAddr> setKnown;
@@ -1207,11 +1263,11 @@ void AddTimeData(const CNetAddr& ip, int64_t nTime)
 
     // Add data
     vTimeOffsets.input(nOffsetSample);
-    printf("Added time data, samples %d, offset %+"PRId64" (%+"PRId64" minutes)\n", vTimeOffsets.size(), nOffsetSample, nOffsetSample/60);
+    printf("Added time data, samples %d, offset %+"PRI64d" (%+"PRI64d" minutes)\n", vTimeOffsets.size(), nOffsetSample, nOffsetSample/60);
     if (vTimeOffsets.size() >= 5 && vTimeOffsets.size() % 2 == 1)
     {
-        int64_t nMedian = vTimeOffsets.median();
-        std::vector<int64_t> vSorted = vTimeOffsets.sorted();
+        int64 nMedian = vTimeOffsets.median();
+        std::vector<int64> vSorted = vTimeOffsets.sorted();
         // Only let other nodes change our time by so much
         if (abs64(nMedian) < 70 * 60)
         {
@@ -1226,26 +1282,26 @@ void AddTimeData(const CNetAddr& ip, int64_t nTime)
             {
                 // If nobody has a time different than ours but within 5 minutes of ours, give a warning
                 bool fMatch = false;
-                BOOST_FOREACH(int64_t nOffset, vSorted)
+                BOOST_FOREACH(int64 nOffset, vSorted)
                     if (nOffset != 0 && abs64(nOffset) < 5 * 60)
                         fMatch = true;
 
                 if (!fMatch)
                 {
                     fDone = true;
-                    string strMessage = _("Warning: Please check that your computer's date and time are correct! If your clock is wrong ColossusCoin2 will not work properly.");
+                    string strMessage = _("Warning: Please check that your computer's date and time are correct! If your clock is wrong HyperStake will not work properly.");
                     strMiscWarning = strMessage;
                     printf("*** %s\n", strMessage.c_str());
-                    uiInterface.ThreadSafeMessageBox(strMessage+" ", string("ColossusCoin2"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION);
+                    uiInterface.ThreadSafeMessageBox(strMessage+" ", string("HyperStake"), CClientUIInterface::OK | CClientUIInterface::ICON_ETRKLAMATION);
                 }
             }
         }
         if (fDebug) {
-            BOOST_FOREACH(int64_t n, vSorted)
-                printf("%+"PRId64"  ", n);
+            BOOST_FOREACH(int64 n, vSorted)
+                printf("%+"PRI64d"  ", n);
             printf("|  ");
         }
-        printf("nTimeOffset = %+"PRId64"  (%+"PRId64" minutes)\n", nTimeOffset, nTimeOffset/60);
+        printf("nTimeOffset = %+"PRI64d"  (%+"PRI64d" minutes)\n", nTimeOffset, nTimeOffset/60);
     }
 }
 
@@ -1316,7 +1372,7 @@ void RenameThread(const char* name)
     //       removed.
     pthread_set_name_np(pthread_self(), name);
 
-// This is XCode 10.6-and-later; bring back if we drop 10.5 support:
+// This is TRKode 10.6-and-later; bring back if we drop 10.5 support:
 // #elif defined(MAC_OSX)
 //    pthread_setname_np(name);
 

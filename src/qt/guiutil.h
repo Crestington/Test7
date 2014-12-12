@@ -4,6 +4,7 @@
 #include <QString>
 #include <QObject>
 #include <QMessageBox>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 class QFont;
@@ -12,6 +13,7 @@ class QWidget;
 class QDateTime;
 class QUrl;
 class QAbstractItemView;
+class QLabel;
 QT_END_NAMESPACE
 class SendCoinsRecipient;
 
@@ -30,7 +32,7 @@ namespace GUIUtil
     void setupAddressWidget(QLineEdit *widget, QWidget *parent);
     void setupAmountWidget(QLineEdit *widget, QWidget *parent);
 
-    // Parse "ColossusCoin2:" URI into recipient object, return true on successful parsing
+    // Parse "bitcoin:" URI into recipient object, return true on successful parsing
     // See Bitcoin URI definition discussion here: https://bitcointalk.org/index.php?topic=33490.0
     bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out);
     bool parseBitcoinURI(QString uri, SendCoinsRecipient *out);
@@ -114,6 +116,22 @@ namespace GUIUtil
         QString coreOptions;
         QString uiOptions;
     };
+	
+	class ClickableLabel : public QLabel
+	{
+	
+	Q_OBJECT
+	 
+	public:
+		explicit ClickableLabel( const QString& text ="", QWidget * parent = 0 );
+		~ClickableLabel();
+		
+		signals:
+			void clicked();
+		
+		protected:
+			void mouseReleaseEvent ( QMouseEvent * event );
+	};
 
 } // namespace GUIUtil
 

@@ -10,7 +10,11 @@
 #include <QDoubleValidator>
 #include <QFont>
 #include <QLineEdit>
+#if QT_VERSION >= 0x050000
+#include <QUrlQuery>
+#else
 #include <QUrl>
+#endif
 #include <QTextDocument> // For Qt::escape
 #include <QAbstractItemView>
 #include <QApplication>
@@ -77,14 +81,19 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // NovaCoin: check prefix
-    if(uri.scheme() != QString("ColossusCoin2"))
+    if(uri.scheme() != QString("bitcoin"))
         return false;
 
     SendCoinsRecipient rv;
     rv.address = uri.path();
     rv.amount = 0;
+	#if QT_VERSION < 0x050000
     QList<QPair<QString, QString> > items = uri.queryItems();
+	#else
+	QUrlQuery uriQuery(uri);
+	QList<QPair<QString, QString> > items = uriQuery.queryItems();
+	#endif
+	
     for (QList<QPair<QString, QString> >::iterator i = items.begin(); i != items.end(); i++)
     {
         bool fShouldReturnFalse = false;
@@ -123,13 +132,13 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 {
-    // Convert ColossusCoin2:// to ColossusCoin2:
+    // Convert bitcoin:// to bitcoin:
     //
     //    Cannot handle this later, because bitcoin:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("ColossusCoin2://"))
+    if(uri.startsWith("bitcoin://"))
     {
-        uri.replace(0, 12, "ColossusCoin2:");
+        uri.replace(0, 10, "bitcoin:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -137,7 +146,11 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 
 QString HtmlEscape(const QString& str, bool fMultiLine)
 {
-    QString escaped = Qt::escape(str);
+    #if QT_VERSION < 0x050000
+	QString escaped = Qt::escape(str);
+	#else
+	QString escaped = str.toHtmlEscaped();
+	#endif
     if(fMultiLine)
     {
         escaped = escaped.replace("\n", "<br>\n");
@@ -172,8 +185,12 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
     QString myDir;
     if(dir.isEmpty()) // Default to user documents location
     {
+		#if QT_VERSION < 0x050000
         myDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-    }
+		#else
+		myDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+		#endif
+	}
     else
     {
         myDir = dir;
@@ -258,11 +275,11 @@ bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)
     {
         QWidget *widget = static_cast<QWidget*>(obj);
         QString tooltip = widget->toolTip();
-        if(tooltip.size() > size_threshold && !tooltip.startsWith("<qt>") && !Qt::mightBeRichText(tooltip))
+        if(tooltip.size() > size_threshold && !tooltip.startsWith("<qt/>") && !Qt::mightBeRichText(tooltip))
         {
             // Prefix <qt/> to make sure Qt detects this as rich text
             // Escape the current message as HTML and replace \n by <br>
-            tooltip = "<qt>" + HtmlEscape(tooltip, true) + "<qt/>";
+            tooltip = "<qt/>" + HtmlEscape(tooltip, true);
             widget->setToolTip(tooltip);
             return true;
         }
@@ -273,7 +290,7 @@ bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)
 #ifdef WIN32
 boost::filesystem::path static StartupShortcutPath()
 {
-    return GetSpecialFolderPath(CSIDL_STARTUP) / "ColossusCoin2.lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / "HyperStake.lnk";
 }
 
 bool GetStartOnSystemStartup()
@@ -355,7 +372,7 @@ boost::filesystem::path static GetAutostartDir()
 
 boost::filesystem::path static GetAutostartFilePath()
 {
-    return GetAutostartDir() / "ColossusCoin2.desktop";
+    return GetAutostartDir() / "HyperStake.desktop";
 }
 
 bool GetStartOnSystemStartup()
@@ -396,7 +413,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         // Write a bitcoin.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
-        optionFile << "Name=ColossusCoin2\n";
+        optionFile << "Name=HyperStake\n";
         optionFile << "Exec=" << pszExePath << " -min\n";
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
@@ -417,10 +434,10 @@ bool SetStartOnSystemStartup(bool fAutoStart) { return false; }
 HelpMessageBox::HelpMessageBox(QWidget *parent) :
     QMessageBox(parent)
 {
-    header = tr("ColossusCoin2-Qt") + " " + tr("version") + " " +
+    header = tr("HyperStake-Qt") + " " + tr("version") + " " +
         QString::fromStdString(FormatFullVersion()) + "\n\n" +
         tr("Usage:") + "\n" +
-        "  ColossusCoin2-qt [" + tr("command-line options") + "]                     " + "\n";
+        "  HyperStake-qt [" + tr("command-line options") + "]                     " + "\n";
 
     coreOptions = QString::fromStdString(HelpMessage());
 
@@ -429,7 +446,7 @@ HelpMessageBox::HelpMessageBox(QWidget *parent) :
         "  -min                   " + tr("Start minimized") + "\n" +
         "  -splash                " + tr("Show splash screen on startup (default: 1)") + "\n";
 
-    setWindowTitle(tr("ColossusCoin2-Qt"));
+    setWindowTitle(tr("HyperStake-Qt"));
     setTextFormat(Qt::PlainText);
     // setMinimumWidth is ignored for QMessageBox so put in non-breaking spaces to make it wider.
     setText(header + QString(QChar(0x2003)).repeated(50));
@@ -452,6 +469,20 @@ void HelpMessageBox::showOrPrint()
         // On other operating systems, print help text to console
         printToConsole();
 #endif
+}
+
+ClickableLabel::ClickableLabel( const QString& text, QWidget * parent ) : QLabel(parent)
+{
+	this->setText(text);
+}
+
+ ClickableLabel::~ClickableLabel()
+{
+}
+
+void ClickableLabel::mouseReleaseEvent ( QMouseEvent * event )
+{
+	emit clicked();
 }
 
 } // namespace GUIUtil

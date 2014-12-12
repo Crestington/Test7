@@ -54,8 +54,8 @@ typedef sph_s32 s32;
 #define T32     SPH_T32
 #define ROL32   SPH_ROTL32
 
-#define XCAT(x, y)    XCAT_(x, y)
-#define XCAT_(x, y)   x ## y
+#define TRKAT(x, y)    TRKAT_(x, y)
+#define TRKAT_(x, y)   x ## y
 
 /*
  * The powers of 41 modulo 257. We use exponents from 0 to 255, inclusive.
@@ -209,8 +209,8 @@ static const s32 alpha_tab[] = {
  * Output range: |q| <= 2366892
  */
 #define FFT64(xb, xs, rb, id)   do { \
-		FFT32(xb, (xs) << 1, rb, XCAT(id, a)); \
-		FFT32((xb) + (xs), (xs) << 1, (rb) + 32, XCAT(id, b)); \
+		FFT32(xb, (xs) << 1, rb, TRKAT(id, a)); \
+		FFT32((xb) + (xs), (xs) << 1, (rb) + 32, TRKAT(id, b)); \
 		FFT_LOOP(rb, 32, 4, id); \
 	} while (0)
 
@@ -230,11 +230,11 @@ fft32(unsigned char *x, size_t xs, s32 *q)
 #define FFT128(xb, xs, rb, id)   do { \
 		fft32(x + (xb) + ((xs) * 0), (xs) << 2, &q[(rb) +  0]); \
 		fft32(x + (xb) + ((xs) * 2), (xs) << 2, &q[(rb) + 32]); \
-		FFT_LOOP(rb, 32, 4, XCAT(id, aa)); \
+		FFT_LOOP(rb, 32, 4, TRKAT(id, aa)); \
 		fft32(x + (xb) + ((xs) * 1), (xs) << 2, &q[(rb) + 64]); \
 		fft32(x + (xb) + ((xs) * 3), (xs) << 2, &q[(rb) + 96]); \
-		FFT_LOOP((rb) + 64, 32, 4, XCAT(id, ab)); \
-		FFT_LOOP(rb, 64, 2, XCAT(id, a)); \
+		FFT_LOOP((rb) + 64, 32, 4, TRKAT(id, ab)); \
+		FFT_LOOP(rb, 64, 2, TRKAT(id, a)); \
 	} while (0)
 
 #else
@@ -243,8 +243,8 @@ fft32(unsigned char *x, size_t xs, s32 *q)
  * Output range: |q| <= 4733784
  */
 #define FFT128(xb, xs, rb, id)   do { \
-		FFT64(xb, (xs) << 1, rb, XCAT(id, a)); \
-		FFT64((xb) + (xs), (xs) << 1, (rb) + 64, XCAT(id, b)); \
+		FFT64(xb, (xs) << 1, rb, TRKAT(id, a)); \
+		FFT64((xb) + (xs), (xs) << 1, (rb) + 64, TRKAT(id, b)); \
 		FFT_LOOP(rb, 64, 2, id); \
 	} while (0)
 
@@ -273,11 +273,11 @@ fft64(unsigned char *x, size_t xs, s32 *q)
 #define FFT256(xb, xs, rb, id)   do { \
 		fft64(x + (xb) + ((xs) * 0), (xs) << 2, &q[(rb) +   0]); \
 		fft64(x + (xb) + ((xs) * 2), (xs) << 2, &q[(rb) +  64]); \
-		FFT_LOOP(rb, 64, 2, XCAT(id, aa)); \
+		FFT_LOOP(rb, 64, 2, TRKAT(id, aa)); \
 		fft64(x + (xb) + ((xs) * 1), (xs) << 2, &q[(rb) + 128]); \
 		fft64(x + (xb) + ((xs) * 3), (xs) << 2, &q[(rb) + 192]); \
-		FFT_LOOP((rb) + 128, 64, 2, XCAT(id, ab)); \
-		FFT_LOOP(rb, 128, 1, XCAT(id, a)); \
+		FFT_LOOP((rb) + 128, 64, 2, TRKAT(id, ab)); \
+		FFT_LOOP(rb, 128, 1, TRKAT(id, a)); \
 	} while (0)
 
 /*
@@ -666,7 +666,7 @@ static const unsigned short yoff_b_f[] = {
 
 #define STEP_ELT(n, w, fun, s, ppb)   do { \
 		u32 tt = T32(D ## n + (w) + fun(A ## n, B ## n, C ## n)); \
-		A ## n = T32(ROL32(tt, s) + XCAT(tA, XCAT(ppb, n))); \
+		A ## n = T32(ROL32(tt, s) + TRKAT(tA, TRKAT(ppb, n))); \
 		D ## n = C ## n; \
 		C ## n = B ## n; \
 		B ## n = tA ## n; \
@@ -733,21 +733,21 @@ static const unsigned short yoff_b_f[] = {
 
 #define ONE_ROUND_SMALL(ri, isp, p0, p1, p2, p3)   do { \
 		STEP_SMALL_(WS_ ## ri ## 0, \
-			IF,  p0, p1, XCAT(PP4_, M3_0_ ## isp)); \
+			IF,  p0, p1, TRKAT(PP4_, M3_0_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 1, \
-			IF,  p1, p2, XCAT(PP4_, M3_1_ ## isp)); \
+			IF,  p1, p2, TRKAT(PP4_, M3_1_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 2, \
-			IF,  p2, p3, XCAT(PP4_, M3_2_ ## isp)); \
+			IF,  p2, p3, TRKAT(PP4_, M3_2_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 3, \
-			IF,  p3, p0, XCAT(PP4_, M3_3_ ## isp)); \
+			IF,  p3, p0, TRKAT(PP4_, M3_3_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 4, \
-			MAJ, p0, p1, XCAT(PP4_, M3_4_ ## isp)); \
+			MAJ, p0, p1, TRKAT(PP4_, M3_4_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 5, \
-			MAJ, p1, p2, XCAT(PP4_, M3_5_ ## isp)); \
+			MAJ, p1, p2, TRKAT(PP4_, M3_5_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 6, \
-			MAJ, p2, p3, XCAT(PP4_, M3_6_ ## isp)); \
+			MAJ, p2, p3, TRKAT(PP4_, M3_6_ ## isp)); \
 		STEP_SMALL_(WS_ ## ri ## 7, \
-			MAJ, p3, p0, XCAT(PP4_, M3_7_ ## isp)); \
+			MAJ, p3, p0, TRKAT(PP4_, M3_7_ ## isp)); \
 	} while (0)
 
 #define M7_0_0   0_
@@ -790,21 +790,21 @@ static const unsigned short yoff_b_f[] = {
 
 #define ONE_ROUND_BIG(ri, isp, p0, p1, p2, p3)   do { \
 		STEP_BIG_(WB_ ## ri ## 0, \
-			IF,  p0, p1, XCAT(PP8_, M7_0_ ## isp)); \
+			IF,  p0, p1, TRKAT(PP8_, M7_0_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 1, \
-			IF,  p1, p2, XCAT(PP8_, M7_1_ ## isp)); \
+			IF,  p1, p2, TRKAT(PP8_, M7_1_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 2, \
-			IF,  p2, p3, XCAT(PP8_, M7_2_ ## isp)); \
+			IF,  p2, p3, TRKAT(PP8_, M7_2_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 3, \
-			IF,  p3, p0, XCAT(PP8_, M7_3_ ## isp)); \
+			IF,  p3, p0, TRKAT(PP8_, M7_3_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 4, \
-			MAJ, p0, p1, XCAT(PP8_, M7_4_ ## isp)); \
+			MAJ, p0, p1, TRKAT(PP8_, M7_4_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 5, \
-			MAJ, p1, p2, XCAT(PP8_, M7_5_ ## isp)); \
+			MAJ, p1, p2, TRKAT(PP8_, M7_5_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 6, \
-			MAJ, p2, p3, XCAT(PP8_, M7_6_ ## isp)); \
+			MAJ, p2, p3, TRKAT(PP8_, M7_6_ ## isp)); \
 		STEP_BIG_(WB_ ## ri ## 7, \
-			MAJ, p3, p0, XCAT(PP8_, M7_7_ ## isp)); \
+			MAJ, p3, p0, TRKAT(PP8_, M7_7_ ## isp)); \
 	} while (0)
 
 #if SPH_SMALL_FOOTPRINT_SIMD

@@ -127,7 +127,6 @@ void OptionsDialog::setMapper()
 {
     /* Main */
     mapper->addMapping(ui->transactionFee, OptionsModel::Fee);
-    mapper->addMapping(ui->reserveBalance, OptionsModel::ReserveBalance);
     mapper->addMapping(ui->bitcoinAtStartup, OptionsModel::StartAtStartup);
     mapper->addMapping(ui->detachDatabases, OptionsModel::DetachDatabases);
 
@@ -149,7 +148,7 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->lang, OptionsModel::Language);
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->displayAddresses, OptionsModel::DisplayAddresses);
-    mapper->addMapping(ui->coinControlFeatures, OptionsModel::CoinControlFeatures);
+	mapper->addMapping(ui->coinControlFeatures, OptionsModel::CoinControlFeatures);
 }
 
 void OptionsDialog::enableApplyButton()
@@ -201,7 +200,7 @@ void OptionsDialog::showRestartWarning_Proxy()
 {
     if(!fRestartWarningDisplayed_Proxy)
     {
-        QMessageBox::warning(this, tr("Warning"), tr("This setting will take effect after restarting ColossusCoin2."), QMessageBox::Ok);
+        QMessageBox::warning(this, tr("Warning"), tr("This setting will take effect after restarting HyperStake."), QMessageBox::Ok);
         fRestartWarningDisplayed_Proxy = true;
     }
 }
@@ -210,7 +209,7 @@ void OptionsDialog::showRestartWarning_Lang()
 {
     if(!fRestartWarningDisplayed_Lang)
     {
-        QMessageBox::warning(this, tr("Warning"), tr("This setting will take effect after restarting ColossusCoin2."), QMessageBox::Ok);
+        QMessageBox::warning(this, tr("Warning"), tr("This setting will take effect after restarting HyperStake."), QMessageBox::Ok);
         fRestartWarningDisplayed_Lang = true;
     }
 }
@@ -238,7 +237,8 @@ void OptionsDialog::handleProxyIpValid(QValidatedLineEdit *object, bool fState)
     {
         disableSaveButtons();
         object->setValid(fProxyIpValid);
-        ui->statusLabel->setStyleSheet("QLabel { color: red; }");
+        ui->statusLabel->setProperty("error", true);
+        ui->statusLabel->style()->polish(ui->statusLabel);
         ui->statusLabel->setText(tr("The supplied proxy address is invalid."));
     }
 }

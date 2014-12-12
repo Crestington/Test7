@@ -127,7 +127,7 @@ bool Wait(int nSeconds)
     {
         if (fShutdown)
             return false;
-        MilliSleep(1000);
+        Sleep(1000);
     }
     return true;
 }
@@ -189,7 +189,7 @@ bool GetIPFromIRC(SOCKET hSocket, string strMyName, CNetAddr& ipRet)
 void ThreadIRCSeed(void* parg)
 {
     // Make this thread recognisable as the IRC seeding thread
-    RenameThread("ColossusCoin2-ircseed");
+    RenameThread("bitcoin-ircseed");
 
     try
     {
@@ -214,7 +214,7 @@ void ThreadIRCSeed2(void* parg)
         return;
 
     // ... or if IRC is not enabled.
-    if (!GetBoolArg("-irc", false))
+    if (!GetBoolArg("-irc", true))
         return;
 
     printf("ThreadIRCSeed started\n");
@@ -260,7 +260,7 @@ void ThreadIRCSeed2(void* parg)
         if (!fNoListen && GetLocal(addrLocal, &addrIPv4) && nNameRetry<3)
             strMyName = EncodeAddress(GetLocalAddress(&addrConnect));
         if (strMyName == "")
-            strMyName = strprintf("x%"PRIu64"", GetRand(1000000000));
+            strMyName = strprintf("x%"PRI64u"", GetRand(1000000000));
 
         Send(hSocket, strprintf("NICK %s\r", strMyName.c_str()).c_str());
         Send(hSocket, strprintf("USER %s 8 * : %s\r", strMyName.c_str(), strMyName.c_str()).c_str());
@@ -284,7 +284,7 @@ void ThreadIRCSeed2(void* parg)
                 return;
         }
         nNameRetry = 0;
-        MilliSleep(500);
+        Sleep(500);
 
         // Get our external IP from the IRC server and re-nick before joining the channel
         CNetAddr addrFromIRC;
@@ -302,19 +302,19 @@ void ThreadIRCSeed2(void* parg)
         }
 
         if (fTestNet) {
-            Send(hSocket, "JOIN #ColossusCoin2TEST\r");
-            Send(hSocket, "WHO #ColossusCoin2TEST\r");
+            Send(hSocket, "JOIN #HyperStakeTEST2\r");
+            Send(hSocket, "WHO #HyperStakeTEST2\r");
         } else {
-            // randomly join #ColossusCoin200-#ColossusCoin205
-            //int channel_number = GetRandInt(5);
-            int channel_number = 0;
+            // randomly join #HyperStake00-#HyperStake05
+            // int channel_number = GetRandInt(5);
+
             // Channel number is always 0 for initial release
-            //int channel_number = 0;
-            Send(hSocket, strprintf("JOIN #ColossusCoin2%02d\r", channel_number).c_str());
-            Send(hSocket, strprintf("WHO #ColossusCoin2%02d\r", channel_number).c_str());
+            int channel_number = 0;
+            Send(hSocket, strprintf("JOIN #HyperStake%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("WHO #HyperStake%02d\r", channel_number).c_str());
         }
 
-        int64_t nStart = GetTime();
+        int64 nStart = GetTime();
         string strLine;
         strLine.reserve(10000);
         while (!fShutdown && RecvLineIRC(hSocket, strLine))

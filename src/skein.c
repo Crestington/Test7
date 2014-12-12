@@ -370,17 +370,17 @@ extern "C"{
 #define M3_18_0   0
 #define M3_18_1   1
 
-#define XCAT(x, y)     XCAT_(x, y)
-#define XCAT_(x, y)    x ## y
+#define TRKAT(x, y)     TRKAT_(x, y)
+#define TRKAT_(x, y)    x ## y
 
 #if 0
 /* obsolete */
-#define SKSI(k, s, i)   XCAT(k, XCAT(XCAT(XCAT(M5_, s), _), i))
-#define SKST(t, s, v)   XCAT(t, XCAT(XCAT(XCAT(M3_, s), _), v))
+#define SKSI(k, s, i)   TRKAT(k, TRKAT(TRKAT(TRKAT(M5_, s), _), i))
+#define SKST(t, s, v)   TRKAT(t, TRKAT(TRKAT(TRKAT(M3_, s), _), v))
 #endif
 
-#define SKBI(k, s, i)   XCAT(k, XCAT(XCAT(XCAT(M9_, s), _), i))
-#define SKBT(t, s, v)   XCAT(t, XCAT(XCAT(XCAT(M3_, s), _), v))
+#define SKBI(k, s, i)   TRKAT(k, TRKAT(TRKAT(TRKAT(M9_, s), _), i))
+#define SKBT(t, s, v)   TRKAT(t, TRKAT(TRKAT(TRKAT(M3_, s), _), v))
 
 #if 0
 /* obsolete */

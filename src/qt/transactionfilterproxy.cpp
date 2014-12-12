@@ -1,7 +1,5 @@
 #include "transactionfilterproxy.h"
-
 #include "transactiontablemodel.h"
-#include "transactionrecord.h"
 
 #include <QDateTime>
 
@@ -19,8 +17,7 @@ TransactionFilterProxy::TransactionFilterProxy(QObject *parent) :
     addrPrefix(),
     typeFilter(ALL_TYPES),
     minAmount(0),
-    limitRows(-1),
-    showInactive(true)
+    limitRows(-1)
 {
 }
 
@@ -32,19 +29,19 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &
     QDateTime datetime = index.data(TransactionTableModel::DateRole).toDateTime();
     QString address = index.data(TransactionTableModel::AddressRole).toString();
     QString label = index.data(TransactionTableModel::LabelRole).toString();
-    qint64 amount = llabs(index.data(TransactionTableModel::AmountRole).toLongLong());
-    int status = index.data(TransactionTableModel::StatusRole).toInt();
+    qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
+    qint64 abs_amount = llabs(amount);
 
-    if(!showInactive && (status == TransactionStatus::Conflicted || status == TransactionStatus::NotAccepted))
-        return false;
     if(!(TYPE(type) & typeFilter))
         return false;
     if(datetime < dateFrom || datetime > dateTo)
         return false;
     if (!address.contains(addrPrefix, Qt::CaseInsensitive) && !label.contains(addrPrefix, Qt::CaseInsensitive))
         return false;
-    if(amount < minAmount)
+    if(abs_amount < minAmount)
         return false;
+
+    totalAmount += amount;
 
     return true;
 }
@@ -53,36 +50,34 @@ void TransactionFilterProxy::setDateRange(const QDateTime &from, const QDateTime
 {
     this->dateFrom = from;
     this->dateTo = to;
+    totalAmount = 0;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setAddressPrefix(const QString &addrPrefix)
 {
     this->addrPrefix = addrPrefix;
+    totalAmount = 0;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setTypeFilter(quint32 modes)
 {
     this->typeFilter = modes;
+    totalAmount = 0;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setMinAmount(qint64 minimum)
 {
     this->minAmount = minimum;
+    totalAmount = 0;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setLimit(int limit)
 {
     this->limitRows = limit;
-}
-
-void TransactionFilterProxy::setShowInactive(bool showInactive)
-{
-    this->showInactive = showInactive;
-    invalidateFilter();
 }
 
 int TransactionFilterProxy::rowCount(const QModelIndex &parent) const

@@ -129,7 +129,7 @@ bool WalletModel::validateAddress(const QString &address)
     return addressParsed.IsValid();
 }
 
-WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl)
+WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipient> &recipients, int nSplitBlock, const CCoinControl *coinControl)
 {
     qint64 total = 0;
     QSet<QString> setAddress;
@@ -161,14 +161,13 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         return DuplicateAddress;
     }
 
-    int64_t nBalance = 0;
+    int64 nBalance = 0;
     std::vector<COutput> vCoins;
     wallet->AvailableCoins(vCoins, true, coinControl);
 
     BOOST_FOREACH(const COutput& out, vCoins)
         nBalance += out.tx->vout[out.i].nValue;
-
-    if(total > nBalance)
+     if(total > nBalance)
     {
         return AmountExceedsBalance;
     }
@@ -182,7 +181,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         LOCK2(cs_main, wallet->cs_wallet);
 
         // Sendmany
-        std::vector<std::pair<CScript, int64_t> > vecSend;
+        std::vector<std::pair<CScript, int64> > vecSend;
         foreach(const SendCoinsRecipient &rcp, recipients)
         {
             CScript scriptPubKey;
@@ -192,8 +191,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
 
         CWalletTx wtx;
         CReserveKey keyChange(wallet);
-        int64_t nFeeRequired = 0;
-        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
+        int64 nFeeRequired = 0;
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, nSplitBlock, false, coinControl);
 
         if(!fCreated)
         {
@@ -281,7 +280,7 @@ bool WalletModel::setWalletEncrypted(bool encrypted, const SecureString &passphr
     }
 }
 
-bool WalletModel::setWalletLocked(bool locked, const SecureString &passPhrase)
+bool WalletModel::setWalletLocked(bool locked, const SecureString &passPhrase, bool formint)
 {
     if(locked)
     {
@@ -291,7 +290,12 @@ bool WalletModel::setWalletLocked(bool locked, const SecureString &passPhrase)
     else
     {
         // Unlock
-        return wallet->Unlock(passPhrase);
+        bool rc;
+		rc = wallet->Unlock(passPhrase);
+		if (rc && formint)
+			wallet->fWalletUnlockMintOnly=true;
+		return rc;
+		
     }
 }
 
@@ -309,6 +313,118 @@ bool WalletModel::changePassphrase(const SecureString &oldPass, const SecureStri
 bool WalletModel::backupWallet(const QString &filename)
 {
     return BackupWallet(*wallet, filename.toLocal8Bit().data());
+}
+
+void  WalletModel::getStakeForCharity(int& nStakeForCharityPercent, CBitcoinAddress& strStakeForCharityAddress,
+	CBitcoinAddress& strStakeForCharityChangeAddress, int64& nStakeForCharityMinAmout, int64& nStakeForCharityMaxAmount)
+{
+	nStakeForCharityPercent = wallet->nStakeForCharityPercent;
+	strStakeForCharityAddress = wallet->strStakeForCharityAddress;
+	strStakeForCharityChangeAddress = wallet->strStakeForCharityChangeAddress;
+	nStakeForCharityMinAmout = wallet->nStakeForCharityMin;
+	nStakeForCharityMaxAmount =  wallet->nStakeForCharityMax;
+}
+
+int WalletModel::getStakeForCharityPercent()
+{
+	return wallet->nStakeForCharityPercent;
+}
+
+QString WalletModel::getStakeForCharityAddress()
+{
+	if (!wallet->strStakeForCharityAddress.IsValid())
+		return "Not Set";
+	else
+		return wallet->strStakeForCharityAddress.ToString().c_str();
+}
+
+bool WalletModel::getS4CNotificator()
+{
+	return wallet->fS4CNotificator;
+}
+
+void WalletModel::setS4CNotificator(bool fSet)
+{
+	wallet->fS4CNotificator = fSet;
+}
+
+void WalletModel::setStakeForCharity(bool fStakeForCharity, int& nStakeForCharityPercent, CBitcoinAddress& strStakeForCharityAddress,
+                                     CBitcoinAddress& strStakeForCharityChangeAddress, int64& nStakeForCharityMin, int64& nStakeForCharityMax)
+{
+    // This function assumes the values were checked before being called
+    if (wallet->fFileBacked) // Tranz add option to not save.
+    {
+        CWalletDB walletdb(wallet->strWalletFile);
+        if (fStakeForCharity) {
+            walletdb.EraseStakeForCharity(wallet->strStakeForCharityAddress.ToString());
+            walletdb.WriteStakeForCharity(strStakeForCharityAddress.ToString(), nStakeForCharityPercent,
+				strStakeForCharityChangeAddress.ToString(), nStakeForCharityMin, nStakeForCharityMax);
+        }
+        else {
+            walletdb.EraseStakeForCharity(wallet->strStakeForCharityAddress.ToString());
+            walletdb.EraseStakeForCharity(strStakeForCharityAddress.ToString());
+        }
+
+        if(fDebug)
+          printf("setStakeForCharity: %s %d\n", strStakeForCharityAddress.ToString().c_str(), nStakeForCharityPercent);
+    }
+
+    {
+        LOCK(wallet->cs_wallet);
+        wallet->fStakeForCharity = fStakeForCharity;
+        wallet->nStakeForCharityPercent = nStakeForCharityPercent;
+        wallet->strStakeForCharityAddress = strStakeForCharityAddress;
+		wallet->strStakeForCharityChangeAddress = strStakeForCharityChangeAddress;
+        wallet->nStakeForCharityMin = nStakeForCharityMin;
+        wallet->nStakeForCharityMax = nStakeForCharityMax;
+    }
+}
+
+//Information for coin control
+void WalletModel::getStakeWeightFromValue(const int64& nTime, const int64& nValue, uint64& nWeight)
+{
+	wallet->GetStakeWeightFromValue(nTime, nValue, nWeight);
+}
+
+void WalletModel::setAmountSelected(qint64 nAmountSelected)
+{
+	wallet->nAmountSelected = nAmountSelected;
+}
+
+qint64 WalletModel::getAmountSelected()
+{
+	return wallet->nAmountSelected;
+}
+
+void WalletModel::setBestAddress(std::string strAddress)
+{
+	wallet->strBestAddress = strAddress;
+}
+
+QString WalletModel::getBestAddress()
+{
+	return QString::fromStdString(wallet->strBestAddress);
+}
+
+void WalletModel::setSplitBlock(bool fSplitBlock)
+{
+	wallet->fSplitBlock = fSplitBlock;
+}
+
+bool WalletModel::getSplitBlock()
+{
+	return wallet->fSplitBlock;
+}
+
+
+void WalletModel::checkWallet(int& nMismatchSpent, int64& nBalanceInQuestion, int& nOrphansFound)
+{
+	wallet->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound, true);
+}
+
+void WalletModel::repairWallet(int& nMismatchSpent, int64& nBalanceInQuestion, int& nOrphansFound)
+{
+	wallet->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
 }
 
 // Handlers for core signals
@@ -356,13 +472,13 @@ void WalletModel::unsubscribeFromCoreSignals()
 WalletModel::UnlockContext WalletModel::requestUnlock()
 {
     bool was_locked = getEncryptionStatus() == Locked;
-    
-    if ((!was_locked) && fWalletUnlockStakingOnly)
-    {
-       setWalletLocked(true);
-       was_locked = getEncryptionStatus() == Locked;
-
-    }
+	
+	if ((!was_locked) && wallet->fWalletUnlockMintOnly)
+	{
+		setWalletLocked(true);
+		was_locked = getEncryptionStatus() == Locked;
+	}
+	
     if(was_locked)
     {
         // Request UI to unlock wallet
@@ -371,7 +487,7 @@ WalletModel::UnlockContext WalletModel::requestUnlock()
     // If wallet is still locked, unlock was failed or cancelled, mark context as invalid
     bool valid = getEncryptionStatus() != Locked;
 
-    return UnlockContext(this, valid, was_locked && !fWalletUnlockStakingOnly);
+	return UnlockContext(this, valid, was_locked && !wallet->fWalletUnlockMintOnly);
 }
 
 WalletModel::UnlockContext::UnlockContext(WalletModel *wallet, bool valid, bool relock):
@@ -396,73 +512,74 @@ void WalletModel::UnlockContext::CopyFrom(const UnlockContext& rhs)
     rhs.relock = false;
 }
 
-bool WalletModel::getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const
+ bool WalletModel::getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const
+ {
+     return wallet->GetPubKey(address, vchPubKeyOut);   
+ }
+ 
+ // returns a list of COutputs from COutPoints
+ void WalletModel::getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs)
+ {
+     BOOST_FOREACH(const COutPoint& outpoint, vOutpoints)
+     {
+         if (!wallet->mapWallet.count(outpoint.hash)) continue;
+         COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, wallet->mapWallet[outpoint.hash].GetDepthInMainChain());
+         vOutputs.push_back(out);
+     }
+ }
+ 
+ // AvailableCoins + LockedCoins grouped by wallet address (put change in one group with wallet address) 
+ void WalletModel::listCoins(std::map<QString, std::vector<COutput> >& mapCoins) const
+ {
+     std::vector<COutput> vCoins;
+     wallet->AvailableCoins(vCoins);
+     std::vector<COutPoint> vLockedCoins;
+ 
+     // add locked coins
+     BOOST_FOREACH(const COutPoint& outpoint, vLockedCoins)
+     {
+         if (!wallet->mapWallet.count(outpoint.hash)) continue;
+         COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, wallet->mapWallet[outpoint.hash].GetDepthInMainChain());
+         vCoins.push_back(out);
+     }
+ 
+     BOOST_FOREACH(const COutput& out, vCoins)
+     {
+         COutput cout = out;
+ 
+         while (wallet->IsChange(cout.tx->vout[cout.i]) && cout.tx->vin.size() > 0 && wallet->IsMine(cout.tx->vin[0]))
+         {
+             if (!wallet->mapWallet.count(cout.tx->vin[0].prevout.hash)) break;
+             cout = COutput(&wallet->mapWallet[cout.tx->vin[0].prevout.hash], cout.tx->vin[0].prevout.n, 0);
+         }
+ 
+         CTxDestination address;
+         if(!ExtractDestination(cout.tx->vout[cout.i].scriptPubKey, address)) continue;
+         mapCoins[CBitcoinAddress(address).ToString().c_str()].push_back(out);
+     }
+ }
+ 
+ bool WalletModel::isLockedCoin(uint256 hash, unsigned int n) const
+ {
+     return false;
+ }
+ 
+ void WalletModel::lockCoin(COutPoint& output)
+ {
+     return;
+ }
+ 
+ void WalletModel::unlockCoin(COutPoint& output)
+ {
+     return;
+ }
+ 
+ void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
+ {
+     return;
+ }
+
+bool WalletModel::isMine(const CBitcoinAddress &address)
 {
-    return wallet->GetPubKey(address, vchPubKeyOut);   
-}
-
-// returns a list of COutputs from COutPoints
-void WalletModel::getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs)
-{
-    BOOST_FOREACH(const COutPoint& outpoint, vOutpoints)
-    {
-        if (!wallet->mapWallet.count(outpoint.hash)) continue;
-        int nDepth = wallet->mapWallet[outpoint.hash].GetDepthInMainChain();
-        if (nDepth < 0) continue;
-        COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, nDepth);
-        vOutputs.push_back(out);
-    }
-}
-
-// AvailableCoins + LockedCoins grouped by wallet address (put change in one group with wallet address) 
-void WalletModel::listCoins(std::map<QString, std::vector<COutput> >& mapCoins) const
-{
-    std::vector<COutput> vCoins;
-    wallet->AvailableCoins(vCoins);
-    std::vector<COutPoint> vLockedCoins;
-
-    // add locked coins
-    BOOST_FOREACH(const COutPoint& outpoint, vLockedCoins)
-    {
-        if (!wallet->mapWallet.count(outpoint.hash)) continue;
-        int nDepth = wallet->mapWallet[outpoint.hash].GetDepthInMainChain();
-        if (nDepth < 0) continue;
-        COutput out(&wallet->mapWallet[outpoint.hash], outpoint.n, nDepth);
-        vCoins.push_back(out);
-    }
-
-    BOOST_FOREACH(const COutput& out, vCoins)
-    {
-        COutput cout = out;
-
-        while (wallet->IsChange(cout.tx->vout[cout.i]) && cout.tx->vin.size() > 0 && wallet->IsMine(cout.tx->vin[0]))
-        {
-            if (!wallet->mapWallet.count(cout.tx->vin[0].prevout.hash)) break;
-            cout = COutput(&wallet->mapWallet[cout.tx->vin[0].prevout.hash], cout.tx->vin[0].prevout.n, 0);
-        }
-
-        CTxDestination address;
-        if(!ExtractDestination(cout.tx->vout[cout.i].scriptPubKey, address)) continue;
-        mapCoins[CBitcoinAddress(address).ToString().c_str()].push_back(out);
-    }
-}
-
-bool WalletModel::isLockedCoin(uint256 hash, unsigned int n) const
-{
-    return false;
-}
-
-void WalletModel::lockCoin(COutPoint& output)
-{
-    return;
-}
-
-void WalletModel::unlockCoin(COutPoint& output)
-{
-    return;
-}
-
-void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
-{
-    return;
+	return IsMine(*wallet, address.Get());
 }

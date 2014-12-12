@@ -17,6 +17,7 @@ class COutput;
 class COutPoint;
 class uint256;
 class CCoinControl;
+class CBitcoinAddress;
 
 QT_BEGIN_NAMESPACE
 class QTimer;
@@ -86,16 +87,36 @@ public:
     };
 
     // Send coins to a list of recipients
-    SendCoinsReturn sendCoins(const QList<SendCoinsRecipient> &recipients, const CCoinControl *coinControl=NULL);
+    SendCoinsReturn sendCoins(const QList<SendCoinsRecipient> &recipients, int SplitBlock, const CCoinControl *coinControl=NULL);
 
     // Wallet encryption
     bool setWalletEncrypted(bool encrypted, const SecureString &passphrase);
     // Passphrase only needed when unlocking
-    bool setWalletLocked(bool locked, const SecureString &passPhrase=SecureString());
+    bool setWalletLocked(bool locked, const SecureString &passPhrase=SecureString(), bool formint=false);
     bool changePassphrase(const SecureString &oldPass, const SecureString &newPass);
     // Wallet backup
     bool backupWallet(const QString &filename);
-
+	// Wallet Repair
+	void checkWallet(int& nMismatchSpent, qint64& nBalanceInQuestion, int& nOrphansFound);
+	void repairWallet(int& nMismatchSpent, qint64& nBalanceInQuestion, int& nOrphansFound);
+	// Pass coin control information
+	void getStakeWeightFromValue(const qint64& nTime, const qint64& nValue, quint64& nWeight);
+	void setAmountSelected(qint64 nAmountSelected);
+	qint64 getAmountSelected();
+	void setBestAddress(std::string strAddress);
+	QString getBestAddress();
+	void setSplitBlock(bool fSplitBlock);
+	bool getSplitBlock();
+	//Wallet Information about StakeForCharity
+	int getStakeForCharityPercent();
+	QString getStakeForCharityAddress();
+	bool getS4CNotificator();
+	void setS4CNotificator(bool fSet);
+	void setStakeForCharity(bool fStakeForCharity, int& nStakeForCharityPercent, CBitcoinAddress& strStakeForCharityAddress,
+		CBitcoinAddress& strStakeForCharityChangeAddress, qint64& nStakeForCharityMinAmount, qint64& nStakeForCharityMaxAmount);
+	void getStakeForCharity(int& nStakeForCharityPercent, CBitcoinAddress& strStakeForCharityAddress, CBitcoinAddress& strStakeForCharityChangeAddress,
+		qint64& nStakeForCharityMinAmount, qint64& nStakeForCharityMaxAmount);
+		
     // RAI object for unlocking wallet, returned by requestUnlock()
     class UnlockContext
     {
@@ -117,7 +138,7 @@ public:
     };
 
     UnlockContext requestUnlock();
-
+	
     bool getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const;
     void getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs);
     void listCoins(std::map<QString, std::vector<COutput> >& mapCoins) const;
@@ -125,6 +146,7 @@ public:
     void lockCoin(COutPoint& output);
     void unlockCoin(COutPoint& output);
     void listLockedCoins(std::vector<COutPoint>& vOutpts);
+	bool isMine(const CBitcoinAddress &address);
 
 private:
     CWallet *wallet;
