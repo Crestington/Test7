@@ -17,18 +17,9 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "walletdb.h"
-#include "timer.h"
 
-#include <stdexcept>
-
-#include <boost/shared_ptr.hpp>
-#include <boost/regex.hpp>
-#include <boost/thread.hpp>
-
-extern bool fGlobalStakeForCharity;
-
+extern bool fWalletUnlockStakingOnly;
 extern bool fConfChange;
-class CWallet;
 class CAccountingEntry;
 class CWalletTx;
 class CReserveKey;
@@ -43,19 +34,8 @@ enum WalletFeature
     FEATURE_WALLETCRYPT = 40000, // wallet encryption
     FEATURE_COMPRPUBKEY = 60000, // compressed public keys
 
-    FEATURE_LATEST = 60002
+    FEATURE_LATEST = 60000
 };
-
-class CWalletLockJob : public CTimerJob
-{
-private:
-    CWallet* pWallet;
-
-public:
-    void SetWallet(CWallet* _pWallet) { pWallet = _pWallet; }
-    void Run();
-};
-
 
 /** A key pool entry */
 class CKeyPool
@@ -90,15 +70,10 @@ public:
 class CWallet : public CCryptoKeyStore
 {
 private:
+    bool SelectCoinsSimple(int64_t nTargetValue, unsigned int nSpendTime, int nMinConf, std::set<std::pair<const CWalletTx*,unsigned int> >& setCoinsRet, int64_t& nValueRet) const;
     bool SelectCoins(int64_t nTargetValue, unsigned int nSpendTime, std::set<std::pair<const CWalletTx*,unsigned int> >& setCoinsRet, int64_t& nValueRet, const CCoinControl *coinControl=NULL) const;
-    bool SelectCoinsForStaking(int64_t nTargetValue, unsigned int nSpendTime, std::set<std::pair<const CWalletTx*,unsigned int> >& setCoinsRet, int64_t& nValueRet) const;
 
     CWalletDB *pwalletdbEncryption;
-
-    // for the lock timer
-    CWalletLockJob lockJob;
-    int64_t nLockTime;
-    std::string strLockTime;
 
     // the current wallet version: clients below this version are not able to load the wallet
     int nWalletVersion;
@@ -107,25 +82,10 @@ private:
     int nWalletMaxVersion;
 
 public:
-    /// Main wallet lock.
-    ///  This lock protects all the fields added by CWallet
-    ///  except for:
-    ///     fFileBacked (immutable after instantiation)
-    ///     strWalletFile (immutable after instantiation)
     mutable CCriticalSection cs_wallet;
 
     bool fFileBacked;
-    bool fWalletUnlockMintOnly;
-    bool fStakeForCharity;
-    int nStakeForCharityPercent;
-    int64_t nStakeForCharityMin;
-    int64_t nStakeForCharityMax;
-    CBitcoinAddress strStakeForCharityAddress;
-    CBitcoinAddress strStakeForCharityChangeAddress;
     std::string strWalletFile;
-    int64_t nReserveBalance;
-
-
 
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -137,37 +97,23 @@ public:
 
     CWallet()
     {
-        SetNull();
-    }
-    CWallet(std::string strWalletFileIn)
-    {
-        SetNull();
-        strWalletFile = strWalletFileIn;
-        fFileBacked = true;
-    }
-
-    void SetNull()
-    {
-        lockJob.SetWallet(this);
-        nLockTime = 0;
-        strLockTime = "Locked";
         nWalletVersion = FEATURE_BASE;
         nWalletMaxVersion = FEATURE_BASE;
         fFileBacked = false;
         nMasterKeyMaxID = 0;
         pwalletdbEncryption = NULL;
         nOrderPosNext = 0;
-        fWalletUnlockMintOnly = false;
-        fStakeForCharity = false;
-        nStakeForCharityPercent = 0;
-        nStakeForCharityMin = MIN_TXOUT_AMOUNT;
-        nStakeForCharityMax = MAX_MONEY;
-        strStakeForCharityAddress = "";
-        strStakeForCharityChangeAddress = "";
-        nReserveBalance = 0;
     }
-
-    ~CWallet() { CWalletDB::UnloadWallet(this); }
+    CWallet(std::string strWalletFileIn)
+    {
+        nWalletVersion = FEATURE_BASE;
+        nWalletMaxVersion = FEATURE_BASE;
+        strWalletFile = strWalletFileIn;
+        fFileBacked = true;
+        nMasterKeyMaxID = 0;
+        pwalletdbEncryption = NULL;
+        nOrderPosNext = 0;
+    }
 
     std::map<uint256, CWalletTx> mapWallet;
     int64_t nOrderPosNext;
@@ -176,22 +122,14 @@ public:
     std::map<CTxDestination, std::string> mapAddressBook;
 
     CPubKey vchDefaultKey;
-
     int64_t nTimeFirstKey;
 
-    std::set<COutPoint> setLockedCoins;
-
     // check whether we are allowed to upgrade (or already support) to the named feature
-    bool CanSupportFeature(enum WalletFeature wf) { AssertLockHeld(cs_wallet); return nWalletMaxVersion >= wf; }
+    bool CanSupportFeature(enum WalletFeature wf) { return nWalletMaxVersion >= wf; }
 
+    void AvailableCoinsMinConf(std::vector<COutput>& vCoins, int nConf) const;
     void AvailableCoins(std::vector<COutput>& vCoins, bool fOnlyConfirmed=true, const CCoinControl *coinControl=NULL) const;
-    void AvailableCoinsForStaking(std::vector<COutput>& vCoins, unsigned int nSpendTime) const;
     bool SelectCoinsMinConf(int64_t nTargetValue, unsigned int nSpendTime, int nConfMine, int nConfTheirs, std::vector<COutput> vCoins, std::set<std::pair<const CWalletTx*,unsigned int> >& setCoinsRet, int64_t& nValueRet) const;
-    bool IsLockedCoin(uint256 hash, unsigned int n) const;
-    void LockCoin(COutPoint& output);
-    void UnlockCoin(COutPoint& output);
-    void UnlockAllCoins();
-    void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     // keystore implementation
     // Generate a new key
     CPubKey GenerateNewKey();
@@ -202,20 +140,21 @@ public:
     // Load metadata (used by LoadWallet)
     bool LoadKeyMetadata(const CPubKey &pubkey, const CKeyMetadata &metadata);
 
-    bool LoadMinVersion(int nVersion) { AssertLockHeld(cs_wallet); nWalletVersion = nVersion; nWalletMaxVersion = std::max(nWalletMaxVersion, nVersion); return true; }
+    bool LoadMinVersion(int nVersion) { nWalletVersion = nVersion; nWalletMaxVersion = std::max(nWalletMaxVersion, nVersion); return true; }
 
     // Adds an encrypted key to the store, and saves it to disk.
     bool AddCryptedKey(const CPubKey &vchPubKey, const std::vector<unsigned char> &vchCryptedSecret);
     // Adds an encrypted key to the store, without saving it to disk (used by LoadWallet)
     bool LoadCryptedKey(const CPubKey &vchPubKey, const std::vector<unsigned char> &vchCryptedSecret);
     bool AddCScript(const CScript& redeemScript);
-    bool LoadCScript(const CScript& redeemScript);
+    bool LoadCScript(const CScript& redeemScript) { return CCryptoKeyStore::AddCScript(redeemScript); }
 
     bool Unlock(const SecureString& strWalletPassphrase);
     bool ChangeWalletPassphrase(const SecureString& strOldWalletPassphrase, const SecureString& strNewWalletPassphrase);
     bool EncryptWallet(const SecureString& strWalletPassphrase);
 
     void GetKeyBirthTimes(std::map<CKeyID, int64_t> &mapKeyBirth) const;
+
 
     /** Increment the next transaction order id
         @return next transaction order id
@@ -237,6 +176,7 @@ public:
     bool EraseFromWallet(uint256 hash);
     void WalletUpdateSpent(const CTransaction& prevout, bool fBlock = false);
     int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
+    int ScanForWalletTransaction(const uint256& hashTx);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions(bool fForce = false);
     int64_t GetBalance() const;
@@ -244,15 +184,15 @@ public:
     int64_t GetImmatureBalance() const;
     int64_t GetStake() const;
     int64_t GetNewMint() const;
-    bool StakeForCharity();
-    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, bool fAllowS4C=false, const CCoinControl *coinControl=NULL);
-    bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, bool fAllowS4C=false, const CCoinControl *coinControl=NULL);
+    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
+    bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
     bool CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey);
+
     bool GetStakeWeight(const CKeyStore& keystore, uint64_t& nMinWeight, uint64_t& nMaxWeight, uint64_t& nWeight);
-    bool GetStakeWeightFromValue(const int64_t& nTime, const int64_t& nValue, uint64_t& nWeight);
-    bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CTransaction& txNew, CKey& key);
-    std::string SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false, bool fAllowS4C=false);
-    std::string SendMoneyToDestination(const CTxDestination &address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false, bool fAllowS4C=false);
+    bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, int64_t nFees, CTransaction& txNew, CKey& key);
+
+    std::string SendMoney(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false);
+    std::string SendMoneyToDestination(const CTxDestination &address, int64_t nValue, CWalletTx& wtxNew, bool fAskFee=false);
 
     bool NewKeyPool();
     bool TopUpKeyPool(unsigned int nSize = 0);
@@ -334,8 +274,6 @@ public:
 
     DBErrors LoadWallet(bool& fFirstRunRet);
 
-    DBErrors ZapWalletTx();
-
     bool SetAddressBookName(const CTxDestination& address, const std::string& strName);
 
     bool DelAddressBookName(const CTxDestination& address);
@@ -356,7 +294,6 @@ public:
 
     unsigned int GetKeyPoolSize()
     {
-        AssertLockHeld(cs_wallet); // setKeyPool
         return setKeyPool.size();
     }
 
@@ -371,9 +308,9 @@ public:
     bool SetMaxVersion(int nVersion);
 
     // get the current wallet format (the oldest client version guaranteed to understand this wallet)
-    int GetVersion() { LOCK(cs_wallet); return nWalletVersion; }
+    int GetVersion() { return nWalletVersion; }
 
-    void FixSpentCoins(int& nMismatchSpent, int64_t& nBalanceInQuestion, int& nOrphansFound, bool fCheckOnly = false);
+    void FixSpentCoins(int& nMismatchSpent, int64_t& nBalanceInQuestion, bool fCheckOnly = false);
     void DisableTransaction(const CTransaction &tx);
 
     /** Address book entry changed.
@@ -385,66 +322,7 @@ public:
      * @note called with lock cs_wallet held.
      */
     boost::signals2::signal<void (CWallet *wallet, const uint256 &hashTx, ChangeType status)> NotifyTransactionChanged;
-
-    // If the wallet is unlocked, schedule a job to lock it again after a number of seconds
-    bool TimedLock(int64_t seconds);
-
-    int64_t GetLockTime() const { return nLockTime; }
-    std::string GetStringLockTime() { return strLockTime; }
-    void ResetLockTime() { nLockTime = 0; if (IsCrypted()) strLockTime = "Locked"; }
 };
-
-class CWalletManagerException : public std::runtime_error
-{
-public:
-    enum ErrorType
-    {
-        WALLET_NOT_LOADED,
-        UNKNOWN_ERROR
-    };
-    ErrorType type;
-
-    CWalletManagerException(ErrorType _type, const char* message) : std::runtime_error(message), type(_type) { }
-};
-
-/** A CWalletManager handles loading, unloading, allocation, deallocation, and synchronization of wallet objects.
-*/
-typedef std::map<std::string, boost::shared_ptr<CWallet> > wallet_map;
-class CWalletManager
-{
-protected:
-    static const boost::regex WALLET_NAME_REGEX;
-    static const boost::regex WALLET_FILE_REGEX;
-
-    mutable CCriticalSection cs_WalletManager;
-    wallet_map wallets;
-
-public:
-    ~CWalletManager() { UnloadAllWallets(); }
-
-    std::set<COutPoint> setLockedCoins;
-
-    bool LoadWallet(const std::string& strName, std::ostringstream& strErrors, bool fRescan = false, bool fUpgrade = false, bool fZapWallet = false, int nMaxVersion = 0);
-    bool LoadWalletFromFile(const std::string& strFile, std::string& strName, std::ostringstream& strErrors, bool fRescan = false, bool fUpgrade = false, bool fZapWallet = false, int nMaxVersion = 0);
-    bool UnloadWallet(const std::string& strName);
-    void UnloadAllWallets();
-    void RestartStakeMiner();
-    void StakeForCharity();
-
-
-    // GetWallet and GetDefaultWallet throw a CWalletManagerException if the wallet is not found.
-    boost::shared_ptr<CWallet> GetWallet(const std::string& strName);
-    boost::shared_ptr<CWallet> GetDefaultWallet() { return GetWallet(""); }
-
-    int GetWalletCount() { return wallets.size(); }
-    wallet_map GetWalletMap() { return wallets; }
-    bool HaveWallet(const std::string& strName) { return (wallets.count(strName) > 0); }
-
-    static bool IsValidName(const std::string& strName);
-    static std::vector<std::string> GetWalletsAtPath(const boost::filesystem::path& pathWallets);
-};
-
-
 
 /** A key allocated from the key pool. */
 class CReserveKey
@@ -467,7 +345,7 @@ public:
     }
 
     void ReturnKey();
-    bool GetReservedKey(CPubKey &pubkey);
+    CPubKey GetReservedKey();
     void KeepKey();
 };
 
@@ -767,7 +645,7 @@ public:
     bool IsTrusted() const
     {
         // Quick answer in most cases
-        if (!IsFinalTx(*this))
+        if (!IsFinal())
             return false;
         int nDepth = GetDepthInMainChain();
         if (nDepth >= 1)
@@ -787,7 +665,7 @@ public:
         {
             const CMerkleTx* ptx = vWorkQueue[i];
 
-            if (!IsFinalTx(*ptx))
+            if (!ptx->IsFinal())
                 return false;
             int nPDepth = ptx->GetDepthInMainChain();
             if (nPDepth >= 1)
@@ -810,6 +688,7 @@ public:
                 vWorkQueue.push_back(mapPrev[txin.prevout.hash]);
             }
         }
+
         return true;
     }
 
@@ -820,7 +699,7 @@ public:
 
     void AddSupportingTransactions(CTxDB& txdb);
 
-    bool AcceptWalletTransaction(CTxDB& txdb);
+    bool AcceptWalletTransaction(CTxDB& txdb, bool fCheckInputs=true);
     bool AcceptWalletTransaction();
 
     void RelayWalletTransaction(CTxDB& txdb);
@@ -844,7 +723,12 @@ public:
 
     std::string ToString() const
     {
-        return strprintf("COutput(%s, %d, %d) [%s]", tx->GetHash().ToString().substr(0,10), i, nDepth, FormatMoney(tx->vout[i].nValue));
+        return strprintf("COutput(%s, %d, %d) [%s]", tx->GetHash().ToString().substr(0,10).c_str(), i, nDepth, FormatMoney(tx->vout[i].nValue).c_str());
+    }
+
+    void print() const
+    {
+        printf("%s\n", ToString().c_str());
     }
 };
 

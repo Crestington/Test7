@@ -14,10 +14,9 @@ class TransactionStatus
 {
 public:
     TransactionStatus():
-         countsForBalance(false), sortKey(""),
-         matures_in(0), status(Offline), depth(0), open_for(0), cur_num_blocks(-1)
+            countsForBalance(false), sortKey(""),
+            matures_in(0), status(Offline), depth(0), open_for(0), cur_num_blocks(-1)
     { }
-
 
     enum Status {
         Confirmed,          /**< Have 6 or more confirmations (normal tx) or fully mature (mined tx) **/
@@ -48,9 +47,7 @@ public:
        @{*/
     Status status;
     int64_t depth;
-    int64_t open_for; /**< Timestamp if status==OpenUntilDate, otherwise number
-                     of additional blocks that need to be mined before
-                     finalization */
+    int64_t open_for; /**< Timestamp if status==OpenUntilDate, otherwise number of blocks */
     /**@}*/
 
     /** Current number of blocks (to know whether cached status is still valid) */
@@ -71,12 +68,11 @@ public:
         SendToOther,
         RecvWithAddress,
         RecvFromOther,
-        SendToSelf,
-        StakeMint
+        SendToSelf
     };
 
     /** Number of confirmation recommended for accepting a transaction */
-    static const int RecommendedNumConfirmations = 6;
+    static const int RecommendedNumConfirmations = 10;
 
     TransactionRecord():
             hash(), time(0), type(Other), address(""), debit(0), credit(0), idx(0)

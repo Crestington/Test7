@@ -1,11 +1,10 @@
 #include "optionsmodel.h"
-
 #include "bitcoinunits.h"
+#include <QSettings>
+
 #include "init.h"
 #include "walletdb.h"
 #include "guiutil.h"
-
-#include <QSettings>
 
 OptionsModel::OptionsModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -28,8 +27,10 @@ bool static ApplyProxySettings()
     if (!IsLimited(NET_IPV4))
         SetProxy(NET_IPV4, addrProxy, nSocksVersion);
     if (nSocksVersion > 4) {
+#ifdef USE_IPV6
         if (!IsLimited(NET_IPV6))
             SetProxy(NET_IPV6, addrProxy, nSocksVersion);
+#endif
         SetNameProxy(addrProxy, nSocksVersion);
     }
     return true;
@@ -46,6 +47,7 @@ void OptionsModel::Init()
     fMinimizeOnClose = settings.value("fMinimizeOnClose", false).toBool();
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
     nTransactionFee = settings.value("nTransactionFee").toLongLong();
+    nReserveBalance = settings.value("nReserveBalance").toLongLong();
     language = settings.value("language", "").toString();
 
     // These are shared with core Bitcoin; we want
@@ -62,23 +64,65 @@ void OptionsModel::Init()
         SoftSetArg("-lang", language.toStdString());
 }
 
-void OptionsModel::Reset()
+bool OptionsModel::Upgrade()
 {
     QSettings settings;
 
-    // Remove all entries in this QSettings object
-    settings.clear();
+    if (settings.contains("bImportFinished"))
+        return false; // Already upgraded
 
-    // default setting for OptionsModel::StartAtStartup - disabled
-    if (GUIUtil::GetStartOnSystemStartup())
-        GUIUtil::SetStartOnSystemStartup(false);
+    settings.setValue("bImportFinished", true);
 
-    // Re-Init to get default values
+    // Move settings from old wallet.dat (if any):
+    CWalletDB walletdb(strWalletFileName);
+
+    QList<QString> intOptions;
+    intOptions << "nDisplayUnit" << "nTransactionFee" << "nReserveBalance";
+    foreach(QString key, intOptions)
+    {
+        int value = 0;
+        if (walletdb.ReadSetting(key.toStdString(), value))
+        {
+            settings.setValue(key, value);
+            walletdb.EraseSetting(key.toStdString());
+        }
+    }
+    QList<QString> boolOptions;
+    boolOptions << "bDisplayAddresses" << "fMinimizeToTray" << "fMinimizeOnClose" << "fUseProxy" << "fUseUPnP";
+    foreach(QString key, boolOptions)
+    {
+        bool value = false;
+        if (walletdb.ReadSetting(key.toStdString(), value))
+        {
+            settings.setValue(key, value);
+            walletdb.EraseSetting(key.toStdString());
+        }
+    }
+    try
+    {
+        CAddress addrProxyAddress;
+        if (walletdb.ReadSetting("addrProxy", addrProxyAddress))
+        {
+            settings.setValue("addrProxy", addrProxyAddress.ToStringIPPort().c_str());
+            walletdb.EraseSetting("addrProxy");
+        }
+    }
+    catch (std::ios_base::failure &e)
+    {
+        // 0.6.0rc1 saved this as a CService, which causes failure when parsing as a CAddress
+        CService addrProxy;
+        if (walletdb.ReadSetting("addrProxy", addrProxy))
+        {
+            settings.setValue("addrProxy", addrProxy.ToStringIPPort().c_str());
+            walletdb.EraseSetting("addrProxy");
+        }
+    }
+    ApplyProxySettings();
     Init();
 
-    // Ensure Upgrade() is not running again by setting the bImportFinished flag
-    settings.setValue("bImportFinished", true);
+    return true;
 }
+
 
 int OptionsModel::rowCount(const QModelIndex & parent) const
 {
@@ -97,18 +141,11 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
         case MinimizeToTray:
             return QVariant(fMinimizeToTray);
         case MapPortUPnP:
-#ifdef USE_UPNP
             return settings.value("fUseUPnP", GetBoolArg("-upnp", true));
-#else
-            return QVariant(false);
-#endif
         case MinimizeOnClose:
             return QVariant(fMinimizeOnClose);
-        case ProxyUse: {
-              proxyType proxy;
-              return QVariant(GetProxy(NET_IPV4, proxy));
-        }
-
+        case ProxyUse:
+            return settings.value("fUseProxy", false);
         case ProxyIP: {
             proxyType proxy;
             if (GetProxy(NET_IPV4, proxy))
@@ -123,15 +160,12 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             else
                 return QVariant(9050);
         }
-        case ProxySocksVersion: {
-            proxyType proxy;
-            if (GetProxy(NET_IPV4, proxy))
-                return QVariant(proxy.second);
-            else
-                return QVariant(5);
-        }
+        case ProxySocksVersion:
+            return settings.value("nSocksVersion", 5);
         case Fee:
             return QVariant((qint64) nTransactionFee);
+        case ReserveBalance:
+            return QVariant((qint64) nReserveBalance);
         case DisplayUnit:
             return QVariant(nDisplayUnit);
         case DisplayAddresses:
@@ -175,7 +209,7 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             break;
         case ProxyUse:
             settings.setValue("fUseProxy", value.toBool());
-            successful = ApplyProxySettings();
+            ApplyProxySettings();
             break;
         case ProxyIP: {
             proxyType proxy;
@@ -213,6 +247,11 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             settings.setValue("nTransactionFee", (qint64) nTransactionFee);
             emit transactionFeeChanged(nTransactionFee);
             break;
+        case ReserveBalance:
+            nReserveBalance = value.toLongLong();
+            settings.setValue("nReserveBalance", (qint64) nReserveBalance);
+            emit reserveBalanceChanged(nReserveBalance);
+            break;
         case DisplayUnit:
             nDisplayUnit = value.toInt();
             settings.setValue("nDisplayUnit", nDisplayUnit);
@@ -249,6 +288,11 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
 qint64 OptionsModel::getTransactionFee()
 {
     return nTransactionFee;
+}
+
+qint64 OptionsModel::getReserveBalance()
+{
+    return nReserveBalance;
 }
 
 bool OptionsModel::getCoinControlFeatures()

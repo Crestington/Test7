@@ -43,19 +43,18 @@ double GetDifficulty(const CBlockIndex* blockindex)
     return dDiff;
 }
 
-double GetPoWMHashPS(const CBlockIndex* blockindex)
+double GetPoWMHashPS()
 {
+    if (pindexBest->nHeight >= LAST_POW_BLOCK)
+        return 0;
+
     int nPoWInterval = 72;
-    int64_t nTargetSpacingWorkMin = 1, nTargetSpacingWork = 1;
+    int64_t nTargetSpacingWorkMin = 30, nTargetSpacingWork = 30;
 
     CBlockIndex* pindex = pindexGenesisBlock;
     CBlockIndex* pindexPrevWork = pindexGenesisBlock;
-    const CBlockIndex* pindexStop = pindexBest;
 
-    if (blockindex != NULL)
-        pindexStop = blockindex;
-
-    while (pindex && pindex->nHeight < pindexStop->nHeight)
+    while (pindex)
     {
         if (pindex->IsProofOfWork())
         {
@@ -68,20 +67,17 @@ double GetPoWMHashPS(const CBlockIndex* blockindex)
         pindex = pindex->pnext;
     }
 
-    return GetDifficulty(pindexPrevWork) * 4294.967296 / nTargetSpacingWork;
+    return GetDifficulty() * 4294.967296 / nTargetSpacingWork;
 }
 
-double GetPoSKernelPS(const CBlockIndex* blockindex)
+double GetPoSKernelPS()
 {
-    int nPoSInterval = 250;
+    int nPoSInterval = 72;
     double dStakeKernelsTriedAvg = 0;
     int nStakesHandled = 0, nStakesTime = 0;
 
-    const CBlockIndex* pindex = pindexBest;
-    const CBlockIndex* pindexPrevStake = NULL;
-
-    if (blockindex != NULL)
-        pindex = blockindex;
+    CBlockIndex* pindex = pindexBest;;
+    CBlockIndex* pindexPrevStake = NULL;
 
     while (pindex && nStakesHandled < nPoSInterval)
     {
@@ -96,9 +92,8 @@ double GetPoSKernelPS(const CBlockIndex* blockindex)
         pindex = pindex->pprev;
     }
 
-    return dStakeKernelsTriedAvg / nStakesTime;
+    return nStakesTime ? dStakeKernelsTriedAvg / nStakesTime : 0;
 }
-
 
 Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool fPrintTransactionDetail)
 {
@@ -114,17 +109,19 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool fPri
     result.push_back(Pair("mint", ValueFromAmount(blockindex->nMint)));
     result.push_back(Pair("time", (boost::int64_t)block.GetBlockTime()));
     result.push_back(Pair("nonce", (boost::uint64_t)block.nNonce));
-    result.push_back(Pair("bits", strprintf("%08x", block.nBits)));
+    result.push_back(Pair("bits", HexBits(block.nBits)));
     result.push_back(Pair("difficulty", GetDifficulty(blockindex)));
     result.push_back(Pair("blocktrust", leftTrim(blockindex->GetBlockTrust().GetHex(), '0')));
+    result.push_back(Pair("chaintrust", leftTrim(blockindex->nChainTrust.GetHex(), '0')));
     if (blockindex->pprev)
         result.push_back(Pair("previousblockhash", blockindex->pprev->GetBlockHash().GetHex()));
     if (blockindex->pnext)
         result.push_back(Pair("nextblockhash", blockindex->pnext->GetBlockHash().GetHex()));
+
     result.push_back(Pair("flags", strprintf("%s%s", blockindex->IsProofOfStake()? "proof-of-stake" : "proof-of-work", blockindex->GeneratedStakeModifier()? " stake-modifier": "")));
     result.push_back(Pair("proofhash", blockindex->IsProofOfStake()? blockindex->hashProofOfStake.GetHex() : blockindex->GetBlockHash().GetHex()));
     result.push_back(Pair("entropybit", (int)blockindex->GetStakeEntropyBit()));
-    result.push_back(Pair("modifier", strprintf("%016x", blockindex->nStakeModifier)));
+    result.push_back(Pair("modifier", strprintf("%016"PRIx64, blockindex->nStakeModifier)));
     result.push_back(Pair("modifierchecksum", strprintf("%08x", blockindex->nStakeModifierChecksum)));
     Array txinfo;
     BOOST_FOREACH (const CTransaction& tx, block.vtx)
@@ -143,12 +140,14 @@ Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool fPri
     }
 
     result.push_back(Pair("tx", txinfo));
-    result.push_back(Pair("signature", HexStr(block.vchBlockSig.begin(), block.vchBlockSig.end())));
+
+    if (block.IsProofOfStake())
+        result.push_back(Pair("signature", HexStr(block.vchBlockSig.begin(), block.vchBlockSig.end())));
 
     return result;
 }
 
-Value getbestblockhash(CWallet* pWallet, const Array& params, bool fHelp)
+Value getbestblockhash(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -158,9 +157,7 @@ Value getbestblockhash(CWallet* pWallet, const Array& params, bool fHelp)
     return hashBestChain.GetHex();
 }
 
-
-
-Value getblockcount(CWallet* pWallet, const Array& params, bool fHelp)
+Value getblockcount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -170,7 +167,8 @@ Value getblockcount(CWallet* pWallet, const Array& params, bool fHelp)
     return nBestHeight;
 }
 
-Value getdifficulty(CWallet* pWallet, const Array& params, bool fHelp)
+
+Value getdifficulty(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -185,7 +183,7 @@ Value getdifficulty(CWallet* pWallet, const Array& params, bool fHelp)
 }
 
 
-Value settxfee(CWallet* pWallet, const Array& params, bool fHelp)
+Value settxfee(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 1 || AmountFromValue(params[0]) < MIN_TX_FEE)
         throw runtime_error(
@@ -198,7 +196,7 @@ Value settxfee(CWallet* pWallet, const Array& params, bool fHelp)
     return true;
 }
 
-Value getrawmempool(CWallet* pWallet, const Array& params, bool fHelp)
+Value getrawmempool(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -215,7 +213,7 @@ Value getrawmempool(CWallet* pWallet, const Array& params, bool fHelp)
     return a;
 }
 
-Value getblockhash(CWallet* pWallet, const Array& params, bool fHelp)
+Value getblockhash(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -230,8 +228,7 @@ Value getblockhash(CWallet* pWallet, const Array& params, bool fHelp)
     return pblockindex->phashBlock->GetHex();
 }
 
-
-Value getblock(CWallet* pWallet, const Array& params, bool fHelp)
+Value getblock(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -252,11 +249,11 @@ Value getblock(CWallet* pWallet, const Array& params, bool fHelp)
     return blockToJSON(block, pblockindex, params.size() > 1 ? params[1].get_bool() : false);
 }
 
-Value getblockbynumber(CWallet* pWallet, const Array& params, bool fHelp)
+Value getblockbynumber(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "getblockbynumber <number> [txinfo]\n"
+            "getblock <number> [txinfo]\n"
             "txinfo optional to print more detailed tx info\n"
             "Returns details of a block with given block-number.");
 
@@ -278,7 +275,7 @@ Value getblockbynumber(CWallet* pWallet, const Array& params, bool fHelp)
 }
 
 // ppcoin: get information of sync-checkpoint
-Value getcheckpoint(CWallet* pWallet, const Array& params, bool fHelp)
+Value getcheckpoint(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -289,7 +286,7 @@ Value getcheckpoint(CWallet* pWallet, const Array& params, bool fHelp)
     CBlockIndex* pindexCheckpoint;
 
     result.push_back(Pair("synccheckpoint", Checkpoints::hashSyncCheckpoint.ToString().c_str()));
-    pindexCheckpoint = mapBlockIndex[Checkpoints::hashSyncCheckpoint];        
+    pindexCheckpoint = mapBlockIndex[Checkpoints::hashSyncCheckpoint];
     result.push_back(Pair("height", pindexCheckpoint->nHeight));
     result.push_back(Pair("timestamp", DateTimeStrFormat(pindexCheckpoint->GetBlockTime()).c_str()));
 
