@@ -7,7 +7,6 @@
 #define BITCOIN_UTIL_H
 
 #include "uint256.h"
-#include "uint256_t.h"
 
 #ifndef WIN32
 #include <sys/types.h>

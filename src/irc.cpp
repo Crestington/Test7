@@ -310,8 +310,8 @@ void ThreadIRCSeed2(void* parg)
             int channel_number = 0;
             // Channel number is always 0 for initial release
             //int channel_number = 0;
-            Send(hSocket, strprintf("JOIN #CV2%02d\r", channel_number).c_str());
-            Send(hSocket, strprintf("WHO #CV2%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("JOIN #ColossusCoin2%02d\r", channel_number).c_str());
+            Send(hSocket, strprintf("WHO #ColossusCoin2%02d\r", channel_number).c_str());
         }
 
         int64_t nStart = GetTime();
