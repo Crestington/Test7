@@ -26,7 +26,6 @@ public:
         ProxyPort,         // int
         ProxySocksVersion, // int
         Fee,               // qint64
-        ReserveBalance,    // qint64
         DisplayUnit,       // BitcoinUnits::Unit
         DisplayAddresses,  // bool
         DetachDatabases,   // bool
@@ -36,9 +35,7 @@ public:
     };
 
     void Init();
-
-    /* Migrate settings from wallet.dat after app initialization */
-    bool Upgrade(); /* returns true if settings upgraded */
+    void Reset();
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
@@ -46,7 +43,6 @@ public:
 
     /* Explicit getters */
     qint64 getTransactionFee();
-    qint64 getReserveBalance();
     bool getMinimizeToTray();
     bool getMinimizeOnClose();
     int getDisplayUnit();
@@ -65,7 +61,6 @@ private:
 signals:
     void displayUnitChanged(int unit);
     void transactionFeeChanged(qint64);
-    void reserveBalanceChanged(qint64);
     void coinControlFeaturesChanged(bool);
 };
 

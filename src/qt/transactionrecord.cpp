@@ -28,7 +28,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
     int64_t nCredit = wtx.GetCredit(true);
     int64_t nDebit = wtx.GetDebit();
     int64_t nNet = nCredit - nDebit;
-    uint256 hash = wtx.GetHash(), hashPrev = 0;
+    uint256 hash = wtx.GetHash(), hashPrev = 0;;
     std::map<std::string, std::string> mapValue = wtx.mapValue;
 
     if (nNet > 0 || wtx.IsCoinBase() || wtx.IsCoinStake())
@@ -63,14 +63,15 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 }
                 if (wtx.IsCoinStake())
                 {
-                    // Generated (proof-of-stake)
+                   // Generated (proof-of-stake)
 
-                    if (hashPrev == hash)
-                        continue; // last coinstake output
+                   if (hashPrev == hash)
+                      continue; // last coinstake output
 
-                    sub.type = TransactionRecord::Generated;
-                    sub.credit = nNet > 0 ? nNet : wtx.GetValueOut() - nDebit;
-                    hashPrev = hash;
+                   sub.type = TransactionRecord::StakeMint;
+                   sub.credit = nNet > 0 ? nNet : wtx.GetValueOut() - nDebit;
+                   hashPrev = hash;
+
                 }
 
                 parts.append(sub);
@@ -155,6 +156,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
 
 void TransactionRecord::updateStatus(const CWalletTx &wtx)
 {
+    AssertLockHeld(cs_main);
     // Determine transaction status
 
     // Find the block the tx is in
@@ -173,12 +175,12 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
     status.depth = wtx.GetDepthInMainChain();
     status.cur_num_blocks = nBestHeight;
 
-    if (!wtx.IsFinal())
+    if (!IsFinalTx(wtx))
     {
         if (wtx.nLockTime < LOCKTIME_THRESHOLD)
         {
             status.status = TransactionStatus::OpenUntilBlock;
-            status.open_for = nBestHeight - wtx.nLockTime;
+            status.open_for = wtx.nLockTime - nBestHeight + 1;
         }
         else
         {
@@ -186,9 +188,8 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
             status.open_for = wtx.nLockTime;
         }
     }
-
     // For generated transactions, determine maturity
-    else if(type == TransactionRecord::Generated)
+    else if(type == TransactionRecord::Generated || type == TransactionRecord::StakeMint)
     {
         if (wtx.GetBlocksToMaturity() > 0)
         {
@@ -200,11 +201,11 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
 
                 // Check if the block was requested by anyone
                 if (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0)
-                    status.status = TransactionStatus::MaturesWarning;
+                    status.status  = TransactionStatus::MaturesWarning;
             }
             else
             {
-                status.status = TransactionStatus::NotAccepted;
+                status.status  = TransactionStatus::NotAccepted;
             }
         }
         else
@@ -220,7 +221,7 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
         }
         else if (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0)
         {
-            status.status = TransactionStatus::Offline;
+             status.status = TransactionStatus::Offline;
         }
         else if (status.depth == 0)
         {
@@ -239,6 +240,7 @@ void TransactionRecord::updateStatus(const CWalletTx &wtx)
 
 bool TransactionRecord::statusUpdateNeeded()
 {
+    AssertLockHeld(cs_main);
     return status.cur_num_blocks != nBestHeight;
 }
 

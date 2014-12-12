@@ -22,7 +22,6 @@ enum DBErrors
     DB_LOAD_FAIL,
     DB_NEED_REWRITE
 };
-
 class CKeyMetadata
 {
 public:
@@ -53,7 +52,6 @@ public:
         nCreateTime = 0;
     }
 };
-
 
 /** Access to the wallet database (wallet.dat) */
 class CWalletDB : public CDB
@@ -94,20 +92,20 @@ public:
 
     bool WriteCryptedKey(const CPubKey& vchPubKey, const std::vector<unsigned char>& vchCryptedSecret, const CKeyMetadata &keyMeta)
     {
-        nWalletDBUpdated++;
-        bool fEraseUnencryptedKey = true;
+      nWalletDBUpdated++;
+      bool fEraseUnencryptedKey = true;
 
-        if(!Write(std::make_pair(std::string("keymeta"), vchPubKey), keyMeta))
-            return false;
+      if(!Write(std::make_pair(std::string("keymeta"), vchPubKey), keyMeta))
+          return false;
 
-        if (!Write(std::make_pair(std::string("ckey"), vchPubKey.Raw()), vchCryptedSecret, false))
-            return false;
-        if (fEraseUnencryptedKey)
-        {
-            Erase(std::make_pair(std::string("key"), vchPubKey.Raw()));
-            Erase(std::make_pair(std::string("wkey"), vchPubKey.Raw()));
-        }
-        return true;
+      if (!Write(std::make_pair(std::string("ckey"), vchPubKey.Raw()), vchCryptedSecret, false))
+          return false;
+      if (fEraseUnencryptedKey)
+      {
+          Erase(std::make_pair(std::string("key"), vchPubKey.Raw()));
+          Erase(std::make_pair(std::string("wkey"), vchPubKey.Raw()));
+      }
+      return true;
     }
 
     bool WriteMasterKey(unsigned int nID, const CMasterKey& kMasterKey)
@@ -162,29 +160,34 @@ public:
         return Erase(std::make_pair(std::string("pool"), nPool));
     }
 
-    // Settings are no longer stored in wallet.dat; these are
-    // used only for backwards compatibility:
-    template<typename T>
-    bool ReadSetting(const std::string& strKey, T& value)
-    {
-        return Read(std::make_pair(std::string("setting"), strKey), value);
-    }
-    template<typename T>
-    bool WriteSetting(const std::string& strKey, const T& value)
-    {
-        nWalletDBUpdated++;
-        return Write(std::make_pair(std::string("setting"), strKey), value);
-    }
-    bool EraseSetting(const std::string& strKey)
-    {
-        nWalletDBUpdated++;
-        return Erase(std::make_pair(std::string("setting"), strKey));
-    }
-
     bool WriteMinVersion(int nVersion)
     {
         return Write(std::string("minversion"), nVersion);
     }
+
+    bool WriteStakeForCharity(std::string strStakeForCharityAddress,
+                              int nStakeForCharityPercent,
+                              std::string strStakeForCharityChangeAddress,
+                              int64_t nStakeForCharityMinAmount,
+                              int64_t nStakeForCharityMaxAmount)
+    {
+        nWalletDBUpdated++;
+        if (!Write(std::make_pair(std::string("s4c"), strStakeForCharityAddress),std::make_pair(strStakeForCharityChangeAddress ,nStakeForCharityPercent)))
+            return false;
+
+        return Write(std::make_pair(std::string("s4c2"), strStakeForCharityAddress),std::make_pair(nStakeForCharityMinAmount ,nStakeForCharityMaxAmount));
+
+    }
+
+    bool EraseStakeForCharity(std::string strStakeForCharityAddress)
+    {
+        nWalletDBUpdated++;
+
+        return Erase(std::make_pair(std::string("s4c"), strStakeForCharityAddress));
+        return Erase(std::make_pair(std::string("s4c2"), strStakeForCharityAddress));
+    }
+
+
 
     bool ReadAccount(const std::string& strAccount, CAccount& account);
     bool WriteAccount(const std::string& strAccount, const CAccount& account);
@@ -197,6 +200,10 @@ public:
 
     DBErrors ReorderTransactions(CWallet*);
     DBErrors LoadWallet(CWallet* pwallet);
+    DBErrors FindWalletTx(CWallet* pwallet, std::vector<uint256>& vTxHash);
+    DBErrors ZapWalletTx(CWallet* pwallet);
+
+    static void UnloadWallet(CWallet* pwallet);
     static bool Recover(CDBEnv& dbenv, std::string filename, bool fOnlyKeys);
     static bool Recover(CDBEnv& dbenv, std::string filename);
 };
