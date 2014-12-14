@@ -9,8 +9,8 @@
 
 using namespace std;
 
-extern unsigned int nStakeMaxAge;
-extern unsigned int nTargetSpacing;
+extern int nStakeMaxAge;
+extern int nStakeTargetSpacing;
 
 typedef std::map<int, unsigned int> MapModifierCheckpoints;
 
