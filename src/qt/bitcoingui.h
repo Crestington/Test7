@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
-#include "util.h" // for uint64
-
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
@@ -16,8 +14,6 @@ class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
-class StakeForCharityDialog;
-class BlockBrowser;
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -69,11 +65,9 @@ private:
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
-	StakeForCharityDialog *stakeForCharityDialog;
-	BlockBrowser *blockBrowser;
 
     QLabel *labelEncryptionIcon;
-    QLabel *labelMintingIcon;
+    QLabel *labelStakingIcon;
     QLabel *labelConnectionsIcon;
     QLabel *labelBlocksIcon;
     QLabel *progressBarLabel;
@@ -93,23 +87,12 @@ private:
     QAction *toggleHideAction;
     QAction *exportAction;
     QAction *encryptWalletAction;
-	QAction *unlockWalletAction;
     QAction *backupWalletAction;
     QAction *changePassphraseAction;
-    QAction *lockWalletToggleAction;
-	QAction *checkWalletAction;
-	QAction *repairWalletAction;
+    QAction *unlockWalletAction;
+    QAction *lockWalletAction;
     QAction *aboutQtAction;
-    QAction *themeCustomAction;
     QAction *openRPCConsoleAction;
-	QAction *blockAction;
-	QAction *blocksIconAction;
-	QAction *connectionIconAction;
-	QAction *stakingIconAction;
-	QAction *charityAction;
-	QAction *calcAction;
-	
-	
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -117,24 +100,6 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
-    QMovie *miningIconMovie;
-
-    uint64 nMinMax;
-    uint64 nWeight;
-    uint64 nNetworkWeight;
-	uint64 nHoursToMaturity;
-	uint64 nAmount;
-	bool fStakeForCharity;
-	bool fS4CNotificator;
-	int nCharityPercent;
-	QString strCharityAddress;
-    /* Themes support */
-    QString selectedTheme;
-    QStringList themesList;
-    // Path to directory where all themes are (usable for some common images?...)
-    QString themesDir;
-    QAction *customActions[100];
-    /* /Themes support */
 
     /** Create the main UI actions. */
     void createActions();
@@ -180,20 +145,16 @@ private slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
-	/** Switch to block browser page */
-	void gotoBlockBrowser(QString transactionId = "");
+
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
-	/** Allow user to unlock wallet from click */
-	void lockIconClicked();
+
     /** Show configuration dialog */
     void optionsClicked();
     /** Show about dialog */
     void aboutClicked();
-	/** Show Stake Calculator Dialog */
-    void calcClicked();
 #ifndef Q_OS_MAC
     /** Handle tray icon clicked */
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -205,37 +166,21 @@ private slots:
     void incomingTransaction(const QModelIndex & parent, int start, int end);
     /** Encrypt the wallet */
     void encryptWallet(bool status);
-	/** Check the wallet */
-	void checkWallet();
-	/** Repair the wallet */
-	void repairWallet();
     /** Backup the wallet */
     void backupWallet();
     /** Change encrypted wallet passphrase */
     void changePassphrase();
-	/** Lock Wallet */
-	void lockWallet();
-    /** Toggle unlocking wallet temporarily */
-    void lockWalletToggle();
-	/** Ask for passphrase to unlock wallet temporarily */
-	void unlockWallet();
-	/** Ask for passphrase to unlock wallet for the session to mint */
-	void unlockWalletForMint();
+    /** Ask for passphrase to unlock wallet temporarily */
+    void unlockWallet();
+
+    void lockWallet();
+
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
     void showNormalIfMinimized(bool fToggleHidden = false);
     /** simply calls showNormalIfMinimized(true) for use in SLOT() macro */
     void toggleHidden();
 
-    /** Update info about minting */
-    void updateMintingIcon();
-    /** Update minting weight info */
-    void updateMintingWeights();
-	void charityClicked(QString addr = "");
-    /** Load external QSS stylesheet */
-    void changeTheme(QString theme);
-    void loadTheme(QString theme);
-    void listThemes(QStringList& themes);
-    void keyPressEvent(QKeyEvent * e);
+    void updateStakingIcon();
 };
 
 #endif
