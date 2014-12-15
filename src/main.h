@@ -37,8 +37,8 @@ static const unsigned int MAX_INV_SZ = 50000;
 static const int64_t MIN_TX_FEE = 50 * COIN;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 38000000000 * COIN;
-static const int64_t COIN_YEAR_REWARD = 6 * CENT; // 6% per year
-static const int64_t MAX_MINT_PROOF_OF_STAKE = 0.06 * COIN;	// 6% annual interest
+static const int64_t COIN_YEAR_REWARD = 5 * CENT; // 5% per year
+static const int64_t MAX_MINT_PROOF_OF_STAKE = 0.05 * COIN;	// 5% annual interest
 static const int MODIFIER_INTERVAL_SWITCH = 1;
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
@@ -62,11 +62,8 @@ extern CScript COINBASE_FLAGS;
 extern CCriticalSection cs_main;
 extern std::map<uint256, CBlockIndex*> mapBlockIndex;
 extern std::set<std::pair<COutPoint, unsigned int> > setStakeSeen;
-extern uint256 hashGenesisBlock;
 extern CBlockIndex* pindexGenesisBlock;
 extern unsigned int nStakeMinAge;
-extern unsigned int nStakeMaxAge;
-extern unsigned int nStakeTargetSpacing;
 extern unsigned int nNodeLifespan;
 extern int nCoinbaseMaturity;
 extern int nBestHeight;

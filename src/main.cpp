@@ -40,9 +40,10 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-unsigned int nStakeTargetSpacing = 2 * 60; // 2 minutes
+unsigned int nTargetSpacing = 2 * 60; // 2 minutes
 unsigned int nStakeMinAge = 7 * 24 * 60 * 60; // 7 days
-unsigned int nStakeMaxAge = 28 * 24 * 60 * 60;           // 28 days
+unsigned int nStakeMaxAge = 21 * 24 * 60 * 60;           // 21 days
+unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
 
 int nCoinbaseMaturity = 30;
 CBlockIndex* pindexGenesisBlock = NULL;
@@ -999,7 +1000,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 
     nRewardCoinYear = MAX_MINT_PROOF_OF_STAKE;
 
-    int64_t nSubsidy = ((nCoinAge * 33 * nRewardCoinYear) / (365 * 33 + 8)) + nFees;
+    int64_t nSubsidy = (nCoinAge * nRewardCoinYear / 365 / COIN) + nFees;
 
 
     if (fDebug && GetBoolArg("-printcreation"))
@@ -1009,7 +1010,6 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 }
 
 static const int64_t nTargetTimespan = 30 * 60;  // 30 mins
-static const int64_t nTargetSpacingWorkMax = 12 * nStakeTargetSpacing; // 2-hour
 //
 // maximum nBits value could possible be required nTime after
 //
@@ -1071,8 +1071,6 @@ static unsigned int GetNextTargetRequired_(const CBlockIndex* pindexLast, bool f
         return bnTargetLimit.GetCompact(); // second block
 
     int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
-    int64_t nTargetSpacing = fProofOfStake? nStakeTargetSpacing : min(nTargetSpacingWorkMax, (int64_t) nStakeTargetSpacing * (1 + pindexLast->nHeight - pindexPrev->nHeight));
-
     if (nActualSpacing < 0)
         nActualSpacing = nTargetSpacing;
 
@@ -1080,17 +1078,9 @@ static unsigned int GetNextTargetRequired_(const CBlockIndex* pindexLast, bool f
     // ppcoin: retarget with exponential moving toward target spacing
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
-	
     int64_t nInterval = nTargetTimespan / nTargetSpacing;
     bnNew *= ((nInterval - 1) * nTargetSpacing + nActualSpacing + nActualSpacing);
     bnNew /= ((nInterval + 1) * nTargetSpacing);
-
-	/*
-	printf(">> Height = %d, fProofOfStake = %d, nInterval = %"PRI64d", nTargetSpacing = %"PRI64d", nActualSpacing = %"PRI64d"\n", 
-		pindexPrev->nHeight, fProofOfStake, nInterval, nTargetSpacing, nActualSpacing);  
-	printf(">> pindexPrev->GetBlockTime() = %"PRI64d", pindexPrev->nHeight = %d, pindexPrevPrev->GetBlockTime() = %"PRI64d", pindexPrevPrev->nHeight = %d\n", 
-		pindexPrev->GetBlockTime(), pindexPrev->nHeight, pindexPrevPrev->GetBlockTime(), pindexPrevPrev->nHeight);  
-	*/
 
     if (bnNew <= 0 || bnNew > bnTargetLimit)
         bnNew = bnTargetLimit;
