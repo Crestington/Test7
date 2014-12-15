@@ -14,11 +14,7 @@
 #include <sys/resource.h>
 #endif
 
-#include "tinyformat.h"
-
 #include <map>
-#include <list>
-#include <utility>
 #include <vector>
 #include <string>
 
@@ -33,10 +29,14 @@
 
 #include "netbase.h" // for AddTimeData
 
-#include <stdint.h>
+// to obtain PRId64 on some old systems
+#define __STDC_FORMAT_MACROS 1
 
-static const int64_t COIN = 1000000;
-static const int64_t CENT = 10000;
+#include <stdint.h>
+#include <inttypes.h>
+
+static const int64_t COIN = 100000000;
+static const int64_t CENT = 1000000;
 
 #define BEGIN(a)            ((char*)&(a))
 #define END(a)              ((char*)&((&(a))[1]))
@@ -117,14 +117,31 @@ inline void MilliSleep(int64_t n)
 #endif
 }
 
+/* This GNU C extension enables the compiler to check the format string against the parameters provided.
+ * X is the number of the "format string" parameter, and Y is the number of the first variadic parameter.
+ * Parameters count from 1.
+ */
+#ifdef __GNUC__
+#define ATTR_WARN_PRINTF(X,Y) __attribute__((format(printf,X,Y)))
+#else
+#define ATTR_WARN_PRINTF(X,Y)
+#endif
+
+
+
+
+
+
+
+
 extern std::map<std::string, std::string> mapArgs;
 extern std::map<std::string, std::vector<std::string> > mapMultiArgs;
 extern bool fDebug;
+extern bool fDebugNet;
 extern bool fPrintToConsole;
 extern bool fPrintToDebugger;
-extern volatile bool fRequestShutdown;
+extern bool fRequestShutdown;
 extern bool fShutdown;
-extern bool fStopStaking;
 extern bool fDaemon;
 extern bool fServer;
 extern bool fCommandLine;
@@ -132,60 +149,45 @@ extern std::string strMiscWarning;
 extern bool fTestNet;
 extern bool fNoListen;
 extern bool fLogTimestamps;
-extern volatile bool fReopenDebugLog;
+extern bool fReopenDebugLog;
 
 void RandAddSeed();
 void RandAddSeedPerfmon();
-/* Return true if log accepts specified category */
-bool LogAcceptCategory(const char* category);
-/* Send a string to the log output */
-int LogPrintStr(const std::string &str);
+int ATTR_WARN_PRINTF(1,2) OutputDebugStringF(const char* pszFormat, ...);
 
-#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
+/*
+  Rationale for the real_strprintf / strprintf construction:
+    It is not allowed to use va_start with a pass-by-reference argument.
+    (C++ standard, 18.7, paragraph 3). Use a dummy argument to work around this, and use a
+    macro to keep similar semantics.
+*/
 
-/* When we switch to C++11, this can be switched to variadic templates instead
- * of this macro-based construction (see tinyformat.h).
+/** Overload strprintf for char*, so that GCC format type warnings can be given */
+std::string ATTR_WARN_PRINTF(1,3) real_strprintf(const char *format, int dummy, ...);
+/** Overload strprintf for std::string, to be able to use it with _ (translation).
+ * This will not support GCC format type warnings (-Wformat) so be careful.
  */
-#define MAKE_ERROR_AND_LOG_FUNC(n)                                        \
-    /*   Print to debug.log if -debug=category switch is given OR category is NULL. */ \
-    template<TINYFORMAT_ARGTYPES(n)>                                          \
-    static inline int LogPrint(const char* category, const char* format, TINYFORMAT_VARARGS(n))  \
-    {                                                                         \
-        if(!LogAcceptCategory(category)) return 0;                            \
-        return LogPrintStr(tfm::format(format, TINYFORMAT_PASSARGS(n))); \
-    }                                                                         \
-    /*   Log error and return false */                                        \
-    template<TINYFORMAT_ARGTYPES(n)>                                          \
-    static inline bool error(const char* format, TINYFORMAT_VARARGS(n))                     \
-    {                                                                         \
-        LogPrintStr("ERROR: " + tfm::format(format, TINYFORMAT_PASSARGS(n)) + "\n"); \
-        return false;                                                         \
-    }
+std::string real_strprintf(const std::string &format, int dummy, ...);
+#define strprintf(format, ...) real_strprintf(format, 0, __VA_ARGS__)
+std::string vstrprintf(const char *format, va_list ap);
 
-TINYFORMAT_FOREACH_ARGNUM(MAKE_ERROR_AND_LOG_FUNC)
+bool ATTR_WARN_PRINTF(1,2) error(const char *format, ...);
 
-/* Zero-arg versions of logging and error, these are not covered by
- * TINYFORMAT_FOREACH_ARGNUM
+/* Redefine printf so that it directs output to debug.log
+ *
+ * Do this *after* defining the other printf-like functions, because otherwise the
+ * __attribute__((format(printf,X,Y))) gets expanded to __attribute__((format(OutputDebugStringF,X,Y)))
+ * which confuses gcc.
  */
-static inline int LogPrint(const char* category, const char* format)
-{
-    if(!LogAcceptCategory(category)) return 0;
-    return LogPrintStr(format);
-}
-static inline bool error(const char* format)
-{
-    LogPrintStr(std::string("ERROR: ") + format + "\n");
-    return false;
-}
+#define printf OutputDebugStringF
 
-
+void LogException(std::exception* pex, const char* pszThread);
 void PrintException(std::exception* pex, const char* pszThread);
 void PrintExceptionContinue(std::exception* pex, const char* pszThread);
 void ParseString(const std::string& str, char c, std::vector<std::string>& v);
 std::string FormatMoney(int64_t n, bool fPlus=false);
 bool ParseMoney(const std::string& str, int64_t& nRet);
 bool ParseMoney(const char* pszIn, int64_t& nRet);
-std::string SanitizeString(const std::string& str);
 std::vector<unsigned char> ParseHex(const char* psz);
 std::vector<unsigned char> ParseHex(const std::string& str);
 bool IsHex(const std::string& str);
@@ -197,10 +199,6 @@ std::vector<unsigned char> DecodeBase32(const char* p, bool* pfInvalid = NULL);
 std::string DecodeBase32(const std::string& str);
 std::string EncodeBase32(const unsigned char* pch, size_t len);
 std::string EncodeBase32(const std::string& str);
-std::string EncodeDumpTime(int64_t nTime);
-int64_t DecodeDumpTime(const std::string& s);
-std::string EncodeDumpString(const std::string &str);
-std::string DecodeDumpString(const std::string &str);
 void ParseParameters(int argc, const char*const argv[]);
 bool WildcardMatch(const char* psz, const char* mask);
 bool WildcardMatch(const std::string& str, const std::string& mask);
@@ -232,19 +230,15 @@ void runCommand(std::string strCommand);
 
 
 
-namespace file_option_flags
-{
-    const unsigned int REGULAR_FILES = 0x01;
-    const unsigned int DIRECTORIES = 0x02;
-};
 
-std::vector<std::string> GetFilesAtPath(const boost::filesystem::path& _path,
-                                        unsigned int flags = file_option_flags::REGULAR_FILES | file_option_flags::DIRECTORIES);
+
+
+
 
 
 inline std::string i64tostr(int64_t n)
 {
-    return strprintf("%d", n);
+    return strprintf("%"PRId64, n);
 }
 
 inline std::string itostr(int n)
@@ -300,7 +294,6 @@ inline std::string leftTrim(std::string src, char chr)
     return src;
 }
 
-
 template<typename T>
 std::string HexStr(const T itbegin, const T itend, bool fSpaces=false)
 {
@@ -325,6 +318,17 @@ inline std::string HexStr(const std::vector<unsigned char>& vch, bool fSpaces=fa
     return HexStr(vch.begin(), vch.end(), fSpaces);
 }
 
+template<typename T>
+void PrintHex(const T pbegin, const T pend, const char* pszFormat="%s", bool fSpaces=true)
+{
+    printf(pszFormat, HexStr(pbegin, pend, fSpaces).c_str());
+}
+
+inline void PrintHex(const std::vector<unsigned char>& vch, const char* pszFormat="%s", bool fSpaces=true)
+{
+    printf(pszFormat, HexStr(vch, fSpaces).c_str());
+}
+
 inline int64_t GetPerformanceCounter()
 {
     int64_t nCounter = 0;
@@ -342,12 +346,6 @@ inline int64_t GetTimeMillis()
 {
     return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
             boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
-}
-
-inline int64_t GetTimeMicros()
-{
-    return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
-            boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_microseconds();
 }
 
 inline std::string DateTimeStrFormat(const char* pszFormat, int64_t nTime)
@@ -428,27 +426,12 @@ bool SoftSetArg(const std::string& strArg, const std::string& strValue);
 bool SoftSetBoolArg(const std::string& strArg, bool fValue);
 
 
-/**
- * MWC RNG of George Marsaglia
- * This is intended to be fast. It has a period of 2^59.3, though the
- * least significant 16 bits only have a period of about 2^30.1.
- *
- * @return random value
- */
-extern uint32_t insecure_rand_Rz;
-extern uint32_t insecure_rand_Rw;
-static inline uint32_t insecure_rand(void)
-{
-  insecure_rand_Rz=36969*(insecure_rand_Rz&65535)+(insecure_rand_Rz>>16);
-  insecure_rand_Rw=18000*(insecure_rand_Rw&65535)+(insecure_rand_Rw>>16);
-  return (insecure_rand_Rw<<16)+insecure_rand_Rz;
-}
 
-/**
- * Seed insecure_rand using the random pool.
- * @param Deterministic Use a determinstic seed
- */
-void seed_insecure_rand(bool fDeterministic=false);
+
+
+
+
+
 
 template<typename T1>
 inline uint256 Hash(const T1 pbegin, const T1 pend)

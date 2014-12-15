@@ -41,9 +41,6 @@ public slots:
     void updateRemoveEnabled();
     void setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBalance, qint64 immatureBalance);
 
-    void on_addressBookButton_clicked();
-    void on_pasteButton_clicked();
-
 private:
     Ui::SendCoinsDialog *ui;
     WalletModel *model;
@@ -56,6 +53,7 @@ private slots:
     void coinControlFeatureChanged(bool);
     void coinControlButtonClicked();
     void coinControlChangeChecked(int);
+    void coinControlChangeEdited(const QString &);
     void coinControlUpdateLabels();
     void coinControlClipboardQuantity();
     void coinControlClipboardAmount();

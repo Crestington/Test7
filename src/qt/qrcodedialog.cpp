@@ -7,9 +7,7 @@
 #include "optionsmodel.h"
 
 #include <QPixmap>
-#if QT_VERSION < 0x050000
 #include <QUrl>
-#endif
 
 #include <qrencode.h>
 
@@ -94,7 +92,7 @@ QString QRCodeDialog::getURI()
     {
         if (ui->lnReqAmount->validate())
         {
-            // even if we allow a non CV2 unit input in lnReqAmount, we generate the URI with CV2 as unit (as defined in BIP21)
+            // even if we allow a non BTC unit input in lnReqAmount, we generate the URI with BTC as unit (as defined in BIP21)
             ret += QString("?amount=%1").arg(BitcoinUnits::format(BitcoinUnits::BTC, ui->lnReqAmount->value()));
             paramCount++;
         }

@@ -18,7 +18,7 @@
 extern bool fTestNet;
 static inline unsigned short GetDefaultPort(const bool testnet = fTestNet)
 {
-    return testnet ? 17372 : 7372;
+    return testnet ? 43523 : 43522;
 }
 
 
@@ -56,8 +56,7 @@ class CMessageHeader
             CHECKSUM_SIZE=sizeof(int),
 
             MESSAGE_SIZE_OFFSET=MESSAGE_START_SIZE+COMMAND_SIZE,
-            CHECKSUM_OFFSET=MESSAGE_SIZE_OFFSET+MESSAGE_SIZE_SIZE,
-            HEADER_SIZE=MESSAGE_START_SIZE+COMMAND_SIZE+MESSAGE_SIZE_SIZE+CHECKSUM_SIZE
+            CHECKSUM_OFFSET=MESSAGE_SIZE_OFFSET+MESSAGE_SIZE_SIZE
         };
         char pchMessageStart[MESSAGE_START_SIZE];
         char pchCommand[COMMAND_SIZE];
@@ -95,6 +94,7 @@ class CAddress : public CService
              READWRITE(*pip);
             )
 
+        void print() const;
 
     // TODO: make private (improves encapsulation)
     public:
@@ -126,6 +126,7 @@ class CInv
         bool IsKnownType() const;
         const char* GetCommand() const;
         std::string ToString() const;
+        void print() const;
 
     // TODO: make private (improves encapsulation)
     public:
