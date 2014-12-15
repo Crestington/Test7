@@ -1,5 +1,7 @@
 #include "clientmodel.h"
+
 #include "guiconstants.h"
+#include "peertablemodel.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 #include "transactiontablemodel.h"
@@ -10,15 +12,19 @@
 
 #include <QDateTime>
 #include <QTimer>
+#include <QDebug>
 
-static const int64_t nClientStartupTime = GetTime();
+static const qint64 nClientStartupTime = GetTime();
+double GetPoSKernelPS(const CBlockIndex* blockindex = NULL);
+double GetDifficulty(const CBlockIndex* blockindex);
+double GetPoWMHashPS(const CBlockIndex* blockindex = NULL);
 
 ClientModel::ClientModel(OptionsModel *optionsModel, QObject *parent) :
-    QObject(parent), optionsModel(optionsModel),
-    cachedNumBlocks(0), cachedNumBlocksOfPeers(0), pollTimer(0)
+    QObject(parent), optionsModel(optionsModel), peerTableModel(0),
+    cachedNumBlocks(0), cachedNumBlocksOfPeers(0), numBlocksAtStartup(-1), pollTimer(0)
 {
-    numBlocksAtStartup = -1;
 
+    peerTableModel = new PeerTableModel(this);
     pollTimer = new QTimer(this);
     pollTimer->setInterval(MODEL_UPDATE_DELAY);
     pollTimer->start();
@@ -29,7 +35,7 @@ ClientModel::ClientModel(OptionsModel *optionsModel, QObject *parent) :
 
 ClientModel::~ClientModel()
 {
-    unsubscribeFromCoreSignals();
+
 }
 
 int ClientModel::getNumConnections() const
@@ -39,7 +45,41 @@ int ClientModel::getNumConnections() const
 
 int ClientModel::getNumBlocks() const
 {
+    LOCK(cs_main);
     return nBestHeight;
+}
+
+int ClientModel::getProtocolVersion() const
+{
+    return PROTOCOL_VERSION;
+}
+
+double ClientModel::getDifficulty(bool fProofofStake)
+{
+    if (fProofofStake)
+       return GetDifficulty(GetLastBlockIndex(pindexBest,true));
+    else
+       return GetDifficulty(GetLastBlockIndex(pindexBest,false));
+}
+
+double ClientModel::getProofOfStakeReward()
+{
+    return GetProofOfStakeReward(0, GetLastBlockIndex(pindexBest, true)->nBits, GetLastBlockIndex(pindexBest, true)->nTime, true)/10000;
+}
+
+int ClientModel::getLastPoSBlock()
+{
+    return GetLastBlockIndex(pindexBest,true)->nHeight;
+}
+
+qint64 ClientModel::getMoneySupply()
+{
+   return pindexBest->nMoneySupply;
+}
+
+double ClientModel::getPoWMHashPS()
+{
+   return GetPoWMHashPS();
 }
 
 int ClientModel::getNumBlocksAtStartup()
@@ -48,16 +88,47 @@ int ClientModel::getNumBlocksAtStartup()
     return numBlocksAtStartup;
 }
 
-QDateTime ClientModel::getLastBlockDate() const
+double ClientModel::getPosKernalPS()
 {
-    if (pindexBest)
-        return QDateTime::fromTime_t(pindexBest->GetBlockTime());
+    return GetPoSKernelPS();
+}
+
+int ClientModel::getStakeTargetSpacing()
+{
+    return nStakeTargetSpacing;
+}
+
+quint64 ClientModel::getTotalBytesRecv() const
+{
+    return CNode::GetTotalBytesRecv();
+}
+
+quint64 ClientModel::getTotalBytesSent() const
+{
+    return CNode::GetTotalBytesSent();
+}
+
+
+QDateTime ClientModel::getLastBlockDate(bool fProofofStake) const
+{
+    LOCK(cs_main);
+    if (pindexBest && !fProofofStake)
+      return QDateTime::fromTime_t(pindexBest->GetBlockTime());
+    else if (pindexBest && fProofofStake)
+       return QDateTime::fromTime_t(GetLastBlockIndex(pindexBest,true)->GetBlockTime());
     else
-        return QDateTime::fromTime_t(1393221600); // Genesis block's time
+      return QDateTime::fromTime_t(1374635824); // Genesis block's time
 }
 
 void ClientModel::updateTimer()
 {
+    // Get required lock upfront. This avoids the GUI from getting stuck on
+    // periodical polls if the core is holding the locks for a longer time -
+    // for example, during a wallet rescan.
+    TRY_LOCK(cs_main, lockMain);
+    if(!lockMain)
+        return;
+
     // Some quantities (such as number of blocks) change so fast that we don't want to be notified for each change.
     // Periodically check and update with a timer.
     int newNumBlocks = getNumBlocks();
@@ -68,13 +139,26 @@ void ClientModel::updateTimer()
         cachedNumBlocks = newNumBlocks;
         cachedNumBlocksOfPeers = newNumBlocksOfPeers;
 
-        emit numBlocksChanged(newNumBlocks, newNumBlocksOfPeers);
+        // ensure we return the maximum of newNumBlocksOfPeers and newNumBlocks to not create weird displays in the GUI
+        emit numBlocksChanged(newNumBlocks, std::max(newNumBlocksOfPeers, newNumBlocks));
     }
+
+    emit bytesChanged(getTotalBytesRecv(), getTotalBytesSent());
 }
 
 void ClientModel::updateNumConnections(int numConnections)
 {
     emit numConnectionsChanged(numConnections);
+}
+
+void ClientModel::updateWalletAdded(const QString &name)
+{
+    emit walletAdded(name);
+}
+
+void ClientModel::updateWalletRemoved(const QString &name)
+{
+    emit walletRemoved(name);
 }
 
 void ClientModel::updateAlert(const QString &hash, int status)
@@ -87,13 +171,11 @@ void ClientModel::updateAlert(const QString &hash, int status)
         CAlert alert = CAlert::getAlertByHash(hash_256);
         if(!alert.IsNull())
         {
-            emit error(tr("Network Alert"), QString::fromStdString(alert.strStatusBar), false);
+            emit message(tr("Network Alert"), QString::fromStdString(alert.strStatusBar), CClientUIInterface::ICON_ERROR);
         }
     }
 
-    // Emit a numBlocksChanged when the status message changes,
-    // so that the view recomputes and updates the status bar.
-    emit numBlocksChanged(getNumBlocks(), getNumBlocksOfPeers());
+    emit alertsChanged(getStatusBarWarnings());
 }
 
 bool ClientModel::isTestNet() const
@@ -104,6 +186,11 @@ bool ClientModel::isTestNet() const
 bool ClientModel::inInitialBlockDownload() const
 {
     return IsInitialBlockDownload();
+}
+
+enum BlockSource ClientModel::getBlockSource() const
+{
+    return BLOCK_SOURCE_NETWORK;
 }
 
 int ClientModel::getNumBlocksOfPeers() const
@@ -121,6 +208,11 @@ OptionsModel *ClientModel::getOptionsModel()
     return optionsModel;
 }
 
+PeerTableModel *ClientModel::getPeerTableModel()
+{
+    return peerTableModel;
+}
+
 QString ClientModel::formatFullVersion() const
 {
     return QString::fromStdString(FormatFullVersion());
@@ -129,6 +221,11 @@ QString ClientModel::formatFullVersion() const
 QString ClientModel::formatBuildDate() const
 {
     return QString::fromStdString(CLIENT_DATE);
+}
+
+bool ClientModel::isReleaseVersion() const
+{
+    return CLIENT_VERSION_IS_RELEASE;
 }
 
 QString ClientModel::clientName() const
@@ -150,17 +247,35 @@ static void NotifyBlocksChanged(ClientModel *clientmodel)
 
 static void NotifyNumConnectionsChanged(ClientModel *clientmodel, int newNumConnections)
 {
-    // Too noisy: OutputDebugStringF("NotifyNumConnectionsChanged %i\n", newNumConnections);
+    // Too noisy: qDebug() << "NotifyNumConnectionsChanged : " + QString::number(newNumConnections);
     QMetaObject::invokeMethod(clientmodel, "updateNumConnections", Qt::QueuedConnection,
                               Q_ARG(int, newNumConnections));
 }
 
 static void NotifyAlertChanged(ClientModel *clientmodel, const uint256 &hash, ChangeType status)
 {
-    OutputDebugStringF("NotifyAlertChanged %s status=%i\n", hash.GetHex().c_str(), status);
+    qDebug() << "NotifyAlertChanged : " + QString::fromStdString(hash.GetHex()) + " status=" + QString::number(status);
     QMetaObject::invokeMethod(clientmodel, "updateAlert", Qt::QueuedConnection,
                               Q_ARG(QString, QString::fromStdString(hash.GetHex())),
                               Q_ARG(int, status));
+}
+
+static void NotifyWalletAdded(ClientModel *clientmodel, const std::string &name)
+{
+    QString strWalletName = QString::fromStdString(name);
+
+    qDebug() << "NotifyWalletAdded : " + strWalletName;
+    QMetaObject::invokeMethod(clientmodel, "updateWalletAdded", Qt::QueuedConnection,
+                              Q_ARG(QString, strWalletName));
+}
+
+static void NotifyWalletRemoved(ClientModel *clientmodel, const std::string &name)
+{
+    QString strWalletName = QString::fromStdString(name);
+
+    qDebug() <<"NotifyWalletRemoved : " + strWalletName;
+    QMetaObject::invokeMethod(clientmodel, "updateWalletRemoved", Qt::QueuedConnection,
+                              Q_ARG(QString, strWalletName));
 }
 
 void ClientModel::subscribeToCoreSignals()
@@ -169,6 +284,9 @@ void ClientModel::subscribeToCoreSignals()
     uiInterface.NotifyBlocksChanged.connect(boost::bind(NotifyBlocksChanged, this));
     uiInterface.NotifyNumConnectionsChanged.connect(boost::bind(NotifyNumConnectionsChanged, this, _1));
     uiInterface.NotifyAlertChanged.connect(boost::bind(NotifyAlertChanged, this, _1, _2));
+    uiInterface.NotifyWalletAdded.connect(boost::bind(NotifyWalletAdded,this,_1));
+    uiInterface.NotifyWalletRemoved.connect(boost::bind(NotifyWalletRemoved,this,_1));
+
 }
 
 void ClientModel::unsubscribeFromCoreSignals()
@@ -177,4 +295,6 @@ void ClientModel::unsubscribeFromCoreSignals()
     uiInterface.NotifyBlocksChanged.disconnect(boost::bind(NotifyBlocksChanged, this));
     uiInterface.NotifyNumConnectionsChanged.disconnect(boost::bind(NotifyNumConnectionsChanged, this, _1));
     uiInterface.NotifyAlertChanged.disconnect(boost::bind(NotifyAlertChanged, this, _1, _2));
+    uiInterface.NotifyWalletAdded.disconnect(boost::bind(NotifyWalletAdded,this,_1));
+    uiInterface.NotifyWalletRemoved.disconnect(boost::bind(NotifyWalletRemoved,this,_1));
 }

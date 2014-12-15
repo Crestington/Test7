@@ -1,4 +1,5 @@
 #include "addresstablemodel.h"
+
 #include "guiutil.h"
 #include "walletmodel.h"
 
@@ -6,7 +7,7 @@
 #include "base58.h"
 
 #include <QFont>
-#include <QColor>
+#include <QDebug>
 
 const QString AddressTableModel::Send = "S";
 const QString AddressTableModel::Receive = "R";
@@ -90,7 +91,7 @@ public:
         case CT_NEW:
             if(inModel)
             {
-                OutputDebugStringF("Warning: AddressTablePriv::updateEntry: Got CT_NEW, but entry is already in model\n");
+                qDebug() << "AddressTablePriv::updateEntry : Warning: Got CT_NEW, but entry is already in model";
                 break;
             }
             parent->beginInsertRows(QModelIndex(), lowerIndex, lowerIndex);
@@ -100,7 +101,7 @@ public:
         case CT_UPDATED:
             if(!inModel)
             {
-                OutputDebugStringF("Warning: AddressTablePriv::updateEntry: Got CT_UPDATED, but entry is not in model\n");
+                qDebug() << "AddressTablePriv::updateEntry : Warning: Got CT_UPDATED, but entry is not in model";
                 break;
             }
             lower->type = newEntryType;
@@ -110,7 +111,7 @@ public:
         case CT_DELETED:
             if(!inModel)
             {
-                OutputDebugStringF("Warning: AddressTablePriv::updateEntry: Got CT_DELETED, but entry is not in model\n");
+                qDebug() << "AddressTablePriv::updateEntry : Warning: Got CT_DELETED, but entry is not in model";
                 break;
             }
             parent->beginRemoveRows(QModelIndex(), lowerIndex, upperIndex-1);
@@ -226,8 +227,8 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
             // Do nothing, if old label == new label
             if(rec->label == value.toString())
             {
-                editStatus = NO_CHANGES;
-                return false;
+               editStatus = NO_CHANGES;
+               return false;
             }
             wallet->SetAddressBookName(CBitcoinAddress(rec->address.toStdString()).Get(), value.toString().toStdString());
             break;
@@ -235,8 +236,8 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
             // Do nothing, if old address == new address
             if(CBitcoinAddress(rec->address.toStdString()) == CBitcoinAddress(value.toString().toStdString()))
             {
-                editStatus = NO_CHANGES;
-                return false;
+               editStatus = NO_CHANGES;
+               return false;
             }
             // Refuse to set invalid address, set error status and return false
             else if(!walletModel->validateAddress(value.toString()))
@@ -248,8 +249,8 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
             // to paste an existing address over another address (with a different label)
             else if(wallet->mapAddressBook.count(CBitcoinAddress(value.toString().toStdString()).Get()))
             {
-                editStatus = DUPLICATE_ADDRESS;
-                return false;
+               editStatus = DUPLICATE_ADDRESS;
+               return false;
             }
             // Double-check that we're not overwriting a receiving address
             else if(rec->type == AddressTableEntry::Sending)
@@ -264,6 +265,7 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
             }
             break;
         }
+
         return true;
     }
     return false;
@@ -364,7 +366,6 @@ QString AddressTableModel::addRow(const QString &type, const QString &label, con
     {
         return QString();
     }
-
     // Add entry
     {
         LOCK(wallet->cs_wallet);

@@ -2,8 +2,13 @@
 #define GUIUTIL_H
 
 #include <QString>
+#include <QTableView>
+#include <QHeaderView>
 #include <QObject>
 #include <QMessageBox>
+#include <QLabel>
+
+class SendCoinsRecipient;
 
 QT_BEGIN_NAMESPACE
 class QFont;
@@ -12,8 +17,8 @@ class QWidget;
 class QDateTime;
 class QUrl;
 class QAbstractItemView;
+class QLabel;
 QT_END_NAMESPACE
-class SendCoinsRecipient;
 
 /** Utility functions used by the Bitcoin Qt UI.
  */
@@ -46,6 +51,8 @@ namespace GUIUtil
        @see  TransactionView::copyLabel, TransactionView::copyAmount, TransactionView::copyAddress
      */
     void copyEntryData(QAbstractItemView *view, int column, int role=Qt::EditRole);
+
+    void setClipboard(const QString& str);
 
     /** Get save filename, mimics QFileDialog::getSaveFileName, except that it appends a default suffix
         when no suffix is provided by the user.
@@ -92,8 +99,51 @@ namespace GUIUtil
         int size_threshold;
     };
 
+    /**
+     * Makes a QTableView last column feel as if it was being resized from its left border.
+     * Also makes sure the column widths are never larger than the table's viewport.
+     * In Qt, all columns are resizable from the right, but it's not intuitive resizing the last column from the right.
+     * Usually our second to last columns behave as if stretched, and when on strech mode, columns aren't resizable
+     * interactively or programatically.
+     *
+     * This helper object takes care of this issue.
+     *
+     */
+    class TableViewLastColumnResizingFixer: public QObject
+    {
+    Q_OBJECT
+    public:
+        TableViewLastColumnResizingFixer(QTableView* table, int lastColMinimumWidth, int allColsMinimumWidth);
+        void stretchColumnWidth(int column);
+
+    private:
+        QTableView* tableView;
+        int lastColumnMinimumWidth;
+        int allColumnsMinimumWidth;
+        int lastColumnIndex;
+        int columnCount;
+        int secondToLastColumnIndex;
+
+        void adjustTableColumnsWidth();
+        int getAvailableWidthForColumn(int column);
+        int getColumnsWidth();
+        void connectViewHeadersSignals();
+        void disconnectViewHeadersSignals();
+        void setViewHeaderResizeMode(int logicalIndex, QHeaderView::ResizeMode resizeMode);
+        void resizeColumn(int nColumnIndex, int width);
+
+    private slots:
+        void on_sectionResized(int logicalIndex, int oldSize, int newSize);
+        void on_geometriesChanged();
+    };
+
     bool GetStartOnSystemStartup();
     bool SetStartOnSystemStartup(bool fAutoStart);
+
+    /** Save window size and position */
+    void saveWindowGeometry(const QString& strSetting, QWidget *parent);
+    /** Restore window size and position */
+    void restoreWindowGeometry(const QString& strSetting, const QSize &defaultSizeIn, QWidget *parent);
 
     /** Help message for Bitcoin-Qt, shown with --help. */
     class HelpMessageBox : public QMessageBox
@@ -115,6 +165,32 @@ namespace GUIUtil
         QString uiOptions;
     };
 
+    class ClickableLabel : public QLabel
+    {
+
+    Q_OBJECT
+
+    public:
+        explicit ClickableLabel( const QString& text ="", QWidget * parent = 0 );
+        ~ClickableLabel();
+
+    signals:
+        void clicked();
+
+    protected:
+        void mouseReleaseEvent ( QMouseEvent * event ) ;
+    };
+    /* Convert seconds into a QString with days, hours, mins, secs */
+    QString formatDurationStr(int secs);
+
+    /* Format CNodeStats.nServices bitmask into a user-readable string */
+    QString formatServicesStr(quint64 mask);
+
+    /* Format a CNodeCombinedStats.dPingTime into a user-readable string or display N/A, if 0*/
+    QString formatPingTime(double dPingTime);
+
+
 } // namespace GUIUtil
+
 
 #endif // GUIUTIL_H
