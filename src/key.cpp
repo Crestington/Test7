@@ -285,28 +285,13 @@ CPubKey CKey::GetPubKey() const
 
 bool CKey::Sign(uint256 hash, std::vector<unsigned char>& vchSig)
 {
-    vchSig.clear();
-    ECDSA_SIG *sig = ECDSA_do_sign((unsigned char*)&hash, sizeof(hash), pkey);
-    if (sig == NULL)
-        return false;
-    BN_CTX *ctx = BN_CTX_new();
-    BN_CTX_start(ctx);
-    const EC_GROUP *group = EC_KEY_get0_group(pkey);
-    BIGNUM *order = BN_CTX_get(ctx);
-    BIGNUM *halforder = BN_CTX_get(ctx);
-    EC_GROUP_get_order(group, order, ctx);
-    BN_rshift1(halforder, order);
-    if (BN_cmp(sig->s, halforder) > 0) {
-        // enforce low S values, by negating the value (modulo the order) if above order/2.
-        BN_sub(sig->s, order, sig->s);
-    }
-    BN_CTX_end(ctx);
-    BN_CTX_free(ctx);
     unsigned int nSize = ECDSA_size(pkey);
     vchSig.resize(nSize); // Make sure it is big enough
-    unsigned char *pos = &vchSig[0];
-    nSize = i2d_ECDSA_SIG(sig, &pos);
-    ECDSA_SIG_free(sig);
+    if (!ECDSA_sign(0, (unsigned char*)&hash, sizeof(hash), &vchSig[0], &nSize, pkey))
+    {
+        vchSig.clear();
+        return false;
+    }
     vchSig.resize(nSize); // Shrink to fit actual size
     return true;
 }
@@ -344,8 +329,8 @@ bool CKey::SignCompact(uint256 hash, std::vector<unsigned char>& vchSig)
 
         if (nRecId == -1)
         {
-            ECDSA_SIG_free(sig);
-            throw key_error("CKey::SignCompact() : unable to construct recoverable key");
+           ECDSA_SIG_free(sig);
+           throw key_error("CKey::SignCompact() : unable to construct recoverable key");
         }
 
         vchSig[0] = nRecId+27+(fCompressedPubKey ? 4 : 0);
@@ -398,17 +383,6 @@ bool CKey::Verify(uint256 hash, const std::vector<unsigned char>& vchSig)
     return true;
 }
 
-bool CKey::VerifyCompact(uint256 hash, const std::vector<unsigned char>& vchSig)
-{
-    CKey key;
-    if (!key.SetCompactSignature(hash, vchSig))
-        return false;
-    if (GetPubKey() != key.GetPubKey())
-        return false;
-
-    return true;
-}
-
 bool CKey::IsValid()
 {
     if (!fSet)
@@ -422,4 +396,15 @@ bool CKey::IsValid()
     CKey key2;
     key2.SetSecret(secret, fCompr);
     return GetPubKey() == key2.GetPubKey();
+}
+
+bool ECC_InitSanityCheck() {
+    EC_KEY *pkey = EC_KEY_new_by_curve_name(NID_secp256k1);
+    if(pkey == NULL)
+       return false;
+    EC_KEY_free(pkey);
+
+  // TODO Is there more EC functionality that could be missing?
+  return true;
+
 }

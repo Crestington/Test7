@@ -7,7 +7,7 @@
 #include "main.h"
 
 // MODIFIER_INTERVAL: time to elapse before new modifier is computed
-static const unsigned int MODIFIER_INTERVAL = 16 * 60;
+static const unsigned int MODIFIER_INTERVAL = 6 * 60 * 60;
 extern unsigned int nModifierInterval;
 
 // MODIFIER_INTERVAL_RATIO:
@@ -29,11 +29,10 @@ bool CheckProofOfStake(const CTransaction& tx, unsigned int nBits, uint256& hash
 bool CheckCoinStakeTimestamp(int64_t nTimeBlock, int64_t nTimeTx);
 
 // Get stake modifier checksum
-unsigned int GetStakeModifierChecksum(const CBlockIndex* pindex);
+unsigned int GetStakeModifierChecksum(const CBlockIndex* pindex, bool fLoad=false);
 
 // Check stake modifier hard checkpoints
 bool CheckStakeModifierCheckpoints(int nHeight, unsigned int nStakeModifierChecksum);
-
 // Get time weight using supplied timestamps
 int64_t GetWeight(int64_t nIntervalBeginning, int64_t nIntervalEnd);
 

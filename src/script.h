@@ -21,13 +21,15 @@ typedef std::vector<unsigned char> valtype;
 
 class CTransaction;
 
+static const unsigned int MAX_SCRIPT_ELEMENT_SIZE = 520; // bytes
+
 /** Signature hash types/flags */
 enum
 {
     SIGHASH_ALL = 1,
     SIGHASH_NONE = 2,
     SIGHASH_SINGLE = 3,
-    SIGHASH_ANYONECANPAY = 0x80,
+    SIGHASH_ANYONECANPAY = 0x80
 };
 
 
@@ -39,6 +41,7 @@ enum txnouttype
     TX_PUBKEYHASH,
     TX_SCRIPTHASH,
     TX_MULTISIG,
+    TX_NULL_DATA
 };
 
 class CNoDestination {
@@ -288,7 +291,7 @@ public:
     }
 
 
-    //explicit CScript(char b) is not portable.  Use 'signed char' or 'unsigned char'.
+    // explicit CScript(char b) is not portable.  Use 'signed char' or 'unsigned char'.
     explicit CScript(signed char b)        { operator<<(b); }
     explicit CScript(short b)              { operator<<(b); }
     explicit CScript(int b)                { operator<<(b); }
@@ -306,7 +309,7 @@ public:
     explicit CScript(const std::vector<unsigned char>& b) { operator<<(b); }
 
 
-    //CScript& operator<<(char b) is not portable.  Use 'signed char' or 'unsigned char'.
+    // CScript& operator<<(char b) is not portable.  Use 'signed char' or 'unsigned char'.
     CScript& operator<<(signed char b)        { return push_int64(b); }
     CScript& operator<<(short b)              { return push_int64(b); }
     CScript& operator<<(int b)                { return push_int64(b); }
@@ -525,7 +528,7 @@ public:
 
     bool IsPayToScriptHash() const;
 
-    // Called by CTransaction::IsStandard and P2SH VerifyScript (which makes it consensus-critical).
+    // Called by IsStandardTx and P2SH VerifyScript (which makes it consensus-critical).
     bool IsPushOnly() const
     {
         const_iterator pc = begin();
@@ -540,17 +543,13 @@ public:
         return true;
     }
 
-    // Called by CTransaction::IsStandard.
+    // Called by IsStandardTx.
     bool HasCanonicalPushes() const;
+
 
     void SetDestination(const CTxDestination& address);
     void SetMultisig(int nRequired, const std::vector<CKey>& keys);
 
-
-    void PrintHex() const
-    {
-        printf("CScript(%s)\n", HexStr(begin(), end(), true).c_str());
-    }
 
     std::string ToString(bool fShort=false) const
     {
@@ -575,11 +574,6 @@ public:
         return str;
     }
 
-    void print() const
-    {
-        printf("%s\n", ToString().c_str());
-    }
-
     CScriptID GetID() const
     {
         return CScriptID(Hash160(*this));
@@ -593,10 +587,10 @@ public:
 bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, const CTransaction& txTo, unsigned int nIn, int nHashType);
 bool Solver(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<std::vector<unsigned char> >& vSolutionsRet);
 int ScriptSigArgsExpected(txnouttype t, const std::vector<std::vector<unsigned char> >& vSolutions);
-bool IsStandard(const CScript& scriptPubKey);
+bool IsStandard(const CScript& scriptPubKey, txnouttype& whichType);
 bool IsMine(const CKeyStore& keystore, const CScript& scriptPubKey);
-bool IsMine(const CKeyStore& keystore, const CTxDestination &dest);
 void ExtractAffectedKeys(const CKeyStore &keystore, const CScript& scriptPubKey, std::vector<CKeyID> &vKeys);
+bool IsMine(const CKeyStore& keystore, const CTxDestination &dest);
 bool ExtractDestination(const CScript& scriptPubKey, CTxDestination& addressRet);
 bool ExtractDestinations(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<CTxDestination>& addressRet, int& nRequiredRet);
 bool SignSignature(const CKeyStore& keystore, const CScript& fromPubKey, CTransaction& txTo, unsigned int nIn, int nHashType=SIGHASH_ALL);

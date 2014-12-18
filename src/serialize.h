@@ -23,9 +23,8 @@
 #include "version.h"
 
 class CAutoFile;
-class CDataStream;
 class CScript;
-
+class CDataStream;
 static const unsigned int MAX_SIZE = 0x02000000;
 
 // Used to bypass the rule against non-const reference to temporary
@@ -105,19 +104,19 @@ enum
 #define WRITEDATA(s, obj)   s.write((char*)&(obj), sizeof(obj))
 #define READDATA(s, obj)    s.read((char*)&(obj), sizeof(obj))
 
-inline unsigned int GetSerializeSize(char a,               int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed char a,        int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned char a,      int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed short a,       int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned short a,     int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed int a,         int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned int a,       int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed long a,        int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned long a,      int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed long long a,   int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(char a,              int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(signed char a,       int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned char a,     int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(signed short a,      int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned short a,    int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(signed int a,        int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned int a,      int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(signed long a,       int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned long a,     int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(signed long long a,  int, int=0) { return sizeof(a); }
 inline unsigned int GetSerializeSize(unsigned long long a, int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(float a,              int, int=0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(double a,             int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(float a,             int, int=0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(double a,            int, int=0) { return sizeof(a); }
 
 template<typename Stream> inline void Serialize(Stream& s, char a,               int, int=0) { WRITEDATA(s, a); }
 template<typename Stream> inline void Serialize(Stream& s, signed char a,        int, int=0) { WRITEDATA(s, a); }
@@ -223,18 +222,24 @@ uint64_t ReadCompactSize(Stream& is)
         unsigned short xSize;
         READDATA(is, xSize);
         nSizeRet = xSize;
+        if (nSizeRet < 253)
+            THROW_WITH_STACKTRACE(std::ios_base::failure("non-canonical ReadCompactSize()"));
     }
     else if (chSize == 254)
     {
         unsigned int xSize;
         READDATA(is, xSize);
         nSizeRet = xSize;
+        if (nSizeRet < 0x10000u)
+            THROW_WITH_STACKTRACE(std::ios_base::failure("non-canonical ReadCompactSize()"));
     }
     else
     {
         uint64_t xSize;
         READDATA(is, xSize);
         nSizeRet = xSize;
+        if (nSizeRet < 0x100000000LLu)
+            THROW_WITH_STACKTRACE(std::ios_base::failure("non-canonical ReadCompactSize()"));
     }
     if (nSizeRet > (uint64_t)MAX_SIZE)
         THROW_WITH_STACKTRACE(std::ios_base::failure("ReadCompactSize() : size too large"));
@@ -704,6 +709,7 @@ struct ser_streamplaceholder
 
 
 
+typedef std::vector<char, zero_after_free_allocator<char> > CSerializeData;
 
 /** Double ended buffer combining vector and stream-like interfaces.
  *
@@ -713,7 +719,7 @@ struct ser_streamplaceholder
 class CDataStream
 {
 protected:
-    typedef std::vector<char, zero_after_free_allocator<char> > vector_type;
+    typedef CSerializeData vector_type;
     vector_type vch;
     unsigned int nReadPos;
     short state;
@@ -808,19 +814,6 @@ public:
     void clear()                                     { vch.clear(); nReadPos = 0; }
     iterator insert(iterator it, const char& x=char()) { return vch.insert(it, x); }
     void insert(iterator it, size_type n, const char& x) { vch.insert(it, n, x); }
-
-    void insert(iterator it, const_iterator first, const_iterator last)
-    {
-        assert(last - first >= 0);
-        if (it == vch.begin() + nReadPos && (unsigned int)(last - first) <= nReadPos)
-        {
-            // special case for inserting at the front when there's room
-            nReadPos -= (last - first);
-            memcpy(&vch[nReadPos], &first[0], last - first);
-        }
-        else
-            vch.insert(it, first, last);
-    }
 
     void insert(iterator it, std::vector<char>::const_iterator first, std::vector<char>::const_iterator last)
     {
@@ -961,6 +954,7 @@ public:
         {
             if (nReadPosNext > vch.size())
                 setstate(std::ios::failbit, "CDataStream::ignore() : end of data");
+
             nReadPos = 0;
             vch.clear();
             return (*this);
@@ -1006,6 +1000,11 @@ public:
         // Unserialize from this stream
         ::Unserialize(*this, obj, nType, nVersion);
         return (*this);
+    }
+
+    void GetAndClear(CSerializeData &data) {
+        data.insert(data.end(), begin(), end());
+        clear();
     }
 };
 
