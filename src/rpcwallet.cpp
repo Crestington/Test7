@@ -974,7 +974,7 @@ Value listreceivedbyaddress(const Array& params, bool fHelp)
     return ListReceived(params, false);
 }
 
-Value listreceivedbyaccount(CWallet* pWallet, const Array& params, bool fHelp)
+Value listreceivedbyaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
         throw runtime_error(
@@ -986,24 +986,25 @@ Value listreceivedbyaccount(CWallet* pWallet, const Array& params, bool fHelp)
             "  \"amount\" : total amount received by addresses with this account\n"
             "  \"confirmations\" : number of confirmations of the most recent transaction included");
 
-    return ListReceived(pWallet, params, true);
+    accountingDeprecationCheck();
+
+    return ListReceived(params, true);
 }
 
-static void MaybePushAddress(CWallet* pWallet, Object & entry, const CTxDestination &dest)
+static void MaybePushAddress(Object & entry, const CTxDestination &dest)
 {
-
     CBitcoinAddress addr;
     if (addr.Set(dest))
-       entry.push_back(Pair("address", addr.ToString()));
-
+        entry.push_back(Pair("address", addr.ToString()));
 }
 
-void ListTransactions(CWallet* pWallet, const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, Array& ret)
+void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, Array& ret)
 {
     int64_t nFee;
     string strSentAccount;
     list<pair<CTxDestination, int64_t> > listReceived;
     list<pair<CTxDestination, int64_t> > listSent;
+
     wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
 
     bool fAllAccounts = (strAccount == string("*"));
@@ -1015,8 +1016,7 @@ void ListTransactions(CWallet* pWallet, const CWalletTx& wtx, const string& strA
         {
             Object entry;
             entry.push_back(Pair("account", strSentAccount));
-            MaybePushAddress(pWallet, entry, s.first);
-
+            MaybePushAddress(entry, s.first);
             entry.push_back(Pair("category", "send"));
             entry.push_back(Pair("amount", ValueFromAmount(-s.second)));
             entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
@@ -1029,17 +1029,17 @@ void ListTransactions(CWallet* pWallet, const CWalletTx& wtx, const string& strA
     // Received
     if (listReceived.size() > 0 && wtx.GetDepthInMainChain() >= nMinDepth)
     {
-        bool fStop = false;
+        bool stop = false;
         BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& r, listReceived)
         {
             string account;
-            if (pWallet->mapAddressBook.count(r.first))
-                account = pWallet->mapAddressBook[r.first];
+            if (pwalletMain->mapAddressBook.count(r.first))
+                account = pwalletMain->mapAddressBook[r.first];
             if (fAllAccounts || (account == strAccount))
             {
                 Object entry;
                 entry.push_back(Pair("account", account));
-                MaybePushAddress(pWallet, entry, r.first);
+                MaybePushAddress(entry, r.first);
                 if (wtx.IsCoinBase() || wtx.IsCoinStake())
                 {
                     if (wtx.GetDepthInMainChain() < 1)
@@ -1047,17 +1047,7 @@ void ListTransactions(CWallet* pWallet, const CWalletTx& wtx, const string& strA
                     else if (wtx.GetBlocksToMaturity() > 0)
                         entry.push_back(Pair("category", "immature"));
                     else
-                    {
                         entry.push_back(Pair("category", "generate"));
-                    	if (wtx.IsCoinBase())
-                    	{
-                    		entry.push_back(Pair("subcategory", "work"));
-                    	}
-                    	else
-                    	{
-                    		entry.push_back(Pair("subcategory", "stake"));
-                    	}
-                    }
                 }
                 else
                 {
@@ -1067,14 +1057,14 @@ void ListTransactions(CWallet* pWallet, const CWalletTx& wtx, const string& strA
                     entry.push_back(Pair("amount", ValueFromAmount(r.second)));
                 else
                 {
-                     entry.push_back(Pair("amount", ValueFromAmount(-nFee)));
-                     fStop = true; // only one coinstake output
+                    entry.push_back(Pair("amount", ValueFromAmount(-nFee)));
+                    stop = true; // only one coinstake output
                 }
                 if (fLong)
                     WalletTxToJSON(wtx, entry);
                 ret.push_back(entry);
             }
-            if (fStop)
+            if (stop)
                 break;
         }
     }
@@ -1097,7 +1087,7 @@ void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Ar
     }
 }
 
-Value listtransactions(CWallet* pWallet, const Array& params, bool fHelp)
+Value listtransactions(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 3)
         throw runtime_error(
@@ -1122,14 +1112,14 @@ Value listtransactions(CWallet* pWallet, const Array& params, bool fHelp)
     Array ret;
 
     std::list<CAccountingEntry> acentries;
-    CWallet::TxItems txOrdered = pWallet->OrderedTxItems(acentries, strAccount);
+    CWallet::TxItems txOrdered = pwalletMain->OrderedTxItems(acentries, strAccount);
 
     // iterate backwards until we have nCount items to return:
     for (CWallet::TxItems::reverse_iterator it = txOrdered.rbegin(); it != txOrdered.rend(); ++it)
     {
         CWalletTx *const pwtx = (*it).second.first;
         if (pwtx != 0)
-            ListTransactions(pWallet, *pwtx, strAccount, 0, true, ret);
+            ListTransactions(*pwtx, strAccount, 0, true, ret);
         CAccountingEntry *const pacentry = (*it).second.second;
         if (pacentry != 0)
             AcentryToJSON(*pacentry, strAccount, ret);
@@ -1155,24 +1145,26 @@ Value listtransactions(CWallet* pWallet, const Array& params, bool fHelp)
     return ret;
 }
 
-Value listaccounts(CWallet* pWallet,  const Array& params, bool fHelp)
+Value listaccounts(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "listaccounts [minconf=1]\n"
             "Returns Object that has account names as keys, account balances as values.");
 
+    accountingDeprecationCheck();
+
     int nMinDepth = 1;
     if (params.size() > 0)
         nMinDepth = params[0].get_int();
 
     map<string, int64_t> mapAccountBalances;
-    BOOST_FOREACH(const PAIRTYPE(CTxDestination, string)& entry, pWallet->mapAddressBook) {
-        if (IsMine(*pWallet, entry.first)) // This address belongs to me
+    BOOST_FOREACH(const PAIRTYPE(CTxDestination, string)& entry, pwalletMain->mapAddressBook) {
+        if (IsMine(*pwalletMain, entry.first)) // This address belongs to me
             mapAccountBalances[entry.second] = 0;
     }
 
-    for (map<uint256, CWalletTx>::iterator it = pWallet->mapWallet.begin(); it != pWallet->mapWallet.end(); ++it)
+    for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
         int64_t nFee;
@@ -1181,7 +1173,7 @@ Value listaccounts(CWallet* pWallet,  const Array& params, bool fHelp)
         list<pair<CTxDestination, int64_t> > listSent;
         int nDepth = wtx.GetDepthInMainChain();
         if (nDepth < 0)
-              continue;
+            continue;
         wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
         mapAccountBalances[strSentAccount] -= nFee;
         BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& s, listSent)
@@ -1189,15 +1181,15 @@ Value listaccounts(CWallet* pWallet,  const Array& params, bool fHelp)
         if (nDepth >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
         {
             BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& r, listReceived)
-                if (pWallet->mapAddressBook.count(r.first))
-                    mapAccountBalances[pWallet->mapAddressBook[r.first]] += r.second;
+                if (pwalletMain->mapAddressBook.count(r.first))
+                    mapAccountBalances[pwalletMain->mapAddressBook[r.first]] += r.second;
                 else
                     mapAccountBalances[""] += r.second;
         }
     }
 
     list<CAccountingEntry> acentries;
-    CWalletDB(pWallet->strWalletFile).ListAccountCreditDebit("*", acentries);
+    CWalletDB(pwalletMain->strWalletFile).ListAccountCreditDebit("*", acentries);
     BOOST_FOREACH(const CAccountingEntry& entry, acentries)
         mapAccountBalances[entry.strAccount] += entry.nCreditDebit;
 
@@ -1208,7 +1200,7 @@ Value listaccounts(CWallet* pWallet,  const Array& params, bool fHelp)
     return ret;
 }
 
-Value listsinceblock(CWallet* pWallet, const Array& params, bool fHelp)
+Value listsinceblock(const Array& params, bool fHelp)
 {
     if (fHelp)
         throw runtime_error(
@@ -1238,12 +1230,12 @@ Value listsinceblock(CWallet* pWallet, const Array& params, bool fHelp)
 
     Array transactions;
 
-    for (map<uint256, CWalletTx>::iterator it = pWallet->mapWallet.begin(); it != pWallet->mapWallet.end(); it++)
+    for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); it++)
     {
         CWalletTx tx = (*it).second;
 
         if (depth == -1 || tx.GetDepthInMainChain() < depth)
-            ListTransactions(pWallet, tx, "*", 0, true, transactions);
+            ListTransactions(tx, "*", 0, true, transactions);
     }
 
     uint256 lastblock;
@@ -1271,27 +1263,23 @@ Value listsinceblock(CWallet* pWallet, const Array& params, bool fHelp)
     return ret;
 }
 
-Value gettransaction(CWallet* pWallet, const Array& params, bool fHelp)
+Value gettransaction(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() < 1 || params.size() > 2)
+    if (fHelp || params.size() != 1)
         throw runtime_error(
-            "gettransaction <txid> [walletonly]\n"
-            "Get detailed information about <txid>"
-            "walletonly is optional true/false returning only wallet info.");
+            "gettransaction <txid>\n"
+            "Get detailed information about <txid>");
 
     uint256 hash;
     hash.SetHex(params[0].get_str());
 
-    bool fWalletOnly = (params.size() > 1) ? params[1].get_bool() : false;
-
     Object entry;
 
-    if (pWallet->mapWallet.count(hash))
+    if (pwalletMain->mapWallet.count(hash))
     {
-        const CWalletTx& wtx = pWallet->mapWallet[hash];
+        const CWalletTx& wtx = pwalletMain->mapWallet[hash];
 
-        if (!fWalletOnly)
-           TxToJSON(wtx, 0, entry);
+        TxToJSON(wtx, 0, entry);
 
         int64_t nCredit = wtx.GetCredit();
         int64_t nDebit = wtx.GetDebit();
@@ -1305,18 +1293,16 @@ Value gettransaction(CWallet* pWallet, const Array& params, bool fHelp)
         WalletTxToJSON(wtx, entry);
 
         Array details;
-        ListTransactions(pWallet, pWallet->mapWallet[hash], "*", 0, false, details);
+        ListTransactions(pwalletMain->mapWallet[hash], "*", 0, false, details);
         entry.push_back(Pair("details", details));
     }
     else
-    {        
+    {
         CTransaction tx;
         uint256 hashBlock = 0;
         if (GetTransaction(hash, tx, hashBlock))
         {
-            entry.push_back(Pair("txid", hash.GetHex()));
-            if (!fWalletOnly)
-               TxToJSON(tx, 0, entry);
+            TxToJSON(tx, 0, entry);
             if (hashBlock == 0)
                 entry.push_back(Pair("confirmations", 0));
             else
@@ -1327,11 +1313,7 @@ Value gettransaction(CWallet* pWallet, const Array& params, bool fHelp)
                 {
                     CBlockIndex* pindex = (*mi).second;
                     if (pindex->IsInMainChain())
-                    {
                         entry.push_back(Pair("confirmations", 1 + nBestHeight - pindex->nHeight));
-                        entry.push_back(Pair("txntime", (boost::int64_t)tx.nTime));
-                        entry.push_back(Pair("time", (boost::int64_t)pindex->nTime));
-                    }
                     else
                         entry.push_back(Pair("confirmations", 0));
                 }
@@ -1345,7 +1327,7 @@ Value gettransaction(CWallet* pWallet, const Array& params, bool fHelp)
 }
 
 
-Value backupwallet(CWallet* pWallet, const Array& params, bool fHelp)
+Value backupwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -1353,48 +1335,20 @@ Value backupwallet(CWallet* pWallet, const Array& params, bool fHelp)
             "Safely copies wallet.dat to destination, which can be a directory or a path with filename.");
 
     string strDest = params[0].get_str();
-    if (!BackupWallet(*pWallet, strDest, false))
+    if (!BackupWallet(*pwalletMain, strDest))
         throw JSONRPCError(RPC_WALLET_ERROR, "Error: Wallet backup failed!");
 
     return Value::null;
 }
 
-Value backupallwallets(CWallet* pWallet, const Array& params, bool fHelp)
-{
 
-    if (fHelp || params.size() != 1)
-        throw runtime_error(
-            "backupallwallets <destination>\n"
-            "Safely copies all wallets to destination, which can be a directory or a path with filename.");
-
-    string strDest = params[0].get_str();
-
-    vector<string> vstrNames;
-    vector<boost::shared_ptr<CWallet> > vpWallets;
-
-    BOOST_FOREACH(const wallet_map::value_type& item, pWalletManager->GetWalletMap())
-    {
-       vstrNames.push_back(item.first);
-       vpWallets.push_back(item.second);
-    }
-
-    for (unsigned int i = 0; i < vstrNames.size(); i++)
-    {
-        if (!BackupWallet(*vpWallets[i], strDest, true))
-          throw JSONRPCError(RPC_WALLET_ERROR, "Error: Wallet backup failed!");
-    }
-
-    return Value::null;
-}
-
-
-Value keypoolrefill(CWallet* pWallet, const Array& params, bool fHelp)
+Value keypoolrefill(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
-            "keypoolrefill [new-size] \n"
+            "keypoolrefill [new-size]\n"
             "Fills the keypool."
-            + HelpRequiringPassphrase(pWallet));
+            + HelpRequiringPassphrase());
 
     unsigned int nSize = max(GetArg("-keypool", 100), (int64_t)0);
     if (params.size() > 0) {
@@ -1403,12 +1357,11 @@ Value keypoolrefill(CWallet* pWallet, const Array& params, bool fHelp)
         nSize = (unsigned int) params[0].get_int();
     }
 
+    EnsureWalletIsUnlocked();
 
-    EnsureWalletIsUnlocked(pWallet);
+    pwalletMain->TopUpKeyPool(nSize);
 
-    pWallet->TopUpKeyPool(nSize);
-
-    if (pWallet->GetKeyPoolSize() < nSize)
+    if (pwalletMain->GetKeyPoolSize() < nSize)
         throw JSONRPCError(RPC_WALLET_ERROR, "Error refreshing keypool.");
 
     return Value::null;
@@ -1418,35 +1371,69 @@ Value keypoolrefill(CWallet* pWallet, const Array& params, bool fHelp)
 void ThreadTopUpKeyPool(void* parg)
 {
     // Make this thread recognisable as the key-topping-up thread
-    RenameThread("bitcoin-key-top");
+    RenameThread("ColossusCoin2-key-top");
 
-    CWallet* pWallet = (CWallet*)parg;
-    pWallet->TopUpKeyPool();
+    pwalletMain->TopUpKeyPool();
 }
 
-Value walletpassphrase(CWallet* pWallet, const Array& params, bool fHelp)
+void ThreadCleanWalletPassphrase(void* parg)
 {
-   if (fHelp || params.size() < 2 || params.size() > 3)
-      throw runtime_error(
-          "walletpassphrase <passphrase> <timeout> [mintonly]\n"
-          "Stores the wallet decryption key in memory for <timeout> seconds.\n"
-          "mintonly is optional true/false allowing only block minting." );
+    // Make this thread recognisable as the wallet relocking thread
+    RenameThread("ColossusCoin2-lock-wa");
+
+    int64_t nMyWakeTime = GetTimeMillis() + *((int64_t*)parg) * 1000;
+
+    ENTER_CRITICAL_SECTION(cs_nWalletUnlockTime);
+
+    if (nWalletUnlockTime == 0)
+    {
+        nWalletUnlockTime = nMyWakeTime;
+
+        do
+        {
+            if (nWalletUnlockTime==0)
+                break;
+            int64_t nToSleep = nWalletUnlockTime - GetTimeMillis();
+            if (nToSleep <= 0)
+                break;
+
+            LEAVE_CRITICAL_SECTION(cs_nWalletUnlockTime);
+            MilliSleep(nToSleep);
+            ENTER_CRITICAL_SECTION(cs_nWalletUnlockTime);
+
+        } while(1);
+
+        if (nWalletUnlockTime)
+        {
+            nWalletUnlockTime = 0;
+            pwalletMain->Lock();
+        }
+    }
+    else
+    {
+        if (nWalletUnlockTime < nMyWakeTime)
+            nWalletUnlockTime = nMyWakeTime;
+    }
+
+    LEAVE_CRITICAL_SECTION(cs_nWalletUnlockTime);
+
+    delete (int64_t*)parg;
+}
+
+Value walletpassphrase(const Array& params, bool fHelp)
+{
+    if (pwalletMain->IsCrypted() && (fHelp || params.size() < 2 || params.size() > 3))
+        throw runtime_error(
+            "walletpassphrase <passphrase> <timeout> [stakingonly]\n"
+            "Stores the wallet decryption key in memory for <timeout> seconds.\n"
+            "if [stakingonly] is true sending functions are disabled.");
     if (fHelp)
         return true;
-    if (!pWallet->IsCrypted())
+    if (!pwalletMain->IsCrypted())
         throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an unencrypted wallet, but walletpassphrase was called.");
 
-    if (!pWallet->IsLocked())
+    if (!pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_ALREADY_UNLOCKED, "Error: Wallet is already unlocked, use walletlock first if need to change unlock settings.");
-
-    int64_t nUnlockTime = params[1].get_int64();
-
-    if (nUnlockTime < 0 || nUnlockTime >= std::numeric_limits<int64_t>::max() / 100)
-        throw runtime_error("timeout is out of bounds");
-
-    if (nUnlockTime == 0 ) // Zero timeout means forever, well 292 epochs, close enough.
-        nUnlockTime = std::numeric_limits<int64_t>::max() / 100;
-
     // Note that the walletpassphrase is stored in params[0] which is not mlock()ed
     SecureString strWalletPass;
     strWalletPass.reserve(100);
@@ -1456,7 +1443,7 @@ Value walletpassphrase(CWallet* pWallet, const Array& params, bool fHelp)
 
     if (strWalletPass.length() > 0)
     {
-        if (!pWallet->Unlock(strWalletPass))
+        if (!pwalletMain->Unlock(strWalletPass))
             throw JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
     }
     else
@@ -1464,33 +1451,30 @@ Value walletpassphrase(CWallet* pWallet, const Array& params, bool fHelp)
             "walletpassphrase <passphrase> <timeout>\n"
             "Stores the wallet decryption key in memory for <timeout> seconds.");
 
-    {
-        LOCK(pWallet->cs_wallet);
+    NewThread(ThreadTopUpKeyPool, NULL);
+    int64_t* pnSleepTime = new int64_t(params[1].get_int64());
+    NewThread(ThreadCleanWalletPassphrase, pnSleepTime);
 
-        // If user OS account compromised prevent trivial sendmoney commands
-        if (params.size() > 2)
-            pWallet->fWalletUnlockMintOnly = params[2].get_bool();
-        else
-            pWallet->fWalletUnlockMintOnly = false;
-
-    }
-
-    pWallet->TimedLock(nUnlockTime);
-
-    if (!NewThread(ThreadStakeMinter, pWallet))
-       printf("Error: NewThread(ThreadStakeMinter) failed\n");
+    // ppcoin: if user OS account compromised prevent trivial sendmoney commands
+    if (params.size() > 2)
+        fWalletUnlockStakingOnly = params[2].get_bool();
+    else
+        fWalletUnlockStakingOnly = false;
 
     return Value::null;
 }
 
-Value walletpassphrasechange(CWallet* pWallet, const Array& params, bool fHelp)
+
+Value walletpassphrasechange(const Array& params, bool fHelp)
 {
-  if (fHelp || params.size() != 2)
-      throw runtime_error(
-          "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
-          "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
-  if (!pWallet->IsCrypted())
-      throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an unencrypted wallet, but walletpassphrasechange was called.");
+    if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
+        throw runtime_error(
+            "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
+            "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
+    if (fHelp)
+        return true;
+    if (!pwalletMain->IsCrypted())
+        throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an unencrypted wallet, but walletpassphrasechange was called.");
 
     // TODO: get rid of these .c_str() calls by implementing SecureString::operator=(std::string)
     // Alternately, find a way to make params[0] mlock()'d to begin with.
@@ -1507,34 +1491,31 @@ Value walletpassphrasechange(CWallet* pWallet, const Array& params, bool fHelp)
             "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
             "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
 
-    if (!pWallet->ChangeWalletPassphrase(strOldWalletPass, strNewWalletPass))
+    if (!pwalletMain->ChangeWalletPassphrase(strOldWalletPass, strNewWalletPass))
         throw JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
 
     return Value::null;
 }
 
 
-Value walletlock(CWallet* pWallet, const Array& params, bool fHelp)
+Value walletlock(const Array& params, bool fHelp)
 {
-  if (fHelp || params.size() != 0)
-      throw runtime_error(
-          "walletlock\n"
-          "Removes the wallet encryption key from memory, locking the wallet.\n"
-          "After calling this method, you will need to call walletpassphrase again\n"
-          "before being able to call any methods which require the wallet to be unlocked.");
-    if (!pWallet->IsCrypted())
+    if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
+        throw runtime_error(
+            "walletlock\n"
+            "Removes the wallet encryption key from memory, locking the wallet.\n"
+            "After calling this method, you will need to call walletpassphrase again\n"
+            "before being able to call any methods which require the wallet to be unlocked.");
+    if (fHelp)
+        return true;
+    if (!pwalletMain->IsCrypted())
         throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an unencrypted wallet, but walletlock was called.");
 
-    if (!fShutdown)
     {
-      printf ("Halting Stake Mining while we lock wallet(s)\n");
-      fStopStaking = true;
-      MilliSleep(1000);
+        LOCK(cs_nWalletUnlockTime);
+        pwalletMain->Lock();
+        nWalletUnlockTime = 0;
     }
-
-    pWallet->Lock();
-
-    pWalletManager->RestartStakeMiner();
 
     return Value::null;
 }
