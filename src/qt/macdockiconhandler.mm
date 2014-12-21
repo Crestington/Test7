@@ -1,3 +1,4 @@
+
 #include "macdockiconhandler.h"
 
 #include <QImageWriter>
@@ -53,17 +54,18 @@ MacDockIconHandler::MacDockIconHandler() : QObject()
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     this->m_dockIconClickEventHandler = [[DockIconClickEventHandler alloc] initWithDockIconHandler:this];
+
     this->m_dummyWidget = new QWidget();
     this->m_dockMenu = new QMenu(this->m_dummyWidget);
     this->setMainWindow(NULL);
-#if QT_VERSION < 0x050000
+ #if QT_VERSION < 0x050000
     qt_mac_set_dock_menu(this->m_dockMenu);
-#endif
+ #endif
     [pool release];
 }
 
 void MacDockIconHandler::setMainWindow(QMainWindow *window) {
-    this->mainWindow = window;
+     this->mainWindow = window;
 }
 
 MacDockIconHandler::~MacDockIconHandler()
@@ -88,16 +90,15 @@ void MacDockIconHandler::setIcon(const QIcon &icon)
         // generate NSImage from QIcon and use this as dock icon.
         QSize size = icon.actualSize(QSize(128, 128));
         QPixmap pixmap = icon.pixmap(size);
-
-        // write temp file DRM (could also be done through QIODevice [memory])
+        // write temp file hack (could also be done through QIODevice [memory])
         QTemporaryFile notificationIconFile;
         if (!pixmap.isNull() && notificationIconFile.open()) {
             QImageWriter writer(&notificationIconFile, "PNG");
-            if (writer.write(pixmap.toImage())) {
-                const char *cString = notificationIconFile.fileName().toUtf8().data();
-                NSString *macString = [NSString stringWithCString:cString encoding:NSUTF8StringEncoding];
-                image =  [[NSImage alloc] initWithContentsOfFile:macString];
-            }
+             if (writer.write(pixmap.toImage())) {
+                 const char *cString = notificationIconFile.fileName().toUtf8().data();
+                  NSString *macString = [NSString stringWithCString:cString encoding:NSUTF8StringEncoding];
+                  image =  [[NSImage alloc] initWithContentsOfFile:macString];
+             }
         }
 
         if(!image) {
@@ -121,10 +122,10 @@ MacDockIconHandler *MacDockIconHandler::instance()
 
 void MacDockIconHandler::handleDockIconClickEvent()
 {
-    if (this->mainWindow)
-    {
-        this->mainWindow->activateWindow();
-        this->mainWindow->show();
+   if (this->mainWindow)
+   {
+       this->mainWindow->activateWindow();
+       this->mainWindow->show();
     }
 
     emit this->dockIconClicked();

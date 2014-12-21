@@ -2,15 +2,17 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+#include "init.h"
+#include "main.h"
 #include "txdb.h"
 #include "walletdb.h"
 #include "bitcoinrpc.h"
 #include "net.h"
-#include "init.h"
+
 #include "util.h"
 #include "ui_interface.h"
+#include "timer.h"
 #include "checkpoints.h"
-#include "zerocoin/ZeroTest.h"
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
@@ -22,20 +24,19 @@
 #include <signal.h>
 #endif
 
-
 using namespace std;
 using namespace boost;
 
+CWalletManager* pWalletManager;
+// TODO: get rid of pwalletMain
 CWallet* pwalletMain;
-CClientUIInterface uiInterface;
-std::string strWalletFileName;
-bool fConfChange;
-bool fEnforceCanonical;
 unsigned int nNodeLifespan;
-unsigned int nDerivationMethodIndex;
 unsigned int nMinerSleep;
-bool fUseFastIndex;
 enum Checkpoints::CPMode CheckpointsMode;
+bool fUseFastIndex;
+bool fConfChange;
+
+CClientUIInterface uiInterface;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -67,7 +68,7 @@ void Shutdown(void* parg)
     static bool fTaken;
 
     // Make this thread recognisable as the shutdown thread
-    RenameThread("ColossusCoin2-shutoff");
+    RenameThread("bitcoin-shutoff");
 
     bool fFirstThread = false;
     {
@@ -83,13 +84,14 @@ void Shutdown(void* parg)
     {
         fShutdown = true;
         nTransactionsUpdated++;
-//        CTxDB().Close();
+        //        CTxDB().Close();
         bitdb.Flush(false);
         StopNode();
+        UnregisterNodeSignals(GetNodeSignals());
         bitdb.Flush(true);
         boost::filesystem::remove(GetPidFile());
-        UnregisterWallet(pwalletMain);
-        delete pwalletMain;
+        delete pWalletManager;
+        TimerThread::StopTimer(); // for walletpassphrase unlock
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
         printf("ColossusCoin2 exited\n\n");
@@ -202,13 +204,13 @@ int main(int argc, char* argv[])
 
 bool static InitError(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("ColossusCoin2"), CClientUIInterface::OK | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("ColossusCoin2"), CClientUIInterface::MSG_ERROR);
     return false;
 }
 
 bool static InitWarning(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("ColossusCoin2"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("ColossusCoin2"), CClientUIInterface::MSG_WARNING);
     return true;
 }
 
@@ -232,8 +234,9 @@ std::string HelpMessage()
         "  -?                     " + _("This help message") + "\n" +
         "  -conf=<file>           " + _("Specify configuration file (default: ColossusCoin2.conf)") + "\n" +
         "  -pid=<file>            " + _("Specify pid file (default: ColossusCoin2d.pid)") + "\n" +
+        "  -gen                   " + _("Generate coins") + "\n" +
+        "  -gen=0                 " + _("Don't generate coins") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
-        "  -wallet=<dir>          " + _("Specify wallet file (within data directory)") + "\n" +
         "  -dbcache=<n>           " + _("Set database cache size in megabytes (default: 25)") + "\n" +
         "  -dblogsize=<n>         " + _("Set database disk log size in megabytes (default: 100)") + "\n" +
         "  -timeout=<n>           " + _("Specify connection timeout in milliseconds (default: 5000)") + "\n" +
@@ -241,7 +244,7 @@ std::string HelpMessage()
         "  -socks=<n>             " + _("Select the version of socks proxy to use (4-5, default: 5)") + "\n" +
         "  -tor=<ip:port>         " + _("Use proxy to reach tor hidden services (default: same as -proxy)") + "\n"
         "  -dns                   " + _("Allow DNS lookups for -addnode, -seednode and -connect") + "\n" +
-        "  -port=<port>           " + _("Listen for connections on <port> (default: 43522 or testnet: 43523)") + "\n" +
+        "  -port=<port>           " + _("Listen for connections on <port> (default: 7372 or testnet: 7374)") + "\n" +
         "  -maxconnections=<n>    " + _("Maintain at most <n> connections to peers (default: 125)") + "\n" +
         "  -addnode=<ip>          " + _("Add a node to connect to and attempt to keep the connection open") + "\n" +
         "  -connect=<ip>          " + _("Connect only to the specified node(s)") + "\n" +
@@ -249,11 +252,11 @@ std::string HelpMessage()
         "  -externalip=<ip>       " + _("Specify your own public address") + "\n" +
         "  -onlynet=<net>         " + _("Only connect to nodes in network <net> (IPv4, IPv6 or Tor)") + "\n" +
         "  -discover              " + _("Discover own IP address (default: 1 when listening and no -externalip)") + "\n" +
-        "  -irc                   " + _("Find peers using internet relay chat (default: 0)") + "\n" +
+        "  -irc                   " + _("Find peers using internet relay chat (default: 1)") + "\n" +
         "  -listen                " + _("Accept connections from outside (default: 1 if no -proxy or -connect)") + "\n" +
         "  -bind=<addr>           " + _("Bind to given address. Use [host]:port notation for IPv6") + "\n" +
-        "  -dnsseed               " + _("Find peers using DNS lookup (default: 1)") + "\n" +
-        "  -staking               " + _("Stake your coins to support network and gain reward (default: 1)") + "\n" +
+        "  -dnsseed               " + _("Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect)") + "\n" +
+        "  -forcednsseed          " + _("Always query for peer addresses via DNS lookup (default: 0)") + "\n" +
         "  -synctime              " + _("Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)") + "\n" +
         "  -cppolicy              " + _("Sync checkpoints policy (default: strict)") + "\n" +
         "  -banscore=<n>          " + _("Threshold for disconnecting misbehaving peers (default: 100)") + "\n" +
@@ -269,7 +272,7 @@ std::string HelpMessage()
 #endif
         "  -detachdb              " + _("Detach block and address databases. Increases shutdown time (default: 0)") + "\n" +
         "  -paytxfee=<amt>        " + _("Fee per KB to add to transactions you send") + "\n" +
-        "  -mininput=<amt>        " + _("When creating transactions, ignore inputs with value less than this (default: 0.01)") + "\n" +
+        "  -mininput=<amt>        " + _("When creating transactions, ignore inputs with value less than this (default: 0.001)") + "\n" +
 #ifdef QT_GUI
         "  -server                " + _("Accept command line and JSON-RPC commands") + "\n" +
 #endif
@@ -279,7 +282,7 @@ std::string HelpMessage()
         "  -testnet               " + _("Use the test network") + "\n" +
         "  -debug                 " + _("Output extra debugging information. Implies all other -debug* options") + "\n" +
         "  -debugnet              " + _("Output extra network debugging information") + "\n" +
-        "  -logtimestamps         " + _("Prepend debug output with timestamp") + "\n" +
+        "  -logtimestamps         " + _("Prepend debug output with timestamp (default: 1)") + "\n" +
         "  -shrinkdebugfile       " + _("Shrink debug.log file on client startup (default: 1 when no -debug)") + "\n" +
         "  -printtoconsole        " + _("Send trace/debug info to console instead of debug.log file") + "\n" +
 #ifdef WIN32
@@ -287,17 +290,22 @@ std::string HelpMessage()
 #endif
         "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n" +
         "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n" +
-        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 43521 or testnet: 43523)") + "\n" +
+        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 7373 or testnet: 7374)") + "\n" +
         "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
         "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
         "  -walletnotify=<cmd>    " + _("Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)") + "\n" +
         "  -confchange            " + _("Require a confirmations for change (default: 0)") + "\n" +
-        "  -enforcecanonical      " + _("Enforce transaction scripts to use canonical PUSH operators (default: 1)") + "\n" +
+        "  -newtxnotify=<cmd>     " + _("Execute command when a new wallet transaction occurs (%s in cmd is replaced by TxID)") + "\n" +
+        "  -confirmnotify=<cmd>   " + _("Execute command when a wallet transaction is confirmed (%s in cmd is replaced by TxID)") + "\n" +
+        "  -blockfoundnotify=<cmd>" + _("Execute command when a block is found (%s in cmd is replaced by block hash)") + "\n" +
         "  -alertnotify=<cmd>     " + _("Execute command when a relevant alert is received (%s in cmd is replaced by message)") + "\n" +
         "  -upgradewallet         " + _("Upgrade wallet to latest format") + "\n" +
         "  -keypool=<n>           " + _("Set key pool size to <n> (default: 100)") + "\n" +
         "  -rescan                " + _("Rescan the block chain for missing wallet transactions") + "\n" +
+        "  -zapwallettxes         " + _("Clear list of wallet transactions (diagnostic tool; implies -rescan)") + "\n" +
+        "  -splitthreshold=<n>    " + _("Set stake split threshold within range (default 5),(max 20))") + "\n" +
+        "  -combinethreshold=<n>  " + _("Set stake combine threshold within range (default 5),(max 20))") + "\n" +
         "  -salvagewallet         " + _("Attempt to recover private keys from a corrupt wallet.dat") + "\n" +
         "  -checkblocks=<n>       " + _("How many blocks to check at startup (default: 2500, 0 = all)") + "\n" +
         "  -checklevel=<n>        " + _("How thorough the block verification is (0-6, default: 1)") + "\n" +
@@ -315,6 +323,101 @@ std::string HelpMessage()
         "  -rpcsslciphers=<ciphers>                 " + _("Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)") + "\n";
 
     return strUsage;
+}
+
+bool LoadWallets(ostringstream& strErrors)
+{
+    pWalletManager = new CWalletManager();
+
+    // Get wallet names from -usewallet parameters
+    set<string> setWalletNames;
+    BOOST_FOREACH(const string& name, mapMultiArgs["-usewallet"])
+    {
+        if (name.size() == 0) continue;
+        if (!CWalletManager::IsValidName(name))
+        {
+            printf("Invalid wallet name in -usewallet: %s\n", name.c_str());
+            strErrors << "Invalid wallet name in -usewallet: " << name << "\n";
+        }
+        else
+            setWalletNames.insert(name);
+    }
+
+    // If there are no -usewallet parameters, get wallet names from files in data directory
+    if (mapMultiArgs["-usewallet"].size() == 0)
+    {
+        try
+        {
+            vector<string> v = CWalletManager::GetWalletsAtPath(GetDataDir());
+            copy(v.begin(), v.end(), inserter(setWalletNames, setWalletNames.end()));
+        }
+        catch (const std::exception& e)
+        {
+            printf("Error looking for wallets from data directory: %s\n", e.what());
+            strErrors << "Error looking for wallets from data directory: " << e.what() << endl;
+        }
+    }
+
+    // If there are -nousewallet parameters, remove those wallets from our set
+    BOOST_FOREACH(const string& name, mapMultiArgs["-nousewallet"])
+    {
+        if (name.size() == 0) continue;
+        if (!CWalletManager::IsValidName(name))
+        {
+            printf("Invalid wallet name in -nousewallet: %s\n", name.c_str());
+            strErrors << "Invalid wallet name in -nousewallet: " << name << "\n";
+        }
+        else
+            setWalletNames.erase(name);
+    }
+
+    // Get additional parameters
+    bool fRescan = GetBoolArg("-rescan");
+    bool fUpgrade = GetBoolArg("-upgradewallet");
+    bool fZapWallet = GetBoolArg("-zapwallettxes");
+    int nMaxVersion = GetArg("-upgradewallet", 0);
+
+
+
+    // Always require a default wallet
+    ostringstream ossErrors;
+    if (!pWalletManager->LoadWallet("", ossErrors, fRescan, fUpgrade, fZapWallet, nMaxVersion))
+    {
+        printf("Failed to load default wallet: %s\nExiting...\n", ossErrors.str().c_str());
+        return false;
+    }
+    // TODO: get rid of pwalletMain
+    pwalletMain = pWalletManager->GetDefaultWallet().get();
+
+    // Be tolerant on nondefault wallets. Just report errors but don't die.
+    BOOST_FOREACH(const string& strWalletName, setWalletNames)
+    {
+        ostringstream strLoadErrors;
+        if (!pWalletManager->LoadWallet(strWalletName, strLoadErrors, fRescan, fUpgrade, nMaxVersion))
+        {
+            strErrors << strLoadErrors.str();
+            printf("Error loading wallet %s: %s\n", strWalletName.c_str(), strLoadErrors.str().c_str());
+        }
+    }
+
+    return true;
+}
+
+/** Sanity checks
+ * Ensure that Bitcoin is running in a usable environment with all
+ * necessary library support.
+ */
+bool InitSanityCheck(void)
+{
+    if(!ECC_InitSanityCheck()) {
+        InitError("OpenSSL appears to lack support for elliptic curve cryptography. For more "
+                  "information, visit https://en.bitcoin.it/wiki/OpenSSL_and_EC_Libraries");
+        return false;
+    }
+
+    // TODO: remaining sanity checks, see #4081
+
+    return true;
 }
 
 /** Initialize bitcoin.
@@ -382,10 +485,7 @@ bool AppInit2()
     if(strCpMode == "permissive")
         CheckpointsMode = Checkpoints::PERMISSIVE;
 
-    nDerivationMethodIndex = 0;
-
     fTestNet = GetBoolArg("-testnet");
-    //fTestNet = true;
     if (fTestNet) {
         SoftSetBoolArg("-irc", true);
     }
@@ -423,6 +523,12 @@ bool AppInit2()
         SoftSetBoolArg("-rescan", true);
     }
 
+    if (GetBoolArg("-zapwallettxes", false)) {
+       // -zapwallettx implies a rescan
+        if (SoftSetBoolArg("-rescan", true))
+              printf("AppInit2 : parameter interaction: -zapwallettxes=1 -> setting -rescan=1\n");
+    }
+
     // ********************************************************* Step 3: parameter-to-internal-flags
 
     fDebug = GetBoolArg("-debug");
@@ -452,7 +558,12 @@ bool AppInit2()
 #endif
     fPrintToConsole = GetBoolArg("-printtoconsole");
     fPrintToDebugger = GetBoolArg("-printtodebugger");
-    fLogTimestamps = GetBoolArg("-logtimestamps");
+    fLogTimestamps = GetBoolArg("-logtimestamps",true);
+    fPrintStakeModifer = GetBoolArg("-printstakemodifier");
+    fPrintCreation =  GetBoolArg("-printcreation");
+    fPrintCoinStake = GetBoolArg("-printcoinstake");
+    fPrintCoinAge = GetBoolArg("-printcoinage");
+    fPrintPriority = GetBoolArg("-printpriority");
 
     if (mapArgs.count("-timeout"))
     {
@@ -460,6 +571,7 @@ bool AppInit2()
         if (nNewTimeout > 0 && nNewTimeout < 600000)
             nConnectTimeout = nNewTimeout;
     }
+
 
     if (mapArgs.count("-paytxfee"))
     {
@@ -470,22 +582,19 @@ bool AppInit2()
     }
 
     fConfChange = GetBoolArg("-confchange", false);
-    fEnforceCanonical = GetBoolArg("-enforcecanonical", true);
 
     if (mapArgs.count("-mininput"))
     {
-        if (!ParseMoney(mapArgs["-mininput"], nMinimumInputValue))
-            return InitError(strprintf(_("Invalid amount for -mininput=<amount>: '%s'"), mapArgs["-mininput"].c_str()));
+       if (!ParseMoney(mapArgs["-mininput"], nMinimumInputValue))
+           return InitError(strprintf(_("Invalid amount for -mininput=<amount>: '%s'"), mapArgs["-mininput"].c_str()));
     }
 
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
+    // Sanity check
+    if (!InitSanityCheck())
+        return InitError(_("Initialization sanity check failed. ColossusCoin2 is shutting down."));
 
     std::string strDataDir = GetDataDir().string();
-    std::string strWalletFileName = GetArg("-wallet", "wallet.dat");
-
-    // strWalletFileName must be a plain filename without a directory
-    if (strWalletFileName != boost::filesystem::basename(strWalletFileName) + boost::filesystem::extension(strWalletFileName))
-        return InitError(strprintf(_("Wallet %s resides outside data directory %s."), strWalletFileName.c_str(), strDataDir.c_str()));
 
     // Make sure only a single Bitcoin process is using the data directory.
     boost::filesystem::path pathLockFile = GetDataDir() / ".lock";
@@ -548,26 +657,50 @@ bool AppInit2()
     if (GetBoolArg("-salvagewallet"))
     {
         // Recover readable keypairs:
-        if (!CWalletDB::Recover(bitdb, strWalletFileName, true))
+        if (!CWalletDB::Recover(bitdb, "wallet.dat", true))
             return false;
     }
 
-    if (filesystem::exists(GetDataDir() / strWalletFileName))
+    if (filesystem::exists(GetDataDir() / "wallet.dat"))
     {
-        CDBEnv::VerifyResult r = bitdb.Verify(strWalletFileName, CWalletDB::Recover);
+        CDBEnv::VerifyResult r = bitdb.Verify("wallet.dat", CWalletDB::Recover);
         if (r == CDBEnv::RECOVER_OK)
         {
             string msg = strprintf(_("Warning: wallet.dat corrupt, data salvaged!"
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."), strDataDir.c_str());
-            uiInterface.ThreadSafeMessageBox(msg, _("ColossusCoin2"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("ColossusCoin2"), CClientUIInterface::MSG_WARNING);
         }
         if (r == CDBEnv::RECOVER_FAIL)
             return InitError(_("wallet.dat corrupt, salvage failed"));
     }
 
+    if (mapArgs.count("-splitthreshold"))
+    {
+       if (!ParseMoney(mapArgs["-splitthreshold"], nSplitThreshold))
+           return InitError(strprintf(_("Invalid amount for -splitthreshold=<amount>: '%s'"), mapArgs["-splitthreshold"].c_str()));
+       else {
+           if (nSplitThreshold > MAX_SPLIT_AMOUNT)
+               nSplitThreshold = MAX_SPLIT_AMOUNT;
+       }
+       printf("splitthreshold set to %"PRI64d"\n",nSplitThreshold);
+    }
+
+    if (mapArgs.count("-combinethreshold"))
+    {
+       if (!ParseMoney(mapArgs["-combinethreshold"], nCombineThreshold))
+           return InitError(strprintf(_("Invalid amount for -combinethreshold=<amount>: '%s'"), mapArgs["-combinethreshold"].c_str()));
+       else {
+           if (nCombineThreshold > MAX_COMBINE_AMOUNT)
+               nCombineThreshold = MAX_COMBINE_AMOUNT;
+       }
+       printf("combinethreshold set to %"PRI64d"\n",nCombineThreshold);
+    }
+
     // ********************************************************* Step 6: network initialization
+
+    RegisterNodeSignals(GetNodeSignals());
 
     int nSocksVersion = GetArg("-socks", 5);
 
@@ -588,12 +721,6 @@ bool AppInit2()
                 SetLimited(net);
         }
     }
-#if defined(USE_IPV6)
-#if ! USE_IPV6
-    else
-        SetLimited(NET_IPV6);
-#endif
-#endif
 
     CService addrProxy;
     bool fProxy = false;
@@ -605,10 +732,8 @@ bool AppInit2()
         if (!IsLimited(NET_IPV4))
             SetProxy(NET_IPV4, addrProxy, nSocksVersion);
         if (nSocksVersion > 4) {
-#ifdef USE_IPV6
             if (!IsLimited(NET_IPV6))
                 SetProxy(NET_IPV6, addrProxy, nSocksVersion);
-#endif
             SetNameProxy(addrProxy, nSocksVersion);
         }
         fProxy = true;
@@ -649,10 +774,8 @@ bool AppInit2()
         } else {
             struct in_addr inaddr_any;
             inaddr_any.s_addr = INADDR_ANY;
-#ifdef USE_IPV6
             if (!IsLimited(NET_IPV6))
                 fBound |= Bind(CService(in6addr_any, GetListenPort()), false);
-#endif
             if (!IsLimited(NET_IPV4))
                 fBound |= Bind(CService(inaddr_any, GetListenPort()), !fBound);
         }
@@ -670,14 +793,7 @@ bool AppInit2()
         }
     }
 
-    if (mapArgs.count("-reservebalance")) // ppcoin: reserve balance amount
-    {
-        if (!ParseMoney(mapArgs["-reservebalance"], nReserveBalance))
-        {
-            InitError(_("Invalid amount for -reservebalance=<amount>"));
-            return false;
-        }
-    }
+
 
     if (mapArgs.count("-checkpointkey")) // ppcoin: checkpoint master priv key
     {
@@ -687,6 +803,9 @@ bool AppInit2()
 
     BOOST_FOREACH(string strDest, mapMultiArgs["-seednode"])
         AddOneShot(strDest);
+
+    // TODO: replace this by DNSseed
+    // AddOneShot(string(""));
 
     // ********************************************************* Step 7: load blockchain
 
@@ -712,7 +831,6 @@ bool AppInit2()
     if (!LoadBlockIndex())
         return InitError(_("Error loading blkindex.dat"));
 
-
     // as LoadBlockIndex can take several minutes, it's possible the user
     // requested to kill bitcoin-qt during the last operation. If so, exit.
     // As the program has not fully started yet, Shutdown() is possibly overkill.
@@ -721,7 +839,7 @@ bool AppInit2()
         printf("Shutdown requested. Exiting.\n");
         return false;
     }
-    printf(" block index %15"PRId64"ms\n", GetTimeMillis() - nStart);
+    printf(" block index %15"PRI64d"ms\n", GetTimeMillis() - nStart);
 
     if (GetBoolArg("-printblockindex") || GetBoolArg("-printblocktree"))
     {
@@ -752,98 +870,40 @@ bool AppInit2()
         return false;
     }
 
-    // ********************************************************* Testing Zerocoin
+    // ********************************************************* Step 8: load wallets
 
+    uiInterface.InitMessage(_("Loading wallets..."));
+    printf("Loading wallets...\n");
 
-    if (GetBoolArg("-zerotest", false))
+    TimerThread::StartTimer(); // for walletpassphrase unlock
+    if (!LoadWallets(strErrors)) return false;
+
+    if (mapArgs.count("-reservebalance"))
     {
-        printf("\n=== ZeroCoin tests start ===\n");
-        Test_RunAllTests();
-        printf("=== ZeroCoin tests end ===\n\n");
-    }
-
-    // ********************************************************* Step 8: load wallet
-
-    uiInterface.InitMessage(_("Loading wallet..."));
-    printf("Loading wallet...\n");
-    nStart = GetTimeMillis();
-    bool fFirstRun = true;
-    pwalletMain = new CWallet(strWalletFileName);
-    DBErrors nLoadWalletRet = pwalletMain->LoadWallet(fFirstRun);
-    if (nLoadWalletRet != DB_LOAD_OK)
-    {
-        if (nLoadWalletRet == DB_CORRUPT)
-            strErrors << _("Error loading wallet.dat: Wallet corrupted") << "\n";
-        else if (nLoadWalletRet == DB_NONCRITICAL_ERROR)
-        {
-            string msg(_("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
-                         " or address book entries might be missing or incorrect."));
-            uiInterface.ThreadSafeMessageBox(msg, _("ColossusCoin2"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
-        }
-        else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of ColossusCoin2") << "\n";
-        else if (nLoadWalletRet == DB_NEED_REWRITE)
-        {
-            strErrors << _("Wallet needed to be rewritten: restart ColossusCoin2 to complete") << "\n";
-            printf("%s", strErrors.str().c_str());
-            return InitError(strErrors.str());
-        }
+        int64_t nReserveBalance = 0;
+        if (!ParseMoney(mapArgs["-reservebalance"], nReserveBalance))
+            InitError(_("Invalid amount for -reservebalance=<amount>"));
         else
-            strErrors << _("Error loading wallet.dat") << "\n";
-    }
-
-    if (GetBoolArg("-upgradewallet", fFirstRun))
-    {
-        int nMaxVersion = GetArg("-upgradewallet", 0);
-        if (nMaxVersion == 0) // the -upgradewallet without argument case
         {
-            printf("Performing wallet upgrade to %i\n", FEATURE_LATEST);
-            nMaxVersion = CLIENT_VERSION;
-            pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the wallet immediately
+            // Set the reservebalance the same for each wallet that was loaded.
+            // Individual Wallets can be set using the rpc command after loading is complete
+            vector<string> vstrNames;
+            vector<boost::shared_ptr<CWallet> > vpWallets;
+
+            BOOST_FOREACH(const wallet_map::value_type& item, pWalletManager->GetWalletMap())
+            {
+               vstrNames.push_back(item.first);
+               vpWallets.push_back(item.second);
+            }
+            for (unsigned int i = 0; i < vstrNames.size(); i++)
+            {
+                LOCK(vpWallets[i]->cs_wallet);
+                vpWallets[i]->nReserveBalance = nReserveBalance;
+            }
+
         }
-        else
-            printf("Allowing wallet upgrade up to %i\n", nMaxVersion);
-        if (nMaxVersion < pwalletMain->GetVersion())
-            strErrors << _("Cannot downgrade wallet") << "\n";
-        pwalletMain->SetMaxVersion(nMaxVersion);
     }
 
-    if (fFirstRun)
-    {
-        // Create new keyUser and set as default key
-        RandAddSeedPerfmon();
-
-        CPubKey newDefaultKey;
-        if (!pwalletMain->GetKeyFromPool(newDefaultKey, false))
-            strErrors << _("Cannot initialize keypool") << "\n";
-        pwalletMain->SetDefaultKey(newDefaultKey);
-        if (!pwalletMain->SetAddressBookName(pwalletMain->vchDefaultKey.GetID(), ""))
-            strErrors << _("Cannot write default address") << "\n";
-    }
-
-    printf("%s", strErrors.str().c_str());
-    printf(" wallet      %15"PRId64"ms\n", GetTimeMillis() - nStart);
-
-    RegisterWallet(pwalletMain);
-
-    CBlockIndex *pindexRescan = pindexBest;
-    if (GetBoolArg("-rescan"))
-        pindexRescan = pindexGenesisBlock;
-    else
-    {
-        CWalletDB walletdb(strWalletFileName);
-        CBlockLocator locator;
-        if (walletdb.ReadBestBlock(locator))
-            pindexRescan = locator.GetBlockIndex();
-    }
-    if (pindexBest != pindexRescan && pindexBest && pindexRescan && pindexBest->nHeight > pindexRescan->nHeight)
-    {
-        uiInterface.InitMessage(_("Rescanning..."));
-        printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
-        nStart = GetTimeMillis();
-        pwalletMain->ScanForWalletTransactions(pindexRescan, true);
-        printf(" rescan      %15"PRId64"ms\n", GetTimeMillis() - nStart);
-    }
 
     // ********************************************************* Step 9: import blocks
 
@@ -857,7 +917,6 @@ bool AppInit2()
             if (file)
                 LoadExternalBlockFile(file);
         }
-        exit(0);
     }
 
     filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
@@ -870,6 +929,7 @@ bool AppInit2()
             LoadExternalBlockFile(file);
             RenameOver(pathBootstrap, pathBootstrapOld);
         }
+        exit(0);
     }
 
     // ********************************************************* Step 10: load peers
@@ -884,7 +944,7 @@ bool AppInit2()
             printf("Invalid or missing peers.dat; recreating\n");
     }
 
-    printf("Loaded %i addresses from peers.dat  %"PRId64"ms\n",
+    printf("Loaded %i addresses from peers.dat  %"PRI64d"ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 
     // ********************************************************* Step 11: start node
@@ -897,9 +957,14 @@ bool AppInit2()
     //// debug print
     printf("mapBlockIndex.size() = %"PRIszu"\n",   mapBlockIndex.size());
     printf("nBestHeight = %d\n",            nBestHeight);
-    printf("setKeyPool.size() = %"PRIszu"\n",      pwalletMain->setKeyPool.size());
-    printf("mapWallet.size() = %"PRIszu"\n",       pwalletMain->mapWallet.size());
-    printf("mapAddressBook.size() = %"PRIszu"\n",  pwalletMain->mapAddressBook.size());
+
+    BOOST_FOREACH(const wallet_map::value_type& item, pWalletManager->GetWalletMap())
+       {
+           printf("Setting properties for wallet \"%s\"...\n", item.first.c_str());
+           printf(" setKeyPool.size() = %"PRIszu"\n", item.second->setKeyPool.size());
+           printf(" mapWallet.size() = %"PRIszu"\n", item.second->mapWallet.size());
+           printf(" mapAddressBook.size() = %"PRIszu"\n", item.second->mapAddressBook.size());
+       }
 
     if (!NewThread(StartNode, NULL))
         InitError(_("Error: could not start node"));
@@ -916,7 +981,7 @@ bool AppInit2()
         return InitError(strErrors.str());
 
      // Add wallet transactions that aren't already in a block to mapTransactions
-    pwalletMain->ReacceptWalletTransactions();
+    ReacceptWalletTransactions();
 
 #if !defined(QT_GUI)
     // Loop until process is exit()ed from shutdown() function,

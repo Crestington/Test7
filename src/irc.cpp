@@ -189,7 +189,7 @@ bool GetIPFromIRC(SOCKET hSocket, string strMyName, CNetAddr& ipRet)
 void ThreadIRCSeed(void* parg)
 {
     // Make this thread recognisable as the IRC seeding thread
-    RenameThread("ColossusCoin2-ircseed");
+    RenameThread("bitcoin-ircseed");
 
     try
     {
@@ -260,7 +260,7 @@ void ThreadIRCSeed2(void* parg)
         if (!fNoListen && GetLocal(addrLocal, &addrIPv4) && nNameRetry<3)
             strMyName = EncodeAddress(GetLocalAddress(&addrConnect));
         if (strMyName == "")
-            strMyName = strprintf("x%"PRIu64"", GetRand(1000000000));
+            strMyName = strprintf("x%"PRI64u"", GetRand(1000000000));
 
         Send(hSocket, strprintf("NICK %s\r", strMyName.c_str()).c_str());
         Send(hSocket, strprintf("USER %s 8 * : %s\r", strMyName.c_str(), strMyName.c_str()).c_str());
@@ -302,14 +302,14 @@ void ThreadIRCSeed2(void* parg)
         }
 
         if (fTestNet) {
-            Send(hSocket, "JOIN #ColossusCoin2TEST\r");
-            Send(hSocket, "WHO #ColossusCoin2TEST\r");
+            Send(hSocket, "JOIN #ColossusCoin2TEST2\r");
+            Send(hSocket, "WHO #ColossusCoin2TEST2\r");
         } else {
             // randomly join #ColossusCoin200-#ColossusCoin205
-            //int channel_number = GetRandInt(5);
-            int channel_number = 0;
+            // int channel_number = GetRandInt(5);
+
             // Channel number is always 0 for initial release
-            //int channel_number = 0;
+            int channel_number = 0;
             Send(hSocket, strprintf("JOIN #ColossusCoin2%02d\r", channel_number).c_str());
             Send(hSocket, strprintf("WHO #ColossusCoin2%02d\r", channel_number).c_str());
         }

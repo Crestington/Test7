@@ -14,9 +14,10 @@ class TransactionStatus
 {
 public:
     TransactionStatus():
-            countsForBalance(false), sortKey(""),
-            matures_in(0), status(Offline), depth(0), open_for(0), cur_num_blocks(-1)
+         countsForBalance(false), sortKey(""),
+         matures_in(0), status(Offline), depth(0), open_for(0), cur_num_blocks(-1)
     { }
+
 
     enum Status {
         Confirmed,          /**< Have 6 or more confirmations (normal tx) or fully mature (mined tx) **/
@@ -47,7 +48,9 @@ public:
        @{*/
     Status status;
     int64_t depth;
-    int64_t open_for; /**< Timestamp if status==OpenUntilDate, otherwise number of blocks */
+    int64_t open_for; /**< Timestamp if status==OpenUntilDate, otherwise number
+                     of additional blocks that need to be mined before
+                     finalization */
     /**@}*/
 
     /** Current number of blocks (to know whether cached status is still valid) */
@@ -68,11 +71,12 @@ public:
         SendToOther,
         RecvWithAddress,
         RecvFromOther,
-        SendToSelf
+        SendToSelf,
+        StakeMint
     };
 
     /** Number of confirmation recommended for accepting a transaction */
-    static const int RecommendedNumConfirmations = 10;
+    static const int RecommendedNumConfirmations = 6;
 
     TransactionRecord():
             hash(), time(0), type(Other), address(""), debit(0), credit(0), idx(0)
@@ -101,11 +105,11 @@ public:
     /** @name Immutable transaction attributes
       @{*/
     uint256 hash;
-    qint64 time;
+    int64_t time;
     Type type;
     std::string address;
-    qint64 debit;
-    qint64 credit;
+    int64_t debit;
+    int64_t credit;
     /**@}*/
 
     /** Subtransaction index, for sort key */
