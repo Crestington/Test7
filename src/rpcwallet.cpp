@@ -1521,14 +1521,15 @@ Value walletlock(const Array& params, bool fHelp)
 }
 
 
-Value encryptwallet(CWallet* pWallet, const Array& params, bool fHelp)
+Value encryptwallet(const Array& params, bool fHelp)
 {
-  if (fHelp || params.size() != 1)
-      throw runtime_error(
-          "encryptwallet <passphrase>\n"
-          "Encrypts the wallet with <passphrase>.");
-
-    if (pWallet->IsCrypted())
+    if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
+        throw runtime_error(
+            "encryptwallet <passphrase>\n"
+            "Encrypts the wallet with <passphrase>.");
+    if (fHelp)
+        return true;
+    if (pwalletMain->IsCrypted())
         throw JSONRPCError(RPC_WALLET_WRONG_ENC_STATE, "Error: running with an encrypted wallet, but encryptwallet was called.");
 
     // TODO: get rid of this .c_str() by implementing SecureString::operator=(std::string)
@@ -1542,7 +1543,7 @@ Value encryptwallet(CWallet* pWallet, const Array& params, bool fHelp)
             "encryptwallet <passphrase>\n"
             "Encrypts the wallet with <passphrase>.");
 
-    if (!pWallet->EncryptWallet(strWalletPass))
+    if (!pwalletMain->EncryptWallet(strWalletPass))
         throw JSONRPCError(RPC_WALLET_ENCRYPTION_FAILED, "Error: Failed to encrypt the wallet.");
 
     // BDB seems to have a bad habit of writing old data into
@@ -1554,18 +1555,13 @@ Value encryptwallet(CWallet* pWallet, const Array& params, bool fHelp)
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>
 {
-private:
-    CWallet* pWallet;
-
 public:
-    DescribeAddressVisitor(CWallet* _pWallet) : pWallet(_pWallet) { }
-
     Object operator()(const CNoDestination &dest) const { return Object(); }
 
     Object operator()(const CKeyID &keyID) const {
         Object obj;
         CPubKey vchPubKey;
-        pWallet->GetPubKey(keyID, vchPubKey);
+        pwalletMain->GetPubKey(keyID, vchPubKey);
         obj.push_back(Pair("isscript", false));
         obj.push_back(Pair("pubkey", HexStr(vchPubKey.Raw())));
         obj.push_back(Pair("iscompressed", vchPubKey.IsCompressed()));
@@ -1576,12 +1572,13 @@ public:
         Object obj;
         obj.push_back(Pair("isscript", true));
         CScript subscript;
-        pWallet->GetCScript(scriptID, subscript);
+        pwalletMain->GetCScript(scriptID, subscript);
         std::vector<CTxDestination> addresses;
         txnouttype whichType;
         int nRequired;
         ExtractDestinations(subscript, whichType, addresses, nRequired);
         obj.push_back(Pair("script", GetTxnOutputType(whichType)));
+        obj.push_back(Pair("hex", HexStr(subscript.begin(), subscript.end())));
         Array a;
         BOOST_FOREACH(const CTxDestination& addr, addresses)
             a.push_back(CBitcoinAddress(addr).ToString());
@@ -1592,7 +1589,7 @@ public:
     }
 };
 
-Value validateaddress(CWallet* pWallet, const Array& params, bool fHelp)
+Value validateaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -1609,19 +1606,19 @@ Value validateaddress(CWallet* pWallet, const Array& params, bool fHelp)
         CTxDestination dest = address.Get();
         string currentAddress = address.ToString();
         ret.push_back(Pair("address", currentAddress));
-        bool fMine = IsMine(*pWallet, dest);
+        bool fMine = IsMine(*pwalletMain, dest);
         ret.push_back(Pair("ismine", fMine));
         if (fMine) {
-            Object detail = boost::apply_visitor(DescribeAddressVisitor(pWallet), dest);
+            Object detail = boost::apply_visitor(DescribeAddressVisitor(), dest);
             ret.insert(ret.end(), detail.begin(), detail.end());
         }
-        if (pWallet->mapAddressBook.count(dest))
-            ret.push_back(Pair("account", pWallet->mapAddressBook[dest]));
+        if (pwalletMain->mapAddressBook.count(dest))
+            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
     }
     return ret;
 }
 
-Value validatepubkey(CWallet* pWallet, const Array& params, bool fHelp)
+Value validatepubkey(const Array& params, bool fHelp)
 {
     if (fHelp || !params.size() || params.size() > 2)
         throw runtime_error(
@@ -1645,21 +1642,21 @@ Value validatepubkey(CWallet* pWallet, const Array& params, bool fHelp)
         CTxDestination dest = address.Get();
         string currentAddress = address.ToString();
         ret.push_back(Pair("address", currentAddress));
-        bool fMine = IsMine(*pWallet, dest);
+        bool fMine = IsMine(*pwalletMain, dest);
         ret.push_back(Pair("ismine", fMine));
         ret.push_back(Pair("iscompressed", isCompressed));
         if (fMine) {
-            Object detail = boost::apply_visitor(DescribeAddressVisitor(pWallet), dest);
+            Object detail = boost::apply_visitor(DescribeAddressVisitor(), dest);
             ret.insert(ret.end(), detail.begin(), detail.end());
         }
-        if (pWallet->mapAddressBook.count(dest))
-            ret.push_back(Pair("account", pWallet->mapAddressBook[dest]));
+        if (pwalletMain->mapAddressBook.count(dest))
+            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
     }
     return ret;
 }
 
 // ppcoin: reserve balance from being staked for network protection
-Value reservebalance(CWallet* pWallet, const Array& params, bool fHelp)
+Value reservebalance(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
         throw runtime_error(
@@ -1672,7 +1669,6 @@ Value reservebalance(CWallet* pWallet, const Array& params, bool fHelp)
     if (params.size() > 0)
     {
         bool fReserve = params[0].get_bool();
-        LOCK(pWallet->cs_wallet);
         if (fReserve)
         {
             if (params.size() == 1)
@@ -1681,25 +1677,25 @@ Value reservebalance(CWallet* pWallet, const Array& params, bool fHelp)
             nAmount = (nAmount / CENT) * CENT;  // round to cent
             if (nAmount < 0)
                 throw runtime_error("amount cannot be negative.\n");
-            pWallet->nReserveBalance = nAmount;
+            nReserveBalance = nAmount;
         }
         else
         {
             if (params.size() > 1)
                 throw runtime_error("cannot specify amount to turn off reserve.\n");
-            pWallet->nReserveBalance = 0 ;
+            nReserveBalance = 0;
         }
     }
 
     Object result;
-    result.push_back(Pair("reserve", (pWallet->nReserveBalance > 0)));
-    result.push_back(Pair("amount", ValueFromAmount(pWallet->nReserveBalance)));
+    result.push_back(Pair("reserve", (nReserveBalance > 0)));
+    result.push_back(Pair("amount", ValueFromAmount(nReserveBalance)));
     return result;
 }
 
 
 // ppcoin: check wallet integrity
-Value checkwallet(CWallet* pWallet, const Array& params, bool fHelp)
+Value checkwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
         throw runtime_error(
@@ -1708,24 +1704,21 @@ Value checkwallet(CWallet* pWallet, const Array& params, bool fHelp)
 
     int nMismatchSpent;
     int64_t nBalanceInQuestion;
-    int nOrphansFound;
-
-    pWallet->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound, true);
+    pwalletMain->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, true);
     Object result;
-    if (nMismatchSpent == 0 && nOrphansFound == 0)
+    if (nMismatchSpent == 0)
         result.push_back(Pair("wallet check passed", true));
     else
     {
         result.push_back(Pair("mismatched spent coins", nMismatchSpent));
         result.push_back(Pair("amount in question", ValueFromAmount(nBalanceInQuestion)));
-        result.push_back(Pair("orphan blocks found", nOrphansFound));
     }
     return result;
 }
 
 
 // ppcoin: repair wallet
-Value repairwallet(CWallet* pWallet, const Array& params, bool fHelp)
+Value repairwallet(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 0)
         throw runtime_error(
@@ -1734,23 +1727,20 @@ Value repairwallet(CWallet* pWallet, const Array& params, bool fHelp)
 
     int nMismatchSpent;
     int64_t nBalanceInQuestion;
-    int nOrphansFound;
-
-    pWallet->FixSpentCoins(nMismatchSpent, nBalanceInQuestion, nOrphansFound);
+    pwalletMain->FixSpentCoins(nMismatchSpent, nBalanceInQuestion);
     Object result;
-    if (nMismatchSpent == 0 && nOrphansFound == 0)
+    if (nMismatchSpent == 0)
         result.push_back(Pair("wallet check passed", true));
     else
     {
         result.push_back(Pair("mismatched spent coins", nMismatchSpent));
         result.push_back(Pair("amount affected by repair", ValueFromAmount(nBalanceInQuestion)));
-        result.push_back(Pair("orphan blocks removed", nOrphansFound));
     }
     return result;
 }
 
-// ColossusCoin2: resend unconfirmed wallet transactions
-Value resendtx(CWallet* pWallet, const Array& params, bool fHelp)
+// NovaCoin: resend unconfirmed wallet transactions
+Value resendtx(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
@@ -1764,7 +1754,7 @@ Value resendtx(CWallet* pWallet, const Array& params, bool fHelp)
 }
 
 // ppcoin: make a public-private key pair
-Value makekeypair(CWallet* pWallet, const Array& params, bool fHelp)
+Value makekeypair(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
@@ -1785,6 +1775,7 @@ Value makekeypair(CWallet* pWallet, const Array& params, bool fHelp)
     result.push_back(Pair("PublicKey", HexStr(key.GetPubKey().Raw())));
     return result;
 }
+
 
 Value lockunspent(CWallet* pWallet, const Array& params, bool fHelp)
 {
