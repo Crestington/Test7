@@ -392,15 +392,6 @@ SOURCES += src/qt/qrcodedialog.cpp
 FORMS += src/qt/forms/qrcodedialog.ui
 }
 
-
-
-
-
-
-
-
-
-
 CODECFORTR = UTF-8
 
 # for lrelease/lupdate
@@ -422,7 +413,8 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
+    doc/*.rst doc/*.txt doc/*.md doc/Doxyfile res/bitcoin-qt.rc README.md INSTALL.md LICENSE.md \
+    doc/README.md .gitignore .gitattributes
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
